@@ -1,15 +1,13 @@
 using Game.Input;
 using Reflex.Attributes;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class KeyboardMovement : MonoBehaviour
 {
     [SerializeField] private float _timeToTarget;
     [SerializeField] private float _distanceMove = 5f;
-    [SerializeField] private Enemy _enemy;
+    [SerializeField] private GameObject _target;
 
     private IInputHandler _inputHandler;
     private Coroutine _moveCoroutine;
@@ -44,7 +42,12 @@ public class KeyboardMovement : MonoBehaviour
     {
         if (_moveCoroutine == null)
         {
-            _moveCoroutine = StartCoroutine(Move(transform.position + (Vector3.forward * direction * _distanceMove)));
+            Vector3 startPosition = transform.position;
+
+            var targetPosition = transform.position + (Vector3.right * direction * _distanceMove);
+
+            _moveCoroutine = StartCoroutine(Move((currentTime) =>
+                transform.position = Vector3.Lerp(startPosition, targetPosition, currentTime / _timeToTarget)));
         }
     }
 
@@ -52,20 +55,54 @@ public class KeyboardMovement : MonoBehaviour
     {
         if (_moveCoroutine == null)
         {
-            _moveCoroutine = StartCoroutine(Move(transform.position + (Vector3.right * direction * _distanceMove)));
+            var startAngleTarget = _target.transform.rotation.y;
+            var targetTransform = _target.transform;
+            var playerPosition = transform.position;
+
+            var distance = Vector3.Distance(playerPosition, targetTransform.position);
+            targetTransform.LookAt(playerPosition);
+            var angleTarget = (_distanceMove * 360) / (2 * Mathf.PI * distance);
+
+            Vector3 radius = new Vector3()
+            {
+                z = distance
+            };
+
+            _moveCoroutine = StartCoroutine(Move((currentTime) =>
+            {
+                var angleCurrent = Mathf.Lerp(startAngleTarget, angleTarget, currentTime / _timeToTarget);
+
+                //var targetPosition = targetTransform.position + ((targetTransform.rotation * Vector3.forward) * distance);
+                //var position = transform.position;
+                //position.x = targetPosition.x;
+                //position.z = targetPosition.z;
+
+                Quaternion rotation = targetTransform.rotation;
+                rotation.y += angleCurrent * direction;
+
+                targetTransform.rotation = rotation;
+
+                var targetPosition = targetTransform.forward * distance;
+
+                transform.position = targetPosition + targetTransform.position;
+
+                //Debug.Log($"angleCurrent = {((targetTransformRotation * Vector3.forward) * distance)}");
+                Debug.Log($"angleCurrent = {targetTransform.rotation}");
+            }));
         }
     }
 
-    private IEnumerator Move(Vector3 target)
+    private IEnumerator Move(System.Action<float> calculatePosition)
     {
         float currentTime = 0;
-        Vector3 startPosition = transform.position;
 
         while (currentTime < _timeToTarget)
         {
-            transform.position = Vector3.Lerp(startPosition, target, currentTime / _timeToTarget);
+            calculatePosition(currentTime);
 
             currentTime += Time.deltaTime;
+
+            //transform.LookAt(_target.transform);
 
             yield return null;
         }

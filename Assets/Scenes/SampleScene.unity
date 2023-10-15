@@ -291,8 +291,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 243112769}
-  m_LocalRotation: {x: 0.1435121, y: -0.7090274, z: 0.1510375, w: 0.6737003}
-  m_LocalPosition: {x: 28.891418, y: 11.138528, z: -0.9141135}
+  m_LocalRotation: {x: 0.08224026, y: -0.71813333, z: 0.08613781, w: 0.6856394}
+  m_LocalPosition: {x: 29.844852, y: 8.355438, z: -0.9413388}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -449,7 +449,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &831858101
 GameObject:
@@ -567,7 +567,8 @@ Transform:
   m_LocalPosition: {x: 2.53, y: 1.7, z: -2.2065613}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1142116024}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -835,8 +836,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.1435121, y: -0.7090274, z: 0.1510375, w: 0.6737003}
-  m_LocalPosition: {x: 28.891418, y: 11.138528, z: -0.9141135}
+  m_LocalRotation: {x: 0.08224026, y: -0.71813333, z: 0.08613781, w: 0.6856394}
+  m_LocalPosition: {x: 29.844852, y: 8.355438, z: -0.9413388}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -901,12 +902,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1142116023}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9046621, y: -0.9212103, z: -2.2939758}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Father: {fileID: 831858106}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1371887242
 GameObject:
@@ -950,7 +951,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1427476276
 GameObject:
@@ -987,7 +988,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _timeToTarget: 0.05
   _distanceMove: 10
-  _enemy: {fileID: 0}
+  _target: {fileID: 831858101}
 --- !u!136 &1427476279
 CapsuleCollider:
   m_ObjectHideFlags: 0
