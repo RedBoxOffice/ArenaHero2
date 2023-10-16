@@ -21,7 +21,7 @@ namespace Game.Hero
             {
                 Vector3 startPosition = transform.position;
 
-                var targetPosition = transform.position + (direction * _distanceMove * Vector3.forward);
+                var targetPosition = transform.position + (direction * _distanceMove * transform.forward);
 
                 MoveCoroutine = StartCoroutine(Move((currentTime) =>
                     Vector3.Lerp(startPosition, targetPosition, currentTime / TimeToTarget)));

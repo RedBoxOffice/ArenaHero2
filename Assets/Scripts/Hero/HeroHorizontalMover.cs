@@ -8,13 +8,18 @@ namespace Game.Hero
     {
         [SerializeField] private float _angleTarget;
 
-        private float _angleCurrent = 0;
-
         [Inject]
         protected override void Inject(IInputHandler handler)
         {
             InputHandler = handler;
             InputHandler.Horizontal += OnMove;
+        }
+
+        public void ChangeCentralObject(GameObject newCentralObject)
+        {
+            Vector3 offset = transform.position - Target.transform.position;
+            Target = newCentralObject;
+            transform.position = Target.transform.position + offset;
         }
 
         protected override void OnMove(float direction)
@@ -24,24 +29,19 @@ namespace Game.Hero
                 var targetTransform = Target.transform;
                 var playerPosition = transform.position;
 
-                var startAngleTarget = Vector3.Angle(Target.transform.position, playerPosition);
-
                 var radius = Vector3.Distance(playerPosition, targetTransform.position);
 
                 MoveCoroutine = StartCoroutine(Move((currentTime) =>
                 {
-                    _angleCurrent += Mathf.Lerp(0, _angleTarget, currentTime / TimeToTarget) * direction;
+                    Quaternion rotation = Quaternion.Euler(0f, _angleTarget * currentTime * -direction, 0f);
+                    Vector3 newPosition = Target.transform.position + 
+                                    (rotation * (transform.position - Target.transform.position).normalized * radius);
 
-                    float x = targetTransform.position.x + Mathf.Cos(_angleCurrent * Mathf.Deg2Rad) * radius;
-                    float y = targetTransform.position.y;
-                    float z = targetTransform.position.z + Mathf.Sin(_angleCurrent * Mathf.Deg2Rad) * radius;
+                    var offset = Target.transform.position - transform.position;
+                    offset.Set(offset.x, 0, offset.z);
+                    transform.rotation = Quaternion.Euler(0f, Vector3.SignedAngle(Vector3.forward, offset, Vector3.up), 0f);
 
-                    return new Vector3()
-                    {
-                        x = x,
-                        y = y,
-                        z = z
-                    };
+                    return newPosition;
                 }));
             }
         }
