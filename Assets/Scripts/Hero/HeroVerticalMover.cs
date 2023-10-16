@@ -19,9 +19,9 @@ namespace Game.Hero
         {
             if (MoveCoroutine == null)
             {
-                Vector3 startPosition = transform.position;
+                Vector3 startPosition = SelfRigidbody.position;
 
-                var targetPosition = transform.position + (direction * _distanceMove * transform.forward);
+                var targetPosition = SelfRigidbody.position + (direction * _distanceMove * transform.forward);
 
                 MoveCoroutine = StartCoroutine(Move((currentTime) =>
                     Vector3.Lerp(startPosition, targetPosition, currentTime / TimeToTarget)));

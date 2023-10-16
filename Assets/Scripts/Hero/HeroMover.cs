@@ -1,9 +1,11 @@
 ﻿using Game.Input;
+using System;
 using System.Collections;
 using UnityEngine;
 
 namespace Game.Hero
 {
+    [RequireComponent(typeof(Rigidbody))]
     public abstract class HeroMover : MonoBehaviour
     {
         [SerializeField] protected float TimeToTarget;
@@ -11,6 +13,12 @@ namespace Game.Hero
 
         protected Coroutine MoveCoroutine;
         protected IInputHandler InputHandler;
+        protected Rigidbody SelfRigidbody;
+
+        private void Awake()
+        {
+            SelfRigidbody = GetComponent<Rigidbody>();
+        }
 
         private void OnEnable()
         {
@@ -37,11 +45,11 @@ namespace Game.Hero
 
             while (currentTime <= TimeToTarget)
             {
-                transform.position = calculatePosition(currentTime);
+                SelfRigidbody.MovePosition(calculatePosition(currentTime));
 
-                currentTime += Time.deltaTime;
+                currentTime += Time.fixedDeltaTime;
 
-                yield return null;
+                yield return new WaitForFixedUpdate();
             }
 
             MoveCoroutine = null;
