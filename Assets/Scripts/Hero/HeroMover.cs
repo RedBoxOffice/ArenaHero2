@@ -6,7 +6,6 @@ namespace Game.Hero
 {
     public abstract class HeroMover : MonoBehaviour
     {
-        [SerializeField] protected float DistanceMove;
         [SerializeField] protected float TimeToTarget;
         [SerializeField] protected GameObject Target;
 
