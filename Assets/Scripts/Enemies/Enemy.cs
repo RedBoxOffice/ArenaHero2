@@ -1,7 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
+using Base.Object;
+using System;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
-{   
+namespace Game.Enemy
+{
+    public class Enemy : MonoBehaviour, IPoolingObject<EnemyInit>
+    {
+        public Type SelfType => typeof(Enemy);
+
+        public GameObject SelfGameObject => gameObject;
+
+        public event Action<IPoolingObject<EnemyInit>> Disable;
+
+        public void Init(EnemyInit init)
+        {
+
+        }
+    }
 }
