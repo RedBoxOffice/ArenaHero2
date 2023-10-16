@@ -965,7 +965,8 @@ GameObject:
   - component: {fileID: 1427476281}
   - component: {fileID: 1427476280}
   - component: {fileID: 1427476279}
-  - component: {fileID: 1427476277}
+  - component: {fileID: 1427476286}
+  - component: {fileID: 1427476285}
   - component: {fileID: 1427476284}
   m_Layer: 0
   m_Name: Hero
@@ -974,21 +975,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1427476277
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1427476276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 738fbf1e52569f94dbc9cce5b4c2caf2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _timeToTarget: 0.05
-  _distanceMove: 10
-  _target: {fileID: 831858101}
 --- !u!136 &1427476279
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1089,6 +1075,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1b5c590c86e254e93d3209ec53f9c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1427476285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427476276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6623249888830ea4aba5a00839645cbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DistanceMove: 0.3
+  TimeToTarget: 0.5
+  Target: {fileID: 831858101}
+--- !u!114 &1427476286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427476276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f3ec1a209737544b1eeb3e5b901a21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DistanceMove: 10
+  TimeToTarget: 0.1
+  Target: {fileID: 831858101}
 --- !u!1 &1565034615
 GameObject:
   m_ObjectHideFlags: 0
@@ -1099,7 +1115,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1565034618}
   - component: {fileID: 1565034617}
-  - component: {fileID: 1565034616}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1107,26 +1122,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1565034616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1565034615}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
 --- !u!114 &1565034617
 MonoBehaviour:
   m_ObjectHideFlags: 0

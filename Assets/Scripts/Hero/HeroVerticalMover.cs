@@ -6,6 +6,8 @@ namespace Game.Hero
 {
     public class HeroVerticalMover : HeroMover
     {
+        [SerializeField] private float _distanceMove;
+
         [Inject]
         protected override void Inject(IInputHandler handler)
         {
@@ -19,7 +21,7 @@ namespace Game.Hero
             {
                 Vector3 startPosition = transform.position;
 
-                var targetPosition = transform.position + (Vector3.forward * direction * DistanceMove);
+                var targetPosition = transform.position + (direction * _distanceMove * Vector3.forward);
 
                 MoveCoroutine = StartCoroutine(Move((currentTime) =>
                     Vector3.Lerp(startPosition, targetPosition, currentTime / TimeToTarget)));
