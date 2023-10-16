@@ -11,9 +11,10 @@ namespace Base.TypedScenes
             return SceneManager.LoadSceneAsync(sceneName, loadSceneMode);
         }
 
-        protected static AsyncOperation LoadScene<TState>(string sceneName, LoadSceneMode loadSceneMode) where TState : State<TMachine>
+        protected static AsyncOperation LoadScene<TState>(string sceneName, LoadSceneMode loadSceneMode, TMachine machine)
+            where TState : State<TMachine>
         {
-            LoadingProcessor.Instance.RegisterLoadingModel<TMachine, TState>();
+            LoadingProcessor.Instance.RegisterLoadingModel<TMachine, TState>(machine);
             return SceneManager.LoadSceneAsync(sceneName, loadSceneMode);
         }
 

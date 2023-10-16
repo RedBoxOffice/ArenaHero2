@@ -1,7 +1,6 @@
 ﻿using Reflex.Attributes;
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Game.Input
 {
@@ -25,7 +24,7 @@ namespace Game.Input
         {
             if (_input != null)
             {
-                _input.Decktop.Horizontal.performed -= dsgwer => OnHorizontal();
+                _input.Decktop.Horizontal.performed -= ctx => OnHorizontal();
                 _input.Decktop.Vertical.performed -= ctx => OnVertical();
             }
         }

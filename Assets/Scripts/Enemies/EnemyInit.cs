@@ -1,4 +1,4 @@
-﻿namespace Game.Enemy
+﻿namespace Game.Entity
 {
     public struct EnemyInit
     {

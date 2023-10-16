@@ -29,7 +29,6 @@ namespace Base.Object
 
             return spawningObject;
         }
-    
 
         private IPoolingObject<TInit> GetObject(IPoolingObject<TInit> @object)
         {

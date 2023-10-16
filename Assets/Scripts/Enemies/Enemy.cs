@@ -2,7 +2,7 @@ using Base.Object;
 using System;
 using UnityEngine;
 
-namespace Game.Enemy
+namespace Game.Entity
 {
     public class Enemy : MonoBehaviour, IPoolingObject<EnemyInit>
     {

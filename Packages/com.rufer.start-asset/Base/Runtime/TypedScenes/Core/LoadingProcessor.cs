@@ -34,11 +34,11 @@ namespace Base.TypedScenes
             LoadingModelAction = null;
         }
 
-        public void RegisterLoadingModel<TMachine, TState>() where TMachine : StateMachine<TMachine> where TState : State<TMachine>
+        public void RegisterLoadingModel<TMachine, TState>(TMachine machine) where TMachine : StateMachine<TMachine> where TState : State<TMachine>
         {
             LoadingModelAction = () =>
             {
-                CallSceneLoaded<ISceneLoadHandlerState<TMachine>>((handler) => handler.OnSceneLoaded<TState>());
+                CallSceneLoaded<ISceneLoadHandlerState<TMachine>>((handler) => handler.OnSceneLoaded<TState>(machine));
 
                 RegisterLoadingModel();
             };
