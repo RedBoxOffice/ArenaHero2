@@ -7,6 +7,8 @@ namespace Base.StateMachine
     {
         private WindowStateMachine _windowStateMachine;
 
+        public WindowStateMachine Window => _windowStateMachine;
+
         public GameStateMachine(Func<Dictionary<Type, State<GameStateMachine>>> getStates) : base(getStates) { }
 
         public void SetWindow<TWindow>() where TWindow : WindowState

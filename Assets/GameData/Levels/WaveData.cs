@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using Game.Entity;
 
-namespace Game.Level
+namespace GameData
 {
     [CreateAssetMenu(menuName = "Level/New Wave", fileName = "wave")]
     public class WaveData : ScriptableObject

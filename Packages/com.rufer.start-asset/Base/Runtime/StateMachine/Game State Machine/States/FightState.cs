@@ -1,4 +1,8 @@
-﻿using Base.StateMachine;
+﻿using Base.Object;
+using Base.StateMachine;
+using GameData;
+using System;
+using UnityEngine;
 
 namespace Custom.States
 {

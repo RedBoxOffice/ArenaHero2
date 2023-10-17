@@ -1,10 +1,11 @@
-using Base.Object;
+﻿using Base.Object;
+using GameData;
 using System;
 using UnityEngine;
 
-namespace Game.Entity
+namespace Game.Enemies
 {
-    public class Enemy : MonoBehaviour, IPoolingObject<EnemyInit>
+    public class AngryCapsule : Enemy, IPoolingObject<EnemyInit>
     {
         public Type SelfType => typeof(Enemy);
 
