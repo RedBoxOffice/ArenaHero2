@@ -1,6 +1,10 @@
-﻿using Base.StateMachine;
-using Game.States;
-using Game.WindowStates;
+﻿using Agava.YandexGames;
+using Base.StateMachine;
+using Base.Yandex;
+using Base.Yandex.AD;
+using Base.Yandex.Localization;
+using Base.Yandex.Saves;
+using Custom.States;
 using Reflex.Core;
 using System;
 using System.Collections.Generic;
@@ -12,13 +16,15 @@ namespace Game
     {
         GameStateMachine gameStateMachine;
 
-
         public void InstallBindings(ContainerDescriptor descriptor)
         {
             var playerInput = new PlayerInput();
             playerInput.Enable();
 
             descriptor.AddInstance(playerInput);
+
+            var context = new GameObject(nameof(Context)).AddComponent<Context>();
+            DontDestroyOnLoad(context);
 
             var windowStateMachine = new WindowStateMachine(() =>
             {
@@ -36,7 +42,23 @@ namespace Game
                 };
             });
 
-            //Base.TypedScenes.Game.Load<FightState>(gameStateMachine);
+            var saver = new GamePlayerDataSaver();
+            var ad = new Ad(context, countOverBetweenShowsAd: 5);
+            descriptor.AddInstance(ad, typeof(ICounterForShowAd));
+
+            var yandexSDKInitializer = new GameObject(nameof(YandexInitializer)).AddComponent<YandexInitializer>();
+            yandexSDKInitializer.Init(gameStateMachine, () =>
+            {
+                saver.Init();
+
+                string lang = "ru";
+#if !UNITY_EDITOR
+                lang = YandexGamesSdk.Environment.i18n.lang;
+#endif
+                GameLanguage.Value = lang;
+            });
+
+            descriptor.AddInstance(saver, typeof(ISaver));
         }
     }
 }

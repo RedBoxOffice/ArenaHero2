@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6026242850082522017}
   - component: {fileID: 1082359866477297114}
   - component: {fileID: 2173671207068953602}
+  - component: {fileID: 6460754850157210349}
   m_Layer: 0
   m_Name: ProjectScope
   m_TagString: Untagged
@@ -57,3 +58,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e6a734a8b733df42b6295d20d9d33ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6460754850157210349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3205788491703996953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c03181163c18ed143ab772e6c7ae8f59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _backgroundMusics: []
+  _levelPlayAudios: []
+  _lossGameOverAudios: []
+  _victoryGameOverAudios: []
+  _smoothlyTime: 0.2
+  _timeBetweenChangeBackgroundAudio: 60
+  _maxVolumeBackgroundAudio: 0.8

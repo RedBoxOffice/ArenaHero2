@@ -2,7 +2,8 @@
     "name": "BaseAsset.Editor",
     "rootNamespace": "Base.Editor",
     "references": [
-        "GUID:c1f2c9e3969c2b84b87c69b72570cd36"
+        "GUID:c1f2c9e3969c2b84b87c69b72570cd36",
+        "GUID:ef7e0e3eb213f324c87b70a782844fb6"
     ],
     "includePlatforms": [
         "Editor"
