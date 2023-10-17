@@ -12,6 +12,7 @@ namespace Game
 
         public Enemy TryGetEnemy()
         {
+
             return _enemies[Random.Range(0, _enemies.Count)];
         }
 
