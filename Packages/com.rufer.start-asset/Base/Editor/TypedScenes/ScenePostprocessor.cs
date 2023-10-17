@@ -35,9 +35,9 @@ namespace Base.TypedScenes.Editor
         {
             using (var analyzableScene = AnalyzableScene.Create(scenePath))
             {
-                //var sourceCode = TypedSceneGenerator.Generate(analyzableScene);
-                //TypedSceneStorage.Save(analyzableScene.Name, sourceCode);
-            
+                var sourceCode = TypedSceneGenerator.Generate(analyzableScene);
+                TypedSceneStorage.Save(analyzableScene.Name, sourceCode);
+
                 if (EditorBuildSettings.scenes.All(scene => scene.guid.ToString() != analyzableScene.GUID))
                 {
                     var buildScenes = EditorBuildSettings.scenes;

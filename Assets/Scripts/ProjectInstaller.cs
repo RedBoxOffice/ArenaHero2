@@ -10,6 +10,9 @@ namespace Game
 {
     public class ProjectInstaller : MonoBehaviour, IInstaller
     {
+        GameStateMachine gameStateMachine;
+
+
         public void InstallBindings(ContainerDescriptor descriptor)
         {
             var playerInput = new PlayerInput();
@@ -33,7 +36,7 @@ namespace Game
                 };
             });
 
-            Base.TypedScenes.Game.Load<FightState>(gameStateMachine);
+            //Base.TypedScenes.Game.Load<FightState>(gameStateMachine);
         }
     }
 }
