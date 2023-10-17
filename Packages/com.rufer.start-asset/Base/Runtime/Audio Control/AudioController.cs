@@ -38,7 +38,7 @@ namespace Base.AudioControl
 
             _context.FocusChanged += OnFocusChanged;
 
-            _backgroundAudioCoroutine = _context.StartCoroutine(PlayBackgroundAudio());
+            //_backgroundAudioCoroutine = _context.StartCoroutine(PlayBackgroundAudio());
         }
 
         public void Dispose()
