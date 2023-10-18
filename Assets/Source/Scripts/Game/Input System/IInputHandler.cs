@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Game.Input
+namespace ArenaHero.InputSystem
 {
     public interface IInputHandler
     {

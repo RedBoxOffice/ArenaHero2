@@ -1,8 +1,8 @@
-﻿using Game.Input;
+﻿using ArenaHero.InputSystem;
 using Reflex.Attributes;
 using UnityEngine;
 
-namespace Game.Hero
+namespace ArenaHero.Fight.Hero.Movement
 {
     public class HeroHorizontalMover : HeroMover
     {

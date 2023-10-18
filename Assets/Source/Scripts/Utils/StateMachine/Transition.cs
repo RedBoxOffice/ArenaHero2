@@ -1,7 +1,6 @@
 ﻿using System;
-using Base.TypedScenes;
 
-namespace Base.StateMachine
+namespace ArenaHero.Utils.StateMachine
 {
     public class Transition<TMachine, TTargetState> where TMachine : StateMachine<TMachine> where TTargetState : State<TMachine>
     {

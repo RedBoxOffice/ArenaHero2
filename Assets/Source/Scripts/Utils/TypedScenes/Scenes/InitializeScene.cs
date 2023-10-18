@@ -8,16 +8,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Base.TypedScenes
+namespace ArenaHero.Utils.TypedScenes
 {
     using UnityEngine.SceneManagement;
-    using Base.StateMachine;
+    using ArenaHero.Utils.StateMachine;
     
     
-    public class Initialize : TypedScene<Base.StateMachine.GameStateMachine>
+    public class InitializeScene : TypedScene<ArenaHero.Utils.StateMachine.GameStateMachine>
     {
         
-        private const string _sceneName = "Initialize";
+        private const string _sceneName = "InitializeScene";
         
         public static void Load(LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
@@ -29,7 +29,7 @@ namespace Base.TypedScenes
             return LoadScene(_sceneName, loadSceneMode);
         }
         
-        public static void Load<TState>(Base.StateMachine.GameStateMachine argument, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
+        public static void Load<TState>(ArenaHero.Utils.StateMachine.GameStateMachine argument, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
             where TState : State<GameStateMachine>
         {
             LoadScene(_sceneName, loadSceneMode, argument);

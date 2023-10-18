@@ -1,9 +1,9 @@
-﻿using System;
+﻿using ArenaHero.Utils.StateMachine;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Base.StateMachine;
 
-namespace Base.TypedScenes
+namespace ArenaHero.Utils.TypedScenes
 {
     public class LoadingProcessor : MonoBehaviour
     {

@@ -1,8 +1,8 @@
 using Agava.YandexGames;
-using Base.UI;
+using ArenaHero.UI;
 using UnityEngine;
 
-namespace Base.Yandex.Leaderboard
+namespace ArenaHero.Yandex.Leaderboard
 {
     public class AuthorizeForLeaderboard : MonoBehaviour
     {

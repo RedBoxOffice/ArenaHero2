@@ -1,13 +1,15 @@
 ﻿using Agava.YandexGames;
-using Base.Object;
-using Base.Yandex.Localization;
-using Base.Yandex.Simulator;
+using ArenaHero.Utils.Object;
+using ArenaHero.Yandex.Localization;
+using ArenaHero.Yandex.Saves;
+using ArenaHero.Yandex.Saves.Data;
+using ArenaHero.Yandex.Simulator;
 using Reflex.Attributes;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Base.Yandex.Leaderboard
+namespace ArenaHero.Yandex.Leaderboard
 {
     public class LeaderboardViewer : MonoBehaviour
     {
@@ -35,21 +37,21 @@ namespace Base.Yandex.Leaderboard
         private void OnEnable() =>
             Show();
 
-        private void OnDisable() =>
-            _saver?.UnsubscribeValueUpdated<LevelInfo>(SetScore);
+        //private void OnDisable() =>
+        //    _saver?.UnsubscribeValueUpdated<LevelInfo>(SetScore);
 
         [Inject]
         private void Inject(ISaver saver)
         {
             _saver = saver;
-            saver.SubscribeValueUpdated<LevelInfo>(SetScore);
+            //saver.SubscribeValueUpdated<LevelInfo>(SetScore);
         }
 
         private void Show()
         {
             bool isAuthorized = _isAuthorizedSim;
 #if !UNITY_EDITOR
-        isAuthorized = PlayerAccount.IsAuthorized;
+            isAuthorized = PlayerAccount.IsAuthorized;
 #endif
 
             if (isAuthorized)
@@ -68,10 +70,10 @@ namespace Base.Yandex.Leaderboard
         private void ShowBestScore()
         {
             int index = _saver.Get<CurrentLevel>().Index;
-            int score = _saver.Get(new LevelInfo(index, 0)).BestScore;
-            var data = GetPlayerData(rank: 1, name: GetLocalizationAnonymousName(), score: score);
+            //int score = _saver.Get(new LevelInfo(index, 0)).BestScore;
+            //var data = GetPlayerData(rank: 1, name: GetLocalizationAnonymousName(), score: score);
 
-            CreatePlayerDataInTable(data);
+            //CreatePlayerDataInTable(data);
         }
 
         private IEnumerator ShowLeaderboard()
@@ -128,13 +130,15 @@ namespace Base.Yandex.Leaderboard
             playerData.SelfGameObject.transform.localScale = Vector3.one;
         }
 
+        class LevelInfo { }
+
         private void SetScore(LevelInfo levelInfo)
         {
 #if !UNITY_EDITOR
-        int levelIndex = _saver.Get<CurrentLevel>().Index;
+            int levelIndex = _saver.Get<CurrentLevel>().Index;
 
-        int score = levelInfo.BestScore;
-        if (PlayerAccount.IsAuthorized)
+            int score = levelInfo.BestScore;
+            if (PlayerAccount.IsAuthorized)
             Leaderboard.SetScore(GetLeaderboardName(), score);
 #endif
         }

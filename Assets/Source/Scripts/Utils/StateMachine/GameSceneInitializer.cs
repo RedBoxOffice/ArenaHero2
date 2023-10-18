@@ -1,8 +1,8 @@
-﻿using Base.TypedScenes;
+﻿using ArenaHero.Utils.TypedScenes;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Base.StateMachine
+namespace ArenaHero.Utils.StateMachine
 {
     public class GameSceneInitializer : MonoBehaviour, ISceneLoadHandlerState<GameStateMachine>
     {

@@ -1,4 +1,4 @@
-﻿namespace Base.StateMachine
+﻿namespace ArenaHero.Utils.StateMachine
 {
     public interface ISubject
     {

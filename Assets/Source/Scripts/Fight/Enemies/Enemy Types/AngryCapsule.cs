@@ -1,21 +1,10 @@
-﻿using Base.Object;
-using GameData;
+﻿using ArenaHero.Data;
 using System;
-using UnityEngine;
 
-namespace Game.Enemies
+namespace ArenaHero.Fight.Enemies.EnemyTypes
 {
-    public class AngryCapsule : Enemy, IPoolingObject<EnemyInit>
+    public class AngryCapsule : Enemy
     {
-        public Type SelfType => typeof(Enemy);
-
-        public GameObject SelfGameObject => gameObject;
-
-        public event Action<IPoolingObject<EnemyInit>> Disable;
-
-        public void Init(EnemyInit init)
-        {
-
-        }
+        public override Type SelfType => typeof(AngryCapsule);
     }
 }

@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-namespace Game.Input
+namespace ArenaHero.InputSystem
 {
     public class DesktopInputHandler : MonoBehaviour, IInputHandler
     {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Base.AudioControl
+namespace ArenaHero.Game.AudioControl
 {
     public enum Audio
     {

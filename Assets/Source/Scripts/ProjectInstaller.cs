@@ -1,18 +1,17 @@
 ﻿using Agava.YandexGames;
-using Base.AudioControl;
-using Base.StateMachine;
-using Base.Yandex;
-using Base.Yandex.AD;
-using Base.Yandex.Localization;
-using Base.Yandex.Saves;
-using Custom.States;
+using ArenaHero.Game.AudioControl;
+using ArenaHero.Utils.StateMachine;
+using ArenaHero.Yandex;
+using ArenaHero.Yandex.AD;
+using ArenaHero.Yandex.Localization;
+using ArenaHero.Yandex.Saves;
 using Reflex.Core;
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Game
+namespace ArenaHero
 {
     public class ProjectInstaller : MonoBehaviour, IInstaller
     {

@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Hero : MonoBehaviour
+namespace ArenaHero.Fight.Hero
 {
-    
+    public class Hero : MonoBehaviour { }
 }

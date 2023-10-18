@@ -1,4 +1,4 @@
-﻿namespace Base.StateMachine
+﻿namespace ArenaHero.Utils.StateMachine
 {
     public abstract class State<TMachine> where TMachine : StateMachine<TMachine>
     {

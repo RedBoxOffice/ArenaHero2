@@ -1,9 +1,9 @@
-﻿using Base.Yandex;
+﻿using ArenaHero.Yandex;
 using System;
 using System.Collections;
 using UnityEngine;
 
-namespace Base.AudioControl
+namespace ArenaHero.Game.AudioControl
 {
     public class AudioController : IDisposable, IAudioController
     {

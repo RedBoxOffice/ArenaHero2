@@ -1,10 +1,10 @@
-﻿using Base.Object;
-using GameData;
+﻿using ArenaHero.Data;
+using ArenaHero.Fight.Level;
+using ArenaHero.Utils.Object;
 using Reflex.Attributes;
-using System;
 using UnityEngine;
 
-namespace Game.Enemies
+namespace ArenaHero.Fight.Enemies.Spawner
 {
     [RequireComponent(typeof(SpawnPointsHandler))]
     public class SpawnerHandler : MonoBehaviour
@@ -22,6 +22,12 @@ namespace Game.Enemies
                 new ObjectPool<EnemyInit>());
         }
 
+        private void OnDisable()
+        {
+            if (_waveHandler != null)
+                _waveHandler.Spawn -= OnSpawn;
+        }
+
         [Inject]
         private void Inject(WaveHandler waveHandler)
         {
@@ -31,7 +37,7 @@ namespace Game.Enemies
 
         private void OnSpawn(Enemy enemy)
         {
-            //_spawner.Spawn(enemy, () => _spawnPointsHandler.GetSpawnPosition());
+            _spawner.Spawn(enemy, () => _spawnPointsHandler.GetSpawnPosition());
         }
     }
 }

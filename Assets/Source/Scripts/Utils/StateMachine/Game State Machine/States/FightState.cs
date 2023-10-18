@@ -1,10 +1,7 @@
-﻿using Base.Object;
-using Base.StateMachine;
-using GameData;
-using System;
+﻿using System;
 using UnityEngine;
 
-namespace Custom.States
+namespace ArenaHero.Utils.StateMachine
 {
     public class FightState : GameState
     {

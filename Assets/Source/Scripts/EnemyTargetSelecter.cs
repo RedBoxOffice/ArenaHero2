@@ -1,4 +1,4 @@
-﻿namespace Game
+﻿namespace ArenaHero
 {
     public class EnemyTargetSelecter
     {

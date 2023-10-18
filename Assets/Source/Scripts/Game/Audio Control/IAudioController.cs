@@ -1,4 +1,4 @@
-﻿namespace Base.AudioControl
+﻿namespace ArenaHero.Game.AudioControl
 {
     public interface IAudioController
     {

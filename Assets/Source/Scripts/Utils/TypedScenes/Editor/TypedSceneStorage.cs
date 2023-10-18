@@ -2,7 +2,7 @@
 using System.IO;
 using UnityEditor;
 
-namespace Base.TypedScenes.Editor
+namespace Game.TypedScenes.Editor
 {
     public static class TypedSceneStorage
     {

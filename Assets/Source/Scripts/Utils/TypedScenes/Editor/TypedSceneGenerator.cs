@@ -1,5 +1,5 @@
 ﻿#if UNITY_EDITOR
-using Base.StateMachine;
+using ArenaHero.Utils.StateMachine;
 using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
@@ -7,7 +7,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Base.TypedScenes.Editor
+namespace Game.TypedScenes.Editor
 {
     public static class TypedSceneGenerator
     {
@@ -18,7 +18,7 @@ namespace Base.TypedScenes.Editor
             var targetNamespace = new CodeNamespace(TypedSceneSettings.Namespace);
             var targetClass = new CodeTypeDeclaration(sceneName);
             targetNamespace.Imports.Add(new CodeNamespaceImport("UnityEngine.SceneManagement"));
-            targetNamespace.Imports.Add(new CodeNamespaceImport("Base.StateMachine"));
+            targetNamespace.Imports.Add(new CodeNamespaceImport("ArenaHero.Utils.StateMachine"));
             targetClass.BaseTypes.Add(new CodeTypeReference("TypedScene",
                                         new CodeTypeReference[]
                                         { 

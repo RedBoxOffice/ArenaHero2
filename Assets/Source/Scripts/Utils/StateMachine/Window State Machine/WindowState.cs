@@ -1,5 +1,5 @@
-﻿namespace Base.StateMachine
-{
+﻿namespace ArenaHero.Utils.StateMachine
+{ 
     public abstract class WindowState : State<WindowStateMachine>
     {
         private Window _window;

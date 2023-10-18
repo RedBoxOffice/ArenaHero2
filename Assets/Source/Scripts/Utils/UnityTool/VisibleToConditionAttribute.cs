@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Base.UnityTool
+namespace ArenaHero.Utils.UnityTool
 {
     public sealed class VisibleToConditionAttribute : PropertyAttribute
     {

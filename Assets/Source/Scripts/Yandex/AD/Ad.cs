@@ -1,6 +1,6 @@
 ﻿using Agava.YandexGames;
 
-namespace Base.Yandex.AD
+namespace ArenaHero.Yandex.AD
 {
     public class Ad : ICounterForShowAd
     {
