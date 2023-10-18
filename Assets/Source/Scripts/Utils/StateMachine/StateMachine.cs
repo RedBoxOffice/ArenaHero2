@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 
-namespace Base.StateMachine
+namespace ArenaHero.Utils.StateMachine
 {
     public abstract class StateMachine<TMachine> : IDisposable where TMachine : StateMachine<TMachine>
     {

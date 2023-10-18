@@ -1,6 +1,6 @@
-using Base.StateMachine;
+using ArenaHero.Utils.StateMachine;
 
-namespace Base.TypedScenes
+namespace ArenaHero.Utils.TypedScenes
 {
     public interface ISceneLoadHandlerState<TMachine> where TMachine : StateMachine<TMachine>
     {

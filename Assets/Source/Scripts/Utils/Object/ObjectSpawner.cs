@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Base.Object
+namespace ArenaHero.Utils.Object
 {
     public class ObjectSpawner<TInit>
     {

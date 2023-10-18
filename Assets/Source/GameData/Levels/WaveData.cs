@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GameData
+namespace ArenaHero.Data
 {
     [CreateAssetMenu(menuName = "Level/New Wave", fileName = "wave")]
     public class WaveData : ScriptableObject

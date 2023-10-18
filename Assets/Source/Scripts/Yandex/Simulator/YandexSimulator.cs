@@ -2,7 +2,7 @@
 using System.IO;
 using Agava.YandexGames;
 
-namespace Base.Yandex.Simulator
+namespace ArenaHero.Yandex.Simulator
 {
     public class YandexSimulator
     {

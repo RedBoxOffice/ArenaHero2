@@ -1,4 +1,4 @@
-﻿namespace Base.Yandex.Localization
+﻿namespace ArenaHero.Yandex.Localization
 {
     public static class GameLanguage
     {

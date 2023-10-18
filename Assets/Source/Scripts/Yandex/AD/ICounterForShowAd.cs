@@ -1,4 +1,4 @@
-﻿namespace Base.Yandex.AD
+﻿namespace ArenaHero.Yandex.AD
 {
     public interface ICounterForShowAd
     {

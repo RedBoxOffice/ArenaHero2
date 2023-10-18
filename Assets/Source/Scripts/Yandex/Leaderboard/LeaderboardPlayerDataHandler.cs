@@ -1,10 +1,10 @@
-﻿using Base.Object;
+﻿using ArenaHero.Utils.Object;
 using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Base.Yandex.Leaderboard
+namespace ArenaHero.Yandex.Leaderboard
 {
     public class LeaderboardPlayerDataHandler : MonoBehaviour, IPoolingObject<LeaderboardPlayerData>
     {

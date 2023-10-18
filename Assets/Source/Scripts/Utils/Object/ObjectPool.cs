@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Base.Object
+namespace ArenaHero.Utils.Object
 {
     public class ObjectPool<TInit>
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Base.Yandex
+namespace ArenaHero.Yandex
 {
     public class Context : MonoBehaviour
     {

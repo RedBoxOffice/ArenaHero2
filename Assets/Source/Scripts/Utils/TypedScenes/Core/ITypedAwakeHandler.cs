@@ -1,4 +1,4 @@
-﻿namespace Base.TypedScenes
+﻿namespace ArenaHero.Utils.TypedScenes
 {
     public interface ITypedAwakeHandler
     {

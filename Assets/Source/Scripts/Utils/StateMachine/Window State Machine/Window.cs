@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Base.StateMachine
+namespace ArenaHero.Utils.StateMachine
 {
     public abstract class Window : MonoBehaviour
     {

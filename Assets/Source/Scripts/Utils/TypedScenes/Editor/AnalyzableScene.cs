@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 
-namespace Base.TypedScenes.Editor
+namespace Game.TypedScenes.Editor
 {
     public class AnalyzableScene : IDisposable
     {

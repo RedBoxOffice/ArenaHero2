@@ -1,4 +1,4 @@
-﻿using Game.Input;
+﻿using ArenaHero.InputSystem;
 using Reflex.Core;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Game
+namespace ArenaHero
 {
     internal class InputHandlerInstaller : MonoBehaviour, IInstaller
     {

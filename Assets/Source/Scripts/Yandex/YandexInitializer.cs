@@ -1,12 +1,10 @@
 using Agava.YandexGames;
-using Base.StateMachine;
-using Base.TypedScenes;
-using Custom.States;
+using ArenaHero.Utils.StateMachine;
 using System;
 using System.Collections;
 using UnityEngine;
 
-namespace Base.Yandex
+namespace ArenaHero.Yandex
 {
     public class YandexInitializer : MonoBehaviour
     {
@@ -35,7 +33,7 @@ namespace Base.Yandex
             _callBack();
 #endif
 
-            Fight.Load<FightState>(_gameStateMachine);
+            //Fight.Load<FightState>(_gameStateMachine);
 
             yield return null;
         }

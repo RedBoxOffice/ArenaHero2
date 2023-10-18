@@ -1,10 +1,8 @@
-using Game.Enemies;
-using GameData;
-using System.Collections;
+using ArenaHero.Data;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game 
+namespace ArenaHero.Fight.Hero.EnemyDetection
 {
     public class TriggerZone : MonoBehaviour
     {
@@ -19,7 +17,7 @@ namespace Game
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.TryGetComponent(out Enemy enemy))
-            {            
+            {
                 _enemies.Add(enemy);
             }
         }

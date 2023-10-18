@@ -1,4 +1,4 @@
-﻿namespace GameData
+﻿namespace ArenaHero.Data
 {
     public struct EnemyInit
     {

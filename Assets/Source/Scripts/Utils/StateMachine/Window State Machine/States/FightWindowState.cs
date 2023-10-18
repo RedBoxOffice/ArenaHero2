@@ -1,6 +1,4 @@
-﻿using Base.StateMachine;
-
-namespace Custom.States
+﻿namespace ArenaHero.Utils.StateMachine
 {
     public class FightWindowState : WindowState { }
 }

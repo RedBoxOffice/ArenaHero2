@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 
-namespace Base.TypedScenes.Editor
+namespace Game.TypedScenes.Editor
 {
     public class ScenePostprocessor : AssetPostprocessor
     {

@@ -1,9 +1,9 @@
-﻿using Base.StateMachine;
-using Base.TypedScenes;
+﻿using ArenaHero.Utils.StateMachine;
+using ArenaHero.Utils.TypedScenes;
 using Reflex.Core;
 using UnityEngine;
 
-namespace Game
+namespace ArenaHero
 {
     public class SceneInstaller : MonoBehaviour, IInstaller, ISceneLoadHandlerState<GameStateMachine>
     {

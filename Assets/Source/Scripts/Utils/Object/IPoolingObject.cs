@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Base.Object
+namespace ArenaHero.Utils.Object
 {
     public interface IPoolingObject<TInit>
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GameData
+namespace ArenaHero.Data
 {
     public abstract class Enemy : MonoBehaviour { }
 }

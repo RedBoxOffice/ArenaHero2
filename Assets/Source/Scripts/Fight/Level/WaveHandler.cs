@@ -1,11 +1,11 @@
-using GameData;
+using ArenaHero.Data;
 using Reflex.Attributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game
+namespace ArenaHero.Fight.Level
 {
     public class WaveHandler : MonoBehaviour
     {

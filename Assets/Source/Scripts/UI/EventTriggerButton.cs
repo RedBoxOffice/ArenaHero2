@@ -1,8 +1,8 @@
-﻿using Base.StateMachine;
+﻿using ArenaHero.Utils.StateMachine;
 using System;
 using UnityEngine;
 
-namespace Base.UI
+namespace ArenaHero.UI
 {
     public abstract class EventTriggerButton : MonoBehaviour, ISubject
     {

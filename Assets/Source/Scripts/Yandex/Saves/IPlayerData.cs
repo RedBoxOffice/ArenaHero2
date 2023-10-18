@@ -1,1 +1,4 @@
-﻿public interface IPlayerData { }
+﻿namespace ArenaHero.Yandex.Saves
+{
+    public interface IPlayerData { }
+}

@@ -1,8 +1,8 @@
-﻿using Base.StateMachine;
+﻿using ArenaHero.Utils.StateMachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Base.TypedScenes
+namespace ArenaHero.Utils.TypedScenes
 {
     public abstract class TypedScene<TMachine> where TMachine : StateMachine<TMachine>
     {

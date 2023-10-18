@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR
+using ArenaHero.Utils.TypedScenes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Base.TypedScenes.Editor
+namespace Game.TypedScenes.Editor
 {
     public static class SceneAnalyzer
     {

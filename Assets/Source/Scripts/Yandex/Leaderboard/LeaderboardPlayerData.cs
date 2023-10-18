@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Base.Yandex.Leaderboard
+namespace ArenaHero.Yandex.Leaderboard
 {
     public struct LeaderboardPlayerData
     {

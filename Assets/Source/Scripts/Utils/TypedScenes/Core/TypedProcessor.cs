@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-namespace Base.TypedScenes
+namespace ArenaHero.Utils.TypedScenes
 {
     public class TypedProcessor : MonoBehaviour
     {

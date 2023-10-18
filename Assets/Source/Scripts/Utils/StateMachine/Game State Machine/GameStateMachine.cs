@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Base.StateMachine
+namespace ArenaHero.Utils.StateMachine
 {
     public class GameStateMachine : StateMachine<GameStateMachine>
     {

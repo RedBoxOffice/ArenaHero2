@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEditor;
 
-namespace Base.TypedScenes.Editor
+namespace Game.TypedScenes.Editor
 {
     public static class TypedSceneValidator
     {

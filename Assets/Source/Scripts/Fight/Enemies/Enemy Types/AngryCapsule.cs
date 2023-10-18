@@ -1,9 +1,9 @@
-﻿using Base.Object;
-using GameData;
+﻿using ArenaHero.Data;
+using ArenaHero.Utils.Object;
 using System;
 using UnityEngine;
 
-namespace Game.Enemies
+namespace ArenaHero.Fight.Enemies.EnemyTypes
 {
     public class AngryCapsule : Enemy, IPoolingObject<EnemyInit>
     {
