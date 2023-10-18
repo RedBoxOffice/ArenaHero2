@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ArenaHero
 {
-    public class SceneInstaller : MonoBehaviour, IInstaller, ISceneLoadHandlerState<GameStateMachine>
+    public class FightSceneInstaller : MonoBehaviour, IInstaller, ISceneLoadHandlerState<GameStateMachine>
     {
         public void InstallBindings(ContainerDescriptor descriptor)
         {

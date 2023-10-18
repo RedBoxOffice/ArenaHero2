@@ -1,9 +1,8 @@
 ﻿using ArenaHero.Data;
-using Reflex.Attributes;
-using System;
-using UnityEngine;
 using ArenaHero.Fight.Level;
 using ArenaHero.Utils.Object;
+using Reflex.Attributes;
+using UnityEngine;
 
 namespace ArenaHero.Fight.Enemies.Spawner
 {
@@ -23,6 +22,12 @@ namespace ArenaHero.Fight.Enemies.Spawner
                 new ObjectPool<EnemyInit>());
         }
 
+        private void OnDisable()
+        {
+            if (_waveHandler != null)
+                _waveHandler.Spawn -= OnSpawn;
+        }
+
         [Inject]
         private void Inject(WaveHandler waveHandler)
         {
@@ -32,7 +37,7 @@ namespace ArenaHero.Fight.Enemies.Spawner
 
         private void OnSpawn(Enemy enemy)
         {
-            //_spawner.Spawn(enemy, () => _spawnPointsHandler.GetSpawnPosition());
+            _spawner.Spawn(enemy, () => _spawnPointsHandler.GetSpawnPosition());
         }
     }
 }
