@@ -14,14 +14,6 @@
       "dependencies": {},
       "hash": "f8eae25b4cdc6b1637d5c0816b6d3d1457bac8af"
     },
-    "com.rufer.start-asset": {
-      "version": "file:com.rufer.start-asset",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.gustavopsantos.reflex": ""
-      }
-    },
     "com.unity.ai.navigation": {
       "version": "1.1.4",
       "depth": 0,
