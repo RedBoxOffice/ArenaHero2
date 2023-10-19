@@ -43,8 +43,22 @@ namespace ArenaHero.Fight.Level
                     yield return waitNextSpawn;
                 }
 
-                _isFight = false;
+                if (!TryChangeWave())
+                    _isFight = false;
             }
+        }
+
+        private bool TryChangeWave()
+        {
+            _currentWaveIndex++;
+
+            if (_currentWaveIndex < _currentLevelData.WaveCount)
+            {
+                _currentWaveData = _currentLevelData.GetWaveData(_currentWaveIndex);
+                return true;
+            }
+            
+            return false;
         }
     }
 }
