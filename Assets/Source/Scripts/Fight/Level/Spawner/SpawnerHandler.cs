@@ -4,7 +4,7 @@ using ArenaHero.Utils.Object;
 using Reflex.Attributes;
 using UnityEngine;
 
-namespace ArenaHero.Fight.Enemies.Spawner
+namespace ArenaHero.Fight.Level
 {
     [RequireComponent(typeof(SpawnPointsHandler))]
     public class SpawnerHandler : MonoBehaviour

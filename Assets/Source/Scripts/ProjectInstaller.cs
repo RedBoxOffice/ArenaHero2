@@ -8,7 +8,6 @@ using ArenaHero.Yandex.Saves;
 using Reflex.Core;
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace ArenaHero
@@ -26,6 +25,8 @@ namespace ArenaHero
             AudioInit(descriptor, context);
 
             var gameStateMachine = GameStateMachineInit();
+
+            descriptor.AddInstance(gameStateMachine.TryGetState<OverState>(), typeof(IOverFight));
 
             YandexInit(descriptor, context, gameStateMachine);
         }
@@ -64,7 +65,8 @@ namespace ArenaHero
             {
                 return new Dictionary<Type, State<WindowStateMachine>>()
                 {
-                    [typeof(FightWindowState)] = new FightWindowState()
+                    [typeof(FightWindowState)] = new FightWindowState(),
+                    [typeof(OverWindowState)] = new OverWindowState()
                 };
             });
 
@@ -72,7 +74,8 @@ namespace ArenaHero
             {
                 return new Dictionary<Type, State<GameStateMachine>>()
                 {
-                    [typeof(FightState)] = new FightState(windowStateMachine)
+                    [typeof(FightState)] = new FightState(windowStateMachine),
+                    [typeof(OverState)] = new OverState(windowStateMachine)
                 };
             });
 
