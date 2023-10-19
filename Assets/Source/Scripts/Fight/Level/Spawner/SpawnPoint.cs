@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ArenaHero.Fight.Enemies.Spawner
+namespace ArenaHero.Fight.Level
 {
     public class SpawnPoint : MonoBehaviour { }
 }

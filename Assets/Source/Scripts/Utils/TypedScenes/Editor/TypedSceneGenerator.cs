@@ -5,6 +5,7 @@ using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.IO;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
 
 namespace Game.TypedScenes.Editor
@@ -34,7 +35,7 @@ namespace Game.TypedScenes.Editor
             {
                 AddLoadingMethod(targetClass, loadingParameter);
                 AddLoadingMethod(targetClass, loadingParameter, asyncLoad: true);
-                AddLoadingMethod(targetClass, typeof(GameStateMachine), isStateLoad: true);
+                AddLoadingMethod(targetClass, loadingParameter, isStateLoad: true, machine: typeof(GameStateMachine));
             }
 
             targetNamespace.Types.Add(targetClass);
@@ -58,16 +59,27 @@ namespace Game.TypedScenes.Editor
             targetClass.Members.Add(pathConstant);
         }
 
-        private static void AddLoadingMethod(CodeTypeDeclaration targetClass, Type parameterType = null, bool asyncLoad = false, bool isStateLoad = false)
+        private static void AddLoadingMethod(CodeTypeDeclaration targetClass, Type parameterType = null, bool asyncLoad = false,
+                                             bool isStateLoad = false, Type machine = null)
         {
             var loadMethod = new CodeMemberMethod();
             loadMethod.Name = asyncLoad ? "LoadAsync" : "Load";
             loadMethod.Attributes = MemberAttributes.Public | MemberAttributes.Static;
 
-            var loadingStatement = "LoadScene(_sceneName, loadSceneMode)";
+            var loadingStatement = "LoadScene(_sceneName, loadSceneMode";
+
+            void AddParameter(Type type, string argumentName)
+            {
+                var parameter = new CodeParameterDeclarationExpression(type, argumentName);
+                loadMethod.Parameters.Add(parameter);
+                loadingStatement += $", {argumentName}";
+            }
 
             if (isStateLoad)
             {
+                if (machine != null)
+                    AddParameter(machine, nameof(machine));
+
                 var targetTypeParameter = new CodeTypeParameter("TState");
 
                 var tstate = new CodeTypeReference("State");
@@ -79,17 +91,15 @@ namespace Game.TypedScenes.Editor
             }
 
             if (parameterType != null)
-            {
-                var parameter = new CodeParameterDeclarationExpression(parameterType, "argument");
-                loadMethod.Parameters.Add(parameter);
-                loadingStatement = "LoadScene(_sceneName, loadSceneMode, argument)";
-            }
+                AddParameter(parameterType, "argument");
 
             if (asyncLoad)
             {
                 loadMethod.ReturnType = new CodeTypeReference(typeof(AsyncOperation));
                 loadingStatement = "return " + loadingStatement;
             }
+
+            loadingStatement += ")";
 
             var loadingModeParameter = new CodeParameterDeclarationExpression(nameof(LoadSceneMode), "loadSceneMode = LoadSceneMode.Single");
             loadMethod.Parameters.Add(loadingModeParameter);

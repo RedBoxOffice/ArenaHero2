@@ -1,7 +1,6 @@
 using ArenaHero.Utils.Object;
 using System;
 using UnityEngine;
-using UnityEngine.Pool;
 
 namespace ArenaHero.Data
 {

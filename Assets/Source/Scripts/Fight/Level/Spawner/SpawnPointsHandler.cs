@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace ArenaHero.Fight.Enemies.Spawner
+namespace ArenaHero.Fight.Level
 {
     public class SpawnPointsHandler : MonoBehaviour
     {
