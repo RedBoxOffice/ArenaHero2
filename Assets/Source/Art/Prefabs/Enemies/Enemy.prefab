@@ -13,6 +13,10 @@ GameObject:
   - component: {fileID: 772305833059718897}
   - component: {fileID: 234648870583137436}
   - component: {fileID: 2855612362623389543}
+  - component: {fileID: 5212688663676030926}
+  - component: {fileID: 3866166350792084012}
+  - component: {fileID: 3708880052510418231}
+  - component: {fileID: 6035031602017345646}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -33,7 +37,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3330901830343270616
 MeshFilter:
@@ -93,17 +97,8 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4849143585786420022}
   m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -120,3 +115,92 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652a0f69c637f4e4f9107864e83fbb9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5212688663676030926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4849143585786420022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88c929c544a93384ea8c881998c1934f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3866166350792084012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4849143585786420022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb7a67687c8c9b48be01183909c935c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputSourceBehaviour: {fileID: 5212688663676030926}
+--- !u!114 &3708880052510418231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4849143585786420022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d7b55c7ecdb49a4a89fa5e6f9022861, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startWhenEnabled: 1
+  asynchronousLoad: 0
+  pauseWhenDisabled: 0
+  restartWhenComplete: 0
+  logTaskChanges: 0
+  group: 0
+  resetValuesOnRestart: 0
+  externalBehavior: {fileID: 0}
+  mBehaviorSource:
+    behaviorName: Behavior
+    behaviorDescription: 
+    mTaskData:
+      types: []
+      parentIndex: 
+      startIndex: 
+      variableStartIndex: 
+      JSONSerialization: '{"EntryTask":{"Type":"BehaviorDesigner.Runtime.Tasks.EntryTask","NodeData":{"Offset":"(372,30)"},"ID":0,"Name":"Entry","Instant":true},"RootTask":{"Type":"BehaviorDesigner.Runtime.Tasks.Repeater","NodeData":{"Offset":"(-1,120)"},"ID":1,"Name":"Repeater","Instant":true,"SharedIntcount":{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":null,"Int32mValue":0},"SharedBoolrepeatForever":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedBoolendOnFailure":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(0,122)"},"ID":2,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"ArenaHero.Fight.Enemies.BehaviorTree.AngryCapsule.SetRandomDirection","NodeData":{"Offset":"(-264.961548,181.1795)"},"ID":3,"Name":"Set
+        Random Direction","Instant":true,"SharedVector2Direction":{"Type":"BehaviorDesigner.Runtime.SharedVector2","Name":"_direction","IsShared":true,"Vector2mValue":"(0,0)"}},{"Type":"ArenaHero.Fight.Enemies.BehaviorTree.AngryCapsule.SetMovementInput","NodeData":{"Offset":"(-113.602478,186.359009)"},"ID":4,"Name":"Set
+        Movement Input","Instant":true,"SharedBotInputSelfBotInput":{"Type":"ArenaHero.Fight.Enemies.BehaviorTree.SharedBotInput","Name":null,"BotInputmValue":0},"SharedVector2Direction":{"Type":"BehaviorDesigner.Runtime.SharedVector2","Name":"_direction","IsShared":true,"Vector2mValue":"(0,0)"}},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(8.576965,185)"},"ID":5,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1}},{"Type":"ArenaHero.Fight.Enemies.BehaviorTree.AngryCapsule.SetMovementInput","NodeData":{"Offset":"(143.589722,187.1795)"},"ID":6,"Name":"Set
+        Movement Input","Instant":true,"SharedBotInputSelfBotInput":{"Type":"ArenaHero.Fight.Enemies.BehaviorTree.SharedBotInput","Name":null,"BotInputmValue":1},"SharedVector2Direction":{"Type":"BehaviorDesigner.Runtime.SharedVector2","Name":"_direction","IsShared":true,"Vector2mValue":"(0,0)"}},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(289.230652,187.179565)"},"ID":7,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1}}]}]},"Variables":[{"Type":"ArenaHero.Fight.Enemies.BehaviorTree.SharedBotInput","Name":"_botInput","IsShared":true,"BotInputmValue":2},{"Type":"BehaviorDesigner.Runtime.SharedVector2","Name":"_direction","IsShared":true,"Vector2mValue":"(0,0)"}]}'
+      fieldSerializationData:
+        typeName: []
+        fieldNameHash: 
+        startIndex: 
+        dataPosition: 
+        unityObjects:
+        - {fileID: 5212688663676030926}
+        - {fileID: 5212688663676030926}
+        - {fileID: 5212688663676030926}
+        byteData: 
+        byteDataArray: 
+      Version: 1.7.4
+  gizmoViewMode: 2
+  showBehaviorDesignerGizmo: 1
+--- !u!143 &6035031602017345646
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4849143585786420022}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
