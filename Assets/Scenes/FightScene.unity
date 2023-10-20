@@ -690,6 +690,7 @@ MonoBehaviour:
   _lookTargetPoint: {fileID: 1142116024}
   _levelData: {fileID: 11400000, guid: f00eea5c27840b845b09a3275c525b7b, type: 2}
   _waveHandler: {fileID: 170266345}
+  _hero: {fileID: 1427476284}
 --- !u!1 &860305062
 GameObject:
   m_ObjectHideFlags: 0
