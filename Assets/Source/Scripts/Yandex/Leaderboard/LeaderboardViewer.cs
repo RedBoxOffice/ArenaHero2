@@ -125,8 +125,7 @@ namespace ArenaHero.Yandex.Leaderboard
 
         private void CreatePlayerDataInTable(LeaderboardPlayerData data)
         {
-            var playerData = _playerDataSpawner.Spawn(_playerDataPrefab);
-            playerData.Init(data);
+            var playerData = _playerDataSpawner.Spawn(_playerDataPrefab, data);
             playerData.SelfGameObject.transform.localScale = Vector3.one;
         }
 

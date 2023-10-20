@@ -13,7 +13,7 @@ namespace ArenaHero.Utils.Object
             _pool = pool;
         }
 
-        public IPoolingObject<TInit> Spawn(IPoolingObject<TInit> @object, System.Func<Vector3> getSpawnPosition = null)
+        public IPoolingObject<TInit> Spawn(IPoolingObject<TInit> @object, TInit init, System.Func<Vector3> getSpawnPosition = null)
         {
             IPoolingObject<TInit> spawningObject = GetObject(@object);
 
@@ -25,6 +25,8 @@ namespace ArenaHero.Utils.Object
 
             spawningObject.Disable += _pool.Return;
             
+            spawningObject.Init(init);
+
             spawningObject.SelfGameObject.SetActive(true);
 
             return spawningObject;

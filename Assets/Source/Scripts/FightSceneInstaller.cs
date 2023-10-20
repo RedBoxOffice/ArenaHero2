@@ -1,10 +1,11 @@
 ﻿using ArenaHero.Data;
-using ArenaHero.Fight.Hero.EnemyDetection;
+using ArenaHero.Fight.Player.EnemyDetection;
 using ArenaHero.Fight.Level;
 using ArenaHero.Utils.StateMachine;
 using ArenaHero.Utils.TypedScenes;
 using Reflex.Core;
 using UnityEngine;
+using ArenaHero.Fight.Player;
 
 namespace ArenaHero
 {
@@ -14,14 +15,16 @@ namespace ArenaHero
         [SerializeField] private Transform _lookTargetPoint;
         [SerializeField] private LevelData _levelData;
         [SerializeField] private WaveHandler _waveHandler;
+        [SerializeField] private Hero _hero;
 
         public void InstallBindings(ContainerDescriptor descriptor)
         {
             TargetChanger targetChanger = new TargetChanger(_triggerZone, _lookTargetPoint);
             descriptor.AddInstance(targetChanger, typeof(TargetChanger));
 
-            descriptor.AddInstance(_levelData, typeof(LevelData));
-            descriptor.AddInstance(_waveHandler, typeof(WaveHandler));
+            descriptor.AddInstance(_levelData);
+            descriptor.AddInstance(_waveHandler);
+            descriptor.AddInstance(_hero);
         }
 
         public void OnSceneLoaded<TState>(GameStateMachine machine) where TState : State<GameStateMachine> =>

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ArenaHero.Fight.Hero
+namespace ArenaHero.Fight.Player
 {
     public class Hero : MonoBehaviour { }
 }

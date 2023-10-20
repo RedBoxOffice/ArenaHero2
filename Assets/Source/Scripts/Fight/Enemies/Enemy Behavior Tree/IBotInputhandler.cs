@@ -4,6 +4,6 @@ namespace ArenaHero.Fight.Enemies.BehaviorTree
 {
     public interface IBotInputhandler
     {
-        public Vector2 MovementInput { get; set; }
+        public Vector3 TargetPosition { get; set; }
     }
 }

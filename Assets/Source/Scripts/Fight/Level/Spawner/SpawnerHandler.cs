@@ -1,5 +1,6 @@
 ﻿using ArenaHero.Data;
 using ArenaHero.Fight.Level;
+using ArenaHero.Fight.Player;
 using ArenaHero.Utils.Object;
 using Reflex.Attributes;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace ArenaHero.Fight.Level
         private WaveHandler _waveHandler;
         private SpawnPointsHandler _spawnPointsHandler;
         private ObjectSpawner<EnemyInit> _spawner;
+        private Hero _target;
 
         private void Awake()
         {
@@ -29,15 +31,21 @@ namespace ArenaHero.Fight.Level
         }
 
         [Inject]
-        private void Inject(WaveHandler waveHandler)
+        private void Inject(WaveHandler waveHandler, Hero hero)
         {
             _waveHandler = waveHandler;
+            _target = hero;
             _waveHandler.Spawn += OnSpawn;
         }
 
         private void OnSpawn(Enemy enemy)
         {
-            _spawner.Spawn(enemy, () => _spawnPointsHandler.GetSpawnPosition());
+            var init = new EnemyInit()
+            {
+                Target = _target.transform
+            };
+
+            _spawner.Spawn(enemy, init, () => _spawnPointsHandler.GetSpawnPosition());
         }
     }
 }
