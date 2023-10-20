@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ArenaHero.Fight.Hero.EnemyDetection
+namespace ArenaHero.Fight.Player.EnemyDetection
 {
     public class TriggerZone : MonoBehaviour
     {

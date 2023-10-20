@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ArenaHero.Fight.Hero.EnemyDetection
+namespace ArenaHero.Fight.Player.EnemyDetection
 {
     public class HeroTargetLooker : MonoBehaviour
     {
