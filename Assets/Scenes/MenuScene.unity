@@ -1991,7 +1991,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &564351515
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4675,7 +4675,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1742430914
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6294,7 +6294,7 @@ GameObject:
   - component: {fileID: 5210177988544003126}
   - component: {fileID: 5210177988544003130}
   m_Layer: 5
-  m_Name: WindowOfHero
+  m_Name: ZoneOfHero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7557,7 +7557,7 @@ GameObject:
   - component: {fileID: 5210177989618047710}
   - component: {fileID: 5210177989618047712}
   m_Layer: 5
-  m_Name: WindowPoints
+  m_Name: ZonePoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7749,7 +7749,7 @@ GameObject:
   - component: {fileID: 5210177989676065409}
   - component: {fileID: 5210177989676065439}
   m_Layer: 5
-  m_Name: WindowPath
+  m_Name: ZonePath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
