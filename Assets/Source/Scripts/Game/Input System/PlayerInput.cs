@@ -24,7 +24,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     ""name"": ""PlayerInput"",
     ""maps"": [
         {
-            ""name"": ""Decktop"",
+            ""name"": ""Desktop"",
             ""id"": ""08fd59f0-a51a-4a88-bb90-3b127ab038ff"",
             ""actions"": [
                 {
@@ -40,6 +40,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""name"": ""Vertical"",
                     ""type"": ""Button"",
                     ""id"": ""6f463264-bb8e-4c3c-a352-718a0f95bb3b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeTarget"",
+                    ""type"": ""Button"",
+                    ""id"": ""d94c657e-8c54-4ee9-a65b-11c6758a66ba"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -112,6 +121,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Vertical"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""29e229cc-442a-453c-ac9f-00bc83c522ce"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Player"",
+                    ""action"": ""ChangeTarget"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -124,10 +144,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         }
     ]
 }");
-        // Decktop
-        m_Decktop = asset.FindActionMap("Decktop", throwIfNotFound: true);
-        m_Decktop_Horizontal = m_Decktop.FindAction("Horizontal", throwIfNotFound: true);
-        m_Decktop_Vertical = m_Decktop.FindAction("Vertical", throwIfNotFound: true);
+        // Desktop
+        m_Desktop = asset.FindActionMap("Desktop", throwIfNotFound: true);
+        m_Desktop_Horizontal = m_Desktop.FindAction("Horizontal", throwIfNotFound: true);
+        m_Desktop_Vertical = m_Desktop.FindAction("Vertical", throwIfNotFound: true);
+        m_Desktop_ChangeTarget = m_Desktop.FindAction("ChangeTarget", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -186,35 +207,40 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Decktop
-    private readonly InputActionMap m_Decktop;
-    private List<IDecktopActions> m_DecktopActionsCallbackInterfaces = new List<IDecktopActions>();
-    private readonly InputAction m_Decktop_Horizontal;
-    private readonly InputAction m_Decktop_Vertical;
-    public struct DecktopActions
+    // Desktop
+    private readonly InputActionMap m_Desktop;
+    private List<IDesktopActions> m_DesktopActionsCallbackInterfaces = new List<IDesktopActions>();
+    private readonly InputAction m_Desktop_Horizontal;
+    private readonly InputAction m_Desktop_Vertical;
+    private readonly InputAction m_Desktop_ChangeTarget;
+    public struct DesktopActions
     {
         private @PlayerInput m_Wrapper;
-        public DecktopActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Horizontal => m_Wrapper.m_Decktop_Horizontal;
-        public InputAction @Vertical => m_Wrapper.m_Decktop_Vertical;
-        public InputActionMap Get() { return m_Wrapper.m_Decktop; }
+        public DesktopActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Horizontal => m_Wrapper.m_Desktop_Horizontal;
+        public InputAction @Vertical => m_Wrapper.m_Desktop_Vertical;
+        public InputAction @ChangeTarget => m_Wrapper.m_Desktop_ChangeTarget;
+        public InputActionMap Get() { return m_Wrapper.m_Desktop; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(DecktopActions set) { return set.Get(); }
-        public void AddCallbacks(IDecktopActions instance)
+        public static implicit operator InputActionMap(DesktopActions set) { return set.Get(); }
+        public void AddCallbacks(IDesktopActions instance)
         {
-            if (instance == null || m_Wrapper.m_DecktopActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_DecktopActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_DesktopActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_DesktopActionsCallbackInterfaces.Add(instance);
             @Horizontal.started += instance.OnHorizontal;
             @Horizontal.performed += instance.OnHorizontal;
             @Horizontal.canceled += instance.OnHorizontal;
             @Vertical.started += instance.OnVertical;
             @Vertical.performed += instance.OnVertical;
             @Vertical.canceled += instance.OnVertical;
+            @ChangeTarget.started += instance.OnChangeTarget;
+            @ChangeTarget.performed += instance.OnChangeTarget;
+            @ChangeTarget.canceled += instance.OnChangeTarget;
         }
 
-        private void UnregisterCallbacks(IDecktopActions instance)
+        private void UnregisterCallbacks(IDesktopActions instance)
         {
             @Horizontal.started -= instance.OnHorizontal;
             @Horizontal.performed -= instance.OnHorizontal;
@@ -222,23 +248,26 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Vertical.started -= instance.OnVertical;
             @Vertical.performed -= instance.OnVertical;
             @Vertical.canceled -= instance.OnVertical;
+            @ChangeTarget.started -= instance.OnChangeTarget;
+            @ChangeTarget.performed -= instance.OnChangeTarget;
+            @ChangeTarget.canceled -= instance.OnChangeTarget;
         }
 
-        public void RemoveCallbacks(IDecktopActions instance)
+        public void RemoveCallbacks(IDesktopActions instance)
         {
-            if (m_Wrapper.m_DecktopActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_DesktopActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IDecktopActions instance)
+        public void SetCallbacks(IDesktopActions instance)
         {
-            foreach (var item in m_Wrapper.m_DecktopActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_DesktopActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_DecktopActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_DesktopActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public DecktopActions @Decktop => new DecktopActions(this);
+    public DesktopActions @Desktop => new DesktopActions(this);
     private int m_PlayerSchemeIndex = -1;
     public InputControlScheme PlayerScheme
     {
@@ -248,9 +277,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_PlayerSchemeIndex];
         }
     }
-    public interface IDecktopActions
+    public interface IDesktopActions
     {
         void OnHorizontal(InputAction.CallbackContext context);
         void OnVertical(InputAction.CallbackContext context);
+        void OnChangeTarget(InputAction.CallbackContext context);
     }
 }

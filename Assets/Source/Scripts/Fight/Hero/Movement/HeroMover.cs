@@ -11,7 +11,7 @@ namespace ArenaHero.Fight.Player.Movement
         [SerializeField] protected GameObject Target;
 
         protected Coroutine MoveCoroutine;
-        protected IInputHandler InputHandler;
+        protected IMovementInputHandler InputHandler;
         protected Rigidbody SelfRigidbody;
 
         private void Awake()
@@ -35,7 +35,7 @@ namespace ArenaHero.Fight.Player.Movement
             }
         }
 
-        protected abstract void Inject(IInputHandler inputHandler);
+        protected abstract void Inject(IMovementInputHandler inputHandler);
         protected abstract void OnMove(float direction);
 
         protected IEnumerator Move(System.Func<float, Vector3> calculatePosition)

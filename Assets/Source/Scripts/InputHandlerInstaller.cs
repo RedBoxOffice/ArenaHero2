@@ -10,12 +10,10 @@ using UnityEngine;
 
 namespace ArenaHero
 {
-    internal class InputHandlerInstaller : MonoBehaviour, IInstaller
+    public class InputHandlerInstaller : MonoBehaviour
     {
-        public void InstallBindings(ContainerDescriptor descriptor)
+        public IInputHandler InstallBindings()
         {
-            IInputHandler inputHandler;
-
             if (Application.isMobilePlatform)
             {
                 //var mobileInputHandler = new GameObject(nameof(MobileInputHandler)).AddComponent<MobileInputHandler>();
@@ -29,9 +27,7 @@ namespace ArenaHero
 
             }
 
-            inputHandler = new GameObject(nameof(DesktopInputHandler)).AddComponent<DesktopInputHandler>();
-
-            descriptor.AddInstance(inputHandler, typeof(IInputHandler));
+            return new GameObject(nameof(DesktopInputHandler)).AddComponent<DesktopInputHandler>();
         }
     }
 }

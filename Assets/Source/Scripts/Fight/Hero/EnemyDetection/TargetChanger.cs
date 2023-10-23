@@ -1,4 +1,5 @@
 using ArenaHero.Data;
+using ArenaHero.InputSystem;
 using System;
 using UnityEngine;
 
@@ -7,42 +8,56 @@ namespace ArenaHero.Fight.Player.EnemyDetection
     public class TargetChanger : IDisposable
     {
         private TriggerZone _triggerZone;
-        private Transform _lookTargetPoint;
-        private Transform _defaultLookTargetPoint;
+        private LookTargetPoint _lookTargetPoint;
+        private LookTargetPoint _defaultLookTargetPoint;
         private Enemy _currentEnemy;
 
-        public TargetChanger(TriggerZone triggerZone, Transform lookTargetPoint)
+        private IActionsInputHandler _actionsInputHandler;
+
+        public TargetChanger(TargetChangerInject inject)
         {
-            _triggerZone = triggerZone;
-            _defaultLookTargetPoint = lookTargetPoint;
-            _lookTargetPoint = lookTargetPoint;
-            triggerZone.EnemyLeaved += OnEnemyLeaved;
+            _triggerZone = inject.TriggerZone;
+            _defaultLookTargetPoint = inject.LookTargetPoint;
+            _lookTargetPoint = inject.LookTargetPoint;
+            _actionsInputHandler = inject.ActionsInputHandler;
+
+            _triggerZone.EnemyDetected += OnEnemyDetected;
+            _triggerZone.EnemyLost += OnEnemyLost;
+            _actionsInputHandler.ChangeTarget += PreferEnemy;
         }
 
-        public void PreferEnemy()
+        private void PreferEnemy()
         {
             _currentEnemy = _triggerZone.TryGetEnemy();
 
             if (_currentEnemy != null)
             {
-                _lookTargetPoint.SetParent(_currentEnemy.transform);
-                _lookTargetPoint.position = Vector3.zero;
+                _lookTargetPoint.transform.SetParent(_currentEnemy.transform);
+                _lookTargetPoint.transform.localPosition = Vector3.zero;
             }
             else
             {
-                _lookTargetPoint.SetParent(null);
-                _lookTargetPoint.position = _defaultLookTargetPoint.position;
+                _lookTargetPoint.transform.SetParent(null);
+                _lookTargetPoint.transform.localPosition = _defaultLookTargetPoint.transform.localPosition;
             }
         }
 
         public void Dispose()
         {
-            _triggerZone.EnemyLeaved -= OnEnemyLeaved;
+            _triggerZone.EnemyDetected -= OnEnemyDetected;
+            _triggerZone.EnemyLost -= OnEnemyLost;
+            _actionsInputHandler.ChangeTarget -= PreferEnemy;
         }
 
-        private void OnEnemyLeaved(Enemy enemy)
+        private void OnEnemyDetected(Enemy enemy)
         {
-            if (_currentEnemy == enemy)
+            if (_currentEnemy == null)
+                PreferEnemy();
+        }
+
+        private void OnEnemyLost(Enemy enemy)
+        {
+            if (_currentEnemy == null || _currentEnemy == enemy)
             {
                 PreferEnemy();
             }
