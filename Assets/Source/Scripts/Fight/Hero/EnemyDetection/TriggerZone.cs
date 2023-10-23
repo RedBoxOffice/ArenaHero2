@@ -9,7 +9,8 @@ namespace ArenaHero.Fight.Player.EnemyDetection
     {
         [SerializeField] private List<Enemy> _enemies = new List<Enemy>();
         
-        public event Action<Enemy> EnemyLeaved;
+        public event Action<Enemy> EnemyDetected;
+        public event Action<Enemy> EnemyLost;
 
         public Enemy TryGetEnemy()
         {
@@ -19,7 +20,6 @@ namespace ArenaHero.Fight.Player.EnemyDetection
             }
             else
             {
-                _enemies = null;
                 return null;
             }
         }
@@ -29,6 +29,7 @@ namespace ArenaHero.Fight.Player.EnemyDetection
             if (other.gameObject.TryGetComponent(out Enemy enemy))
             {
                 _enemies.Add(enemy);
+                EnemyDetected?.Invoke(enemy);
             }
         }
 
@@ -37,7 +38,7 @@ namespace ArenaHero.Fight.Player.EnemyDetection
             if (other.TryGetComponent(out Enemy enemy))
             {
                 _enemies.Remove(enemy);
-                EnemyLeaved?.Invoke(enemy);
+                EnemyLost?.Invoke(enemy);
             }
         }
     }

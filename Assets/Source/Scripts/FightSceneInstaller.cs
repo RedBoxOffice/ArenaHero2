@@ -6,20 +6,26 @@ using ArenaHero.Utils.TypedScenes;
 using Reflex.Core;
 using UnityEngine;
 using ArenaHero.Fight.Player;
+using ArenaHero.InputSystem;
 
 namespace ArenaHero
 {
     public class FightSceneInstaller : MonoBehaviour, IInstaller, ISceneLoadHandlerState<GameStateMachine>
     {
         [SerializeField] private TriggerZone _triggerZone;
-        [SerializeField] private Transform _lookTargetPoint;
+        [SerializeField] private LookTargetPoint _lookTargetPoint;
         [SerializeField] private LevelData _levelData;
         [SerializeField] private WaveHandler _waveHandler;
         [SerializeField] private Hero _hero;
 
         public void InstallBindings(ContainerDescriptor descriptor)
         {
-            TargetChanger targetChanger = new TargetChanger(_triggerZone, _lookTargetPoint);
+            var inputInstaller = GetComponent<InputHandlerInstaller>();
+            var inputHandler = inputInstaller.InstallBindings();
+            descriptor.AddInstance(inputHandler, typeof(IMovementInputHandler), typeof(IActionsInputHandler));
+
+            var targetChangerInject = new TargetChangerInject(() => (_triggerZone, _lookTargetPoint, inputHandler));
+            TargetChanger targetChanger = new TargetChanger(targetChangerInject);
             descriptor.AddInstance(targetChanger, typeof(TargetChanger));
 
             descriptor.AddInstance(_levelData);

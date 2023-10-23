@@ -9,7 +9,7 @@ namespace ArenaHero.Fight.Player.Movement
         [SerializeField] private float _distanceMove;
 
         [Inject]
-        protected override void Inject(IInputHandler handler)
+        protected override void Inject(IMovementInputHandler handler)
         {
             InputHandler = handler;
             InputHandler.Vertical += OnMove;

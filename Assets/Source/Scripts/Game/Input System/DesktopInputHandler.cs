@@ -10,13 +10,15 @@ namespace ArenaHero.InputSystem
 
         public event Action<float> Horizontal;
         public event Action<float> Vertical;
+        public event Action ChangeTarget;
 
         private void OnEnable()
         {
             if (_input != null)
             {
-                _input.Decktop.Horizontal.performed += ctx => OnHorizontal();
-                _input.Decktop.Vertical.performed += ctx => OnVertical();
+                _input.Desktop.Horizontal.performed += ctx => OnHorizontal();
+                _input.Desktop.Vertical.performed += ctx => OnVertical();
+                _input.Desktop.ChangeTarget.performed += ctx => OnChangeTarget();
             }
         }
 
@@ -24,8 +26,9 @@ namespace ArenaHero.InputSystem
         {
             if (_input != null)
             {
-                _input.Decktop.Horizontal.performed -= ctx => OnHorizontal();
-                _input.Decktop.Vertical.performed -= ctx => OnVertical();
+                _input.Desktop.Horizontal.performed -= ctx => OnHorizontal();
+                _input.Desktop.Vertical.performed -= ctx => OnVertical();
+                _input.Desktop.ChangeTarget.performed -= ctx => OnChangeTarget();
             }
         }
 
@@ -35,15 +38,19 @@ namespace ArenaHero.InputSystem
         private void OnVertical() =>
             Vertical?.Invoke(GetVertical());
 
-        private float GetHorizontal() => _input.Decktop.Horizontal.ReadValue<float>();
-        private float GetVertical() => _input.Decktop.Vertical.ReadValue<float>();
+        private void OnChangeTarget() =>
+            ChangeTarget?.Invoke();
+
+        private float GetHorizontal() => _input.Desktop.Horizontal.ReadValue<float>();
+        private float GetVertical() => _input.Desktop.Vertical.ReadValue<float>();
 
         [Inject]
         private void Inject(PlayerInput handler)
         {
             _input = handler;
-            _input.Decktop.Horizontal.performed += ctx => OnHorizontal();
-            _input.Decktop.Vertical.performed += ctx => OnVertical();
+            _input.Desktop.Horizontal.performed += ctx => OnHorizontal();
+            _input.Desktop.Vertical.performed += ctx => OnVertical();
+            _input.Desktop.ChangeTarget.performed += ctx => OnChangeTarget();
         }
     }
 }

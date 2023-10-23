@@ -9,7 +9,7 @@ namespace ArenaHero.Fight.Player.Movement
         [SerializeField] private float _angleTarget;
 
         [Inject]
-        protected override void Inject(IInputHandler handler)
+        protected override void Inject(IMovementInputHandler handler)
         {
             InputHandler = handler;
             InputHandler.Horizontal += OnMove;
@@ -31,11 +31,15 @@ namespace ArenaHero.Fight.Player.Movement
 
                 var radius = Vector3.Distance(playerPosition, targetTransform.position);
 
+                float defaultY = transform.position.y;
+
                 MoveCoroutine = StartCoroutine(Move((currentTime) =>
                 {
                     Quaternion rotation = Quaternion.Euler(0f, _angleTarget * currentTime * -direction, 0f);
                     Vector3 newPosition = Target.transform.position + 
                                     (rotation * (SelfRigidbody.position - Target.transform.position).normalized * radius);
+
+                    newPosition.y = defaultY;
 
                     var offset = Target.transform.position - SelfRigidbody.position;
                     offset.Set(offset.x, 0, offset.z);
