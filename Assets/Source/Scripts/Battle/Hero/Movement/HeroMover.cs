@@ -8,7 +8,7 @@ namespace ArenaHero.Fight.Player.Movement
     public abstract class HeroMover : MonoBehaviour
     {
         [SerializeField] protected float TimeToTarget;
-        [SerializeField] protected GameObject Target;
+        [SerializeField] protected Transform Target;
 
         protected Coroutine MoveCoroutine;
         protected IMovementInputHandler InputHandler;
