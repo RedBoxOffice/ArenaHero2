@@ -24,7 +24,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     ""name"": ""PlayerInput"",
     ""maps"": [
         {
-            ""name"": ""Desktop"",
+            ""name"": ""Movement"",
             ""id"": ""08fd59f0-a51a-4a88-bb90-3b127ab038ff"",
             ""actions"": [
                 {
@@ -40,15 +40,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""name"": ""Vertical"",
                     ""type"": ""Button"",
                     ""id"": ""6f463264-bb8e-4c3c-a352-718a0f95bb3b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ChangeTarget"",
-                    ""type"": ""Button"",
-                    ""id"": ""d94c657e-8c54-4ee9-a65b-11c6758a66ba"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -121,15 +112,52 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Vertical"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                }
+            ]
+        },
+        {
+            ""name"": ""Actions"",
+            ""id"": ""f1ae3402-2323-4039-ab75-faa5846a892b"",
+            ""actions"": [
+                {
+                    ""name"": ""ChangeTarget"",
+                    ""type"": ""Button"",
+                    ""id"": ""abc37dba-b595-45bd-a77a-1df4560481e9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""f92cf315-4163-449f-a4b3-569f6a0f4f97"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
                     ""name"": """",
-                    ""id"": ""29e229cc-442a-453c-ac9f-00bc83c522ce"",
+                    ""id"": ""d0f7d6ca-846b-4eb0-a021-ec0951e24995"",
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Player"",
                     ""action"": ""ChangeTarget"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4436667c-a88b-4a3e-a984-a505a6f53bb7"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -144,11 +172,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         }
     ]
 }");
-        // Desktop
-        m_Desktop = asset.FindActionMap("Desktop", throwIfNotFound: true);
-        m_Desktop_Horizontal = m_Desktop.FindAction("Horizontal", throwIfNotFound: true);
-        m_Desktop_Vertical = m_Desktop.FindAction("Vertical", throwIfNotFound: true);
-        m_Desktop_ChangeTarget = m_Desktop.FindAction("ChangeTarget", throwIfNotFound: true);
+        // Movement
+        m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
+        m_Movement_Horizontal = m_Movement.FindAction("Horizontal", throwIfNotFound: true);
+        m_Movement_Vertical = m_Movement.FindAction("Vertical", throwIfNotFound: true);
+        // Actions
+        m_Actions = asset.FindActionMap("Actions", throwIfNotFound: true);
+        m_Actions_ChangeTarget = m_Actions.FindAction("ChangeTarget", throwIfNotFound: true);
+        m_Actions_Attack = m_Actions.FindAction("Attack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -207,40 +238,35 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Desktop
-    private readonly InputActionMap m_Desktop;
-    private List<IDesktopActions> m_DesktopActionsCallbackInterfaces = new List<IDesktopActions>();
-    private readonly InputAction m_Desktop_Horizontal;
-    private readonly InputAction m_Desktop_Vertical;
-    private readonly InputAction m_Desktop_ChangeTarget;
-    public struct DesktopActions
+    // Movement
+    private readonly InputActionMap m_Movement;
+    private List<IMovementActions> m_MovementActionsCallbackInterfaces = new List<IMovementActions>();
+    private readonly InputAction m_Movement_Horizontal;
+    private readonly InputAction m_Movement_Vertical;
+    public struct MovementActions
     {
         private @PlayerInput m_Wrapper;
-        public DesktopActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Horizontal => m_Wrapper.m_Desktop_Horizontal;
-        public InputAction @Vertical => m_Wrapper.m_Desktop_Vertical;
-        public InputAction @ChangeTarget => m_Wrapper.m_Desktop_ChangeTarget;
-        public InputActionMap Get() { return m_Wrapper.m_Desktop; }
+        public MovementActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Horizontal => m_Wrapper.m_Movement_Horizontal;
+        public InputAction @Vertical => m_Wrapper.m_Movement_Vertical;
+        public InputActionMap Get() { return m_Wrapper.m_Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(DesktopActions set) { return set.Get(); }
-        public void AddCallbacks(IDesktopActions instance)
+        public static implicit operator InputActionMap(MovementActions set) { return set.Get(); }
+        public void AddCallbacks(IMovementActions instance)
         {
-            if (instance == null || m_Wrapper.m_DesktopActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_DesktopActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_MovementActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_MovementActionsCallbackInterfaces.Add(instance);
             @Horizontal.started += instance.OnHorizontal;
             @Horizontal.performed += instance.OnHorizontal;
             @Horizontal.canceled += instance.OnHorizontal;
             @Vertical.started += instance.OnVertical;
             @Vertical.performed += instance.OnVertical;
             @Vertical.canceled += instance.OnVertical;
-            @ChangeTarget.started += instance.OnChangeTarget;
-            @ChangeTarget.performed += instance.OnChangeTarget;
-            @ChangeTarget.canceled += instance.OnChangeTarget;
         }
 
-        private void UnregisterCallbacks(IDesktopActions instance)
+        private void UnregisterCallbacks(IMovementActions instance)
         {
             @Horizontal.started -= instance.OnHorizontal;
             @Horizontal.performed -= instance.OnHorizontal;
@@ -248,26 +274,77 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Vertical.started -= instance.OnVertical;
             @Vertical.performed -= instance.OnVertical;
             @Vertical.canceled -= instance.OnVertical;
-            @ChangeTarget.started -= instance.OnChangeTarget;
-            @ChangeTarget.performed -= instance.OnChangeTarget;
-            @ChangeTarget.canceled -= instance.OnChangeTarget;
         }
 
-        public void RemoveCallbacks(IDesktopActions instance)
+        public void RemoveCallbacks(IMovementActions instance)
         {
-            if (m_Wrapper.m_DesktopActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_MovementActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IDesktopActions instance)
+        public void SetCallbacks(IMovementActions instance)
         {
-            foreach (var item in m_Wrapper.m_DesktopActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_MovementActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_DesktopActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_MovementActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public DesktopActions @Desktop => new DesktopActions(this);
+    public MovementActions @Movement => new MovementActions(this);
+
+    // Actions
+    private readonly InputActionMap m_Actions;
+    private List<IActionsActions> m_ActionsActionsCallbackInterfaces = new List<IActionsActions>();
+    private readonly InputAction m_Actions_ChangeTarget;
+    private readonly InputAction m_Actions_Attack;
+    public struct ActionsActions
+    {
+        private @PlayerInput m_Wrapper;
+        public ActionsActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ChangeTarget => m_Wrapper.m_Actions_ChangeTarget;
+        public InputAction @Attack => m_Wrapper.m_Actions_Attack;
+        public InputActionMap Get() { return m_Wrapper.m_Actions; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ActionsActions set) { return set.Get(); }
+        public void AddCallbacks(IActionsActions instance)
+        {
+            if (instance == null || m_Wrapper.m_ActionsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_ActionsActionsCallbackInterfaces.Add(instance);
+            @ChangeTarget.started += instance.OnChangeTarget;
+            @ChangeTarget.performed += instance.OnChangeTarget;
+            @ChangeTarget.canceled += instance.OnChangeTarget;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
+        }
+
+        private void UnregisterCallbacks(IActionsActions instance)
+        {
+            @ChangeTarget.started -= instance.OnChangeTarget;
+            @ChangeTarget.performed -= instance.OnChangeTarget;
+            @ChangeTarget.canceled -= instance.OnChangeTarget;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
+        }
+
+        public void RemoveCallbacks(IActionsActions instance)
+        {
+            if (m_Wrapper.m_ActionsActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IActionsActions instance)
+        {
+            foreach (var item in m_Wrapper.m_ActionsActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_ActionsActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public ActionsActions @Actions => new ActionsActions(this);
     private int m_PlayerSchemeIndex = -1;
     public InputControlScheme PlayerScheme
     {
@@ -277,10 +354,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_PlayerSchemeIndex];
         }
     }
-    public interface IDesktopActions
+    public interface IMovementActions
     {
         void OnHorizontal(InputAction.CallbackContext context);
         void OnVertical(InputAction.CallbackContext context);
+    }
+    public interface IActionsActions
+    {
         void OnChangeTarget(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
     }
 }
