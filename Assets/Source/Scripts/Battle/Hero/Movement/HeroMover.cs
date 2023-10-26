@@ -38,7 +38,14 @@ namespace ArenaHero.Fight.Player.Movement
         protected abstract void Inject(IMovementInputHandler inputHandler);
         protected abstract void OnMove(float direction);
 
-        protected IEnumerator Move(System.Func<float, Vector3> calculatePosition)
+        protected void LookTarget()
+        {
+            var offset = Target.position - SelfRigidbody.position;
+            offset.Set(offset.x, 0, offset.z);
+            SelfRigidbody.MoveRotation(Quaternion.Euler(0f, Vector3.SignedAngle(Vector3.forward, offset, Vector3.up), 0f));
+        }
+
+        protected IEnumerator Move(System.Func<float, Vector3> calculatePosition, System.Action endMoveCallBack = null)
         {
             float currentTime = 0;
 
@@ -50,6 +57,8 @@ namespace ArenaHero.Fight.Player.Movement
 
                 yield return new WaitForFixedUpdate();
             }
+
+            endMoveCallBack?.Invoke();
 
             MoveCoroutine = null;
         }
