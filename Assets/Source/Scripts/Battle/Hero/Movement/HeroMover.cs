@@ -35,7 +35,12 @@ namespace ArenaHero.Fight.Player.Movement
             }
         }
 
-        protected abstract void Inject(IMovementInputHandler inputHandler);
+        protected virtual void Inject(IMovementInputHandler inputHandler)
+        {
+            InputHandler = inputHandler;
+            InputHandler.Horizontal += OnMove;
+        }
+
         protected abstract void OnMove(float direction);
 
         protected void LookTarget()

@@ -14,6 +14,8 @@ namespace ArenaHero.Fight.Player.EnemyDetection
 
         private IActionsInputHandler _actionsInputHandler;
 
+        public event Action<Transform> TargetChanging;
+
         public TargetChanger(TargetChangerInject inject)
         {
             _triggerZone = inject.TriggerZone;
@@ -23,43 +25,52 @@ namespace ArenaHero.Fight.Player.EnemyDetection
 
             _triggerZone.EnemyDetected += OnEnemyDetected;
             _triggerZone.EnemyLost += OnEnemyLost;
-            _actionsInputHandler.ChangeTarget += PreferEnemy;
-        }
-
-        private void PreferEnemy()
-        {
-            _currentEnemy = _triggerZone.TryGetEnemy();
-
-            if (_currentEnemy != null)
-            {
-                _lookTargetPoint.transform.SetParent(_currentEnemy.transform);
-                _lookTargetPoint.transform.localPosition = Vector3.zero;
-            }
-            else
-            {
-                _lookTargetPoint.transform.SetParent(null);
-                _lookTargetPoint.transform.localPosition = _defaultLookTargetPoint.transform.localPosition;
-            }
+            _actionsInputHandler.ChangeTarget += OnChangeTarget;
         }
 
         public void Dispose()
         {
             _triggerZone.EnemyDetected -= OnEnemyDetected;
             _triggerZone.EnemyLost -= OnEnemyLost;
-            _actionsInputHandler.ChangeTarget -= PreferEnemy;
+            _actionsInputHandler.ChangeTarget -= OnChangeTarget;
+        }
+
+        private void OnChangeTarget()
+        {
+            _currentEnemy = _triggerZone.TryGetEnemy();
+
+            Transform newTarget;
+            Vector3 newPosition;
+
+            if (_currentEnemy != null)
+            {
+                newTarget = _currentEnemy.transform;
+                _lookTargetPoint.transform.SetParent(newTarget);
+                newPosition = Vector3.zero;
+            }
+            else
+            {
+                newTarget = _defaultLookTargetPoint.transform;
+                _lookTargetPoint.transform.SetParent(null);
+                newPosition = _defaultLookTargetPoint.transform.localPosition;
+            }
+
+            TargetChanging?.Invoke(newTarget);
+            
+            _lookTargetPoint.transform.localPosition = newPosition;
         }
 
         private void OnEnemyDetected(Enemy enemy)
         {
             if (_currentEnemy == null)
-                PreferEnemy();
+                OnChangeTarget();
         }
 
         private void OnEnemyLost(Enemy enemy)
         {
             if (_currentEnemy == null || _currentEnemy == enemy)
             {
-                PreferEnemy();
+                OnChangeTarget();
             }
         }
     }
