@@ -1,28 +1,33 @@
-﻿using ArenaHero.InputSystem;
+﻿using ArenaHero.Fight.Player.EnemyDetection;
+using ArenaHero.InputSystem;
 using ArenaHero.Utils.Other;
 using Reflex.Attributes;
+using System;
 using UnityEngine;
 
 namespace ArenaHero.Fight.Player.Movement
 {
-    public class HeroHorizontalMover : HeroMover
+    public class HeroHorizontalMover : HeroMover, IDisposable
     {
         [SerializeField] private FloatRange _distanceRange = new(1, 10);
         [SerializeField] private FloatRange _radiusRange = new(1, 25);
         [SerializeField] private AnimationCurve _angleCurve;
 
-        [Inject]
-        protected override void Inject(IMovementInputHandler handler)
+        private TargetChanger _targetChanger;
+
+        public void Dispose()
         {
-            InputHandler = handler;
-            InputHandler.Horizontal += OnMove;
+            if (_targetChanger != null)
+                _targetChanger.TargetChanging -= OnTargetChanging;
         }
 
-        public void ChangeCentralObject(Transform newCentralObject)
+        [Inject]
+        private void Inject(IMovementInputHandler handler, TargetChanger targetChanger)
         {
-            Vector3 offset = SelfRigidbody.position - Target.position;
-            Target = newCentralObject;
-            SelfRigidbody.position = Target.position + offset;
+            base.Inject(handler);
+
+            _targetChanger = targetChanger;
+            _targetChanger.TargetChanging += OnTargetChanging;
         }
 
         protected override void OnMove(float direction)
@@ -53,6 +58,13 @@ namespace ArenaHero.Fight.Player.Movement
                     return newPosition;
                 }));
             }
+        }
+
+        private void OnTargetChanging(Transform newCentralObject)
+        {
+            Vector3 offset = SelfRigidbody.position - newCentralObject.position;
+            Target = newCentralObject;
+            SelfRigidbody.position = Target.position + offset;
         }
 
         private float GetMoveDistance(float radius)

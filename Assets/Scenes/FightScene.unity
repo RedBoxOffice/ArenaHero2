@@ -1634,11 +1634,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeToTarget: 0.5
-  Target: {fileID: 1142116023}
-  _angleTarget: 5
-  _maxDistance: 10
-  _minDistance: 5
-  _minRadius: 20
+  Target: {fileID: 1142116024}
+  _distanceRange:
+    _min: 1
+    _max: 10
+  _radiusRange:
+    _min: 1
+    _max: 25
   _angleCurve:
     serializedVersion: 2
     m_Curve:
@@ -1676,7 +1678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeToTarget: 0.5
-  Target: {fileID: 1142116023}
+  Target: {fileID: 1142116024}
   _distanceMove: 10
 --- !u!54 &1427476287
 Rigidbody:
