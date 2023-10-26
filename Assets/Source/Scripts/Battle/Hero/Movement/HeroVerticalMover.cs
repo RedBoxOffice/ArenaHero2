@@ -23,8 +23,12 @@ namespace ArenaHero.Fight.Player.Movement
 
                 var targetPosition = SelfRigidbody.position + (direction * _distanceMove * transform.forward);
 
-                MoveCoroutine = StartCoroutine(Move((currentTime) =>
-                    Vector3.Lerp(startPosition, targetPosition, currentTime / TimeToTarget)));
+                LookTarget();
+
+                MoveCoroutine = StartCoroutine(Move(
+                    (currentTime) =>
+                        Vector3.Lerp(startPosition, targetPosition, currentTime / TimeToTarget),
+                    LookTarget));
             }
         }
     }

@@ -48,9 +48,7 @@ namespace ArenaHero.Fight.Player.Movement
 
                     newPosition.y = defaultY;
 
-                    var offset = Target.position - SelfRigidbody.position;
-                    offset.Set(offset.x, 0, offset.z);
-                    SelfRigidbody.MoveRotation(Quaternion.Euler(0f, Vector3.SignedAngle(Vector3.forward, offset, Vector3.up), 0f));
+                    LookTarget();
 
                     return newPosition;
                 }));
