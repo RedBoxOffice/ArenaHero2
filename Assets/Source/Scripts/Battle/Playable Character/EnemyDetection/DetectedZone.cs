@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ArenaHero.Fight.Player.EnemyDetection
+namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
 {
-    public class TriggerZone : MonoBehaviour
+    public class DetectedZone : MonoBehaviour
     {
         [SerializeField] private List<Enemy> _enemies = new List<Enemy>();
         

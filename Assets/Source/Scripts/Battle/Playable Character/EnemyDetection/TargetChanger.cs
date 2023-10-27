@@ -3,11 +3,11 @@ using ArenaHero.InputSystem;
 using System;
 using UnityEngine;
 
-namespace ArenaHero.Fight.Player.EnemyDetection
+namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
 {
     public class TargetChanger : IDisposable
     {
-        private TriggerZone _triggerZone;
+        private DetectedZone _triggerZone;
         private LookTargetPoint _lookTargetPoint;
         private LookTargetPoint _defaultLookTargetPoint;
         private Enemy _currentEnemy;

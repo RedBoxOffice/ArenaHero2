@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace ArenaHero.Fight.Player.Movement
+namespace ArenaHero.Battle.PlayableCharacter.Movement
 {
     [RequireComponent(typeof(Rigidbody))]
     public abstract class HeroMover : MonoBehaviour

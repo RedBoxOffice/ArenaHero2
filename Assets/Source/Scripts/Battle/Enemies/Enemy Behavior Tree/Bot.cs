@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace ArenaHero.Fight.Enemies.BehaviorTree
+namespace ArenaHero.Battle.Enemies.BehaviorTree
 {
     public class Bot : MonoBehaviour
     {

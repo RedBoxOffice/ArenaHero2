@@ -1,7 +1,7 @@
 ﻿using BehaviorDesigner.Runtime;
 using System;
 
-namespace ArenaHero.Fight.Enemies.BehaviorTree
+namespace ArenaHero.Battle.Enemies.BehaviorTree
 {
     [Serializable]
     public class SharedBotInput : SharedVariable<BotInput>

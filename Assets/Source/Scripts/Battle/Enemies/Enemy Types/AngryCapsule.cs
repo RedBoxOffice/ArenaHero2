@@ -1,7 +1,7 @@
 ﻿using ArenaHero.Data;
 using System;
 
-namespace ArenaHero.Fight.Enemies.EnemyTypes
+namespace ArenaHero.Battle.Enemies.EnemyTypes
 {
     public class AngryCapsule : Enemy
     {
