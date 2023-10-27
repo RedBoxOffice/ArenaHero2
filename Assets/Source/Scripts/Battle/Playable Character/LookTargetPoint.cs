@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ArenaHero.Fight.Player
+namespace ArenaHero.Battle.PlayableCharacter
 {
     public class LookTargetPoint : MonoBehaviour { }
 }

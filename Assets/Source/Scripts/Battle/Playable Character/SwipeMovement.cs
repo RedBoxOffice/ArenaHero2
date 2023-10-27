@@ -1,4 +1,4 @@
-using ArenaHero.Fight.Player;
+using ArenaHero.Battle.PlayableCharacter;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

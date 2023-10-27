@@ -2,7 +2,7 @@
 using Reflex.Attributes;
 using UnityEngine;
 
-namespace ArenaHero.Fight.Player.Movement
+namespace ArenaHero.Battle.PlayableCharacter.Movement
 {
     public class HeroVerticalMover : HeroMover
     {

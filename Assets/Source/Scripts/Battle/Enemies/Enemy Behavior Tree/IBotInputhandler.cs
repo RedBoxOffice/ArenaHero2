@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ArenaHero.Fight.Enemies.BehaviorTree
+namespace ArenaHero.Battle.Enemies.BehaviorTree
 {
     public interface IBotInputhandler
     {

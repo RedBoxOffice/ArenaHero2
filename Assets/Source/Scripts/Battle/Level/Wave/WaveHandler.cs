@@ -5,7 +5,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace ArenaHero.Fight.Level
+namespace ArenaHero.Battle.Level
 {
     public class WaveHandler : MonoBehaviour
     {

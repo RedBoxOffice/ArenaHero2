@@ -2,7 +2,7 @@
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 
-namespace ArenaHero.Fight.Enemies.BehaviorTree.Angry_Capsule
+namespace ArenaHero.Battle.Enemies.BehaviorTree.Angry_Capsule
 {
     public class SetMovementInput : Action
     {

@@ -1,18 +1,18 @@
 ﻿using ArenaHero.Data;
-using ArenaHero.Fight.Player.EnemyDetection;
-using ArenaHero.Fight.Level;
+using ArenaHero.Battle.PlayableCharacter.EnemyDetection;
+using ArenaHero.Battle.Level;
 using ArenaHero.Utils.StateMachine;
 using ArenaHero.Utils.TypedScenes;
 using Reflex.Core;
 using UnityEngine;
-using ArenaHero.Fight.Player;
+using ArenaHero.Battle.PlayableCharacter;
 using ArenaHero.InputSystem;
 
 namespace ArenaHero
 {
     public class FightSceneInstaller : MonoBehaviour, IInstaller, ISceneLoadHandlerState<GameStateMachine>
     {
-        [SerializeField] private TriggerZone _triggerZone;
+        [SerializeField] private DetectedZone _triggerZone;
         [SerializeField] private LookTargetPoint _lookTargetPoint;
         [SerializeField] private LevelData _levelData;
         [SerializeField] private WaveHandler _waveHandler;

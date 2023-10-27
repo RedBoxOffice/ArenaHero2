@@ -1,15 +1,15 @@
 ﻿using ArenaHero.InputSystem;
 using System;
 
-namespace ArenaHero.Fight.Player.EnemyDetection
+namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
 {
     public readonly struct TargetChangerInject
     {
-        public readonly TriggerZone TriggerZone;
+        public readonly DetectedZone TriggerZone;
         public readonly LookTargetPoint LookTargetPoint;
         public readonly IActionsInputHandler ActionsInputHandler;
 
-        public TargetChangerInject(Func<(TriggerZone, LookTargetPoint, IActionsInputHandler)> inject) =>
+        public TargetChangerInject(Func<(DetectedZone, LookTargetPoint, IActionsInputHandler)> inject) =>
             (TriggerZone, LookTargetPoint, ActionsInputHandler) = inject();
     }
 }

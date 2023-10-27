@@ -1,8 +1,8 @@
-﻿using ArenaHero.Fight.Enemies.EnemyTypes;
+﻿using ArenaHero.Battle.Enemies.EnemyTypes;
 using BehaviorDesigner.Runtime;
 using System;
 
-namespace ArenaHero.Fight.Enemies.BehaviorTree.Angry_Capsule
+namespace ArenaHero.Battle.Enemies.BehaviorTree.Angry_Capsule
 {
     [Serializable]
     public class SharedAngryCapsule : SharedVariable<AngryCapsule>

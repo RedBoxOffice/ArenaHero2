@@ -2,7 +2,7 @@
 using BehaviorDesigner.Runtime.Tasks;
 using UnityEngine;
 
-namespace ArenaHero.Fight.Enemies.BehaviorTree.Angry_Capsule
+namespace ArenaHero.Battle.Enemies.BehaviorTree.Angry_Capsule
 {
     public class SetTargetPosition : Action
     {

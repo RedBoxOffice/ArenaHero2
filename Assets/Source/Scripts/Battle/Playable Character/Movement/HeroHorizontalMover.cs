@@ -1,11 +1,11 @@
-﻿using ArenaHero.Fight.Player.EnemyDetection;
+﻿using ArenaHero.Battle.PlayableCharacter.EnemyDetection;
 using ArenaHero.InputSystem;
 using ArenaHero.Utils.Other;
 using Reflex.Attributes;
 using System;
 using UnityEngine;
 
-namespace ArenaHero.Fight.Player.Movement
+namespace ArenaHero.Battle.PlayableCharacter.Movement
 {
     public class HeroHorizontalMover : HeroMover, IDisposable
     {
