@@ -17,12 +17,10 @@ namespace ArenaHero.Utils.UnityTool
             }
         }
 
-        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
-        {
-            return ShouldDisplay(property)
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label) =>
+            ShouldDisplay(property)
                 ? EditorGUI.GetPropertyHeight(property, label, includeChildren: true)
                 : 0;
-        }
 
         private bool ShouldDisplay(SerializedProperty property)
         {
