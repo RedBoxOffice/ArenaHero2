@@ -437,6 +437,7 @@ GameObject:
   m_Component:
   - component: {fileID: 225247566}
   - component: {fileID: 225247567}
+  - component: {fileID: 225247568}
   m_Layer: 5
   m_Name: Subjects
   m_TagString: Untagged
@@ -496,10 +497,30 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 120, y: 120}
+  m_CellSize: {x: 167.04413, y: 154.26933}
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &225247568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225247565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28782f2221e60c9408e24728d22f7ed5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isHorizontal: 0
+  _isVertical: 0
+  _isGrid: 1
+  _gridType: 2
+  _rowCount: 2
+  _columnCount: 6
+  _countCells: 0
+  _parent: {fileID: 225247566}
 --- !u!1 &226959974
 GameObject:
   m_ObjectHideFlags: 0

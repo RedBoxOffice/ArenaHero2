@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace ArenaHero.Utils.UnityTool
+namespace ArenaHero.Utils.UnityTool.Editor
 {
     [CustomPropertyDrawer(typeof(VisibleToConditionAttribute))]
     public class VisibleToConditionPropertyDrawer : PropertyDrawer

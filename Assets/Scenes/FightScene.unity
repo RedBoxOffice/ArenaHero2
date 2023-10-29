@@ -1522,6 +1522,8 @@ GameObject:
   - component: {fileID: 1427476289}
   - component: {fileID: 1427476288}
   - component: {fileID: 1427476287}
+  - component: {fileID: 1427476292}
+  - component: {fileID: 1427476291}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -1696,6 +1698,31 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1427476291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427476276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a27097d2ceb21914ca6dcc12f69e82a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skillsHandler: {fileID: 1427476292}
+--- !u!114 &1427476292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427476276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d646ac68a3cf7d4498502ef7433a8239, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1565034615
 GameObject:
   m_ObjectHideFlags: 0
