@@ -8,7 +8,9 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
     public class DetectedZone : MonoBehaviour
     {
         [SerializeField] private List<Enemy> _enemies = new List<Enemy>();
-        
+
+        public bool ContainEnemy => _enemies.Count != 0;
+
         public event Action<Enemy> EnemyDetected;
         public event Action<Enemy> EnemyLost;
 

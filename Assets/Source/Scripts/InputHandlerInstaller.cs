@@ -1,4 +1,5 @@
-﻿using ArenaHero.InputSystem;
+﻿using ArenaHero.Battle.PlayableCharacter;
+using ArenaHero.InputSystem;
 using Reflex.Core;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace ArenaHero
 {
     public class InputHandlerInstaller : MonoBehaviour
     {
-        public IInputHandler InstallBindings()
+        public IInputHandler InstallBindings(Hero hero)
         {
             if (Application.isMobilePlatform)
             {
@@ -27,7 +28,7 @@ namespace ArenaHero
 
             }
 
-            return new GameObject(nameof(DesktopInputHandler)).AddComponent<DesktopInputHandler>();
+            return hero.gameObject.AddComponent<DesktopInputHandler>();
         }
     }
 }
