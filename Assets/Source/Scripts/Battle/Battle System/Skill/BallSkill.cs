@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace ArenaHero.Battle.Skills
 {
-    [Serializable]
     public class BallSkill : Skill
     {
         [SerializeField] private Transform _centerTransform;
@@ -18,42 +17,44 @@ namespace ArenaHero.Battle.Skills
         private List<GameObject> _elements = new();
         private float _currentAngleAllRotation = 0.01f;
         private Coroutine _updateCoroutine;
-        private MonoBehaviour _context;
+        private bool _isAlive;
 
         public override void Run()
         {
+            _isAlive = true;
+
             if (_updateCoroutine != null)
-                _context.StopCoroutine(_updateCoroutine);
+                StopCoroutine(_updateCoroutine);
 
             CreateElements();
 
             SetPositions();
 
-            _updateCoroutine = _context.StartCoroutine(Update());
+            _updateCoroutine = StartCoroutine(UpdateElements());
         }
 
-        public override void OnValidate(MonoBehaviour context)
+        private void OnValidate()
         {
             if (_directionAllRotation == 0)
                 _directionAllRotation = 1;
-
-            if (_context == null)
-                _context = context;
         }
 
-        private IEnumerator Update()
+        private IEnumerator UpdateElements()
         {
-            _centerTransform.rotation = Quaternion.AngleAxis(_currentAngleAllRotation, Vector3.up);
-            _currentAngleAllRotation += _speedRotation * Time.deltaTime * _directionAllRotation;
+            while (_isAlive)
+            {
+                _centerTransform.localRotation = Quaternion.AngleAxis(_currentAngleAllRotation, Vector3.up);
+                _currentAngleAllRotation += _speedRotation * Time.deltaTime * _directionAllRotation;
 
-            yield return null;
+                yield return null;
+            }
         }
 
         private void CreateElements()
         {
             for (int i = 0; i < _countElements; i++)
             {
-                var element = UnityEngine.Object.Instantiate(_elementPrefab, _centerTransform);
+                var element = Instantiate(_elementPrefab, _centerTransform);
                 _elements.Add(element);
             }
         }
@@ -62,8 +63,7 @@ namespace ArenaHero.Battle.Skills
         {
             Vector3 position = new Vector3
             {
-                x = _radius,
-                z = _radius
+                x = _radius
             };
 
             float angle = 360 / _countElements;
@@ -72,7 +72,7 @@ namespace ArenaHero.Battle.Skills
 
             foreach (var element in _elements)
             {
-                element.transform.localPosition = (Quaternion.AngleAxis(currentAngle, Vector3.up) * position) + _centerTransform.position;
+                element.transform.localPosition = (Quaternion.AngleAxis(currentAngle, Vector3.up) * position) + _centerTransform.localPosition;
 
                 currentAngle += angle;
             }

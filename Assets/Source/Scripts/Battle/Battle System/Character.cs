@@ -1,20 +1,37 @@
-﻿using ArenaHero.Battle.Skills;
+﻿using ArenaHero.Battle.PlayableCharacter.EnemyDetection;
+using ArenaHero.Battle.Skills;
+using ArenaHero.InputSystem;
+using Reflex.Attributes;
 using UnityEngine;
 
 namespace ArenaHero.Battle
 {
-    [RequireComponent(typeof(SkillsHandler))]
     public class Character : MonoBehaviour, IAttackable, IDamagable
     {
-        [SerializeField] private SkillsHandler _skillsHandler;
+        private IActionsInputHandler _actionsInputHandler;
+        private DetectedZone _detectedZone;
 
-        private void OnValidate()
+        private void Awake()
         {
-            if (_skillsHandler == null)
-                _skillsHandler = GetComponent<SkillsHandler>();
+            _actionsInputHandler = GetComponent<IActionsInputHandler>();
         }
 
-        public void Attack() => throw new System.NotImplementedException();
+        public void Attack()
+        {
+            //if (_detectedZone.IsContainEnemy == true)
+            //{
+            //    _verticalMover.Move(_speedAttack);
+            //}
+        }
+
         public void TakeDamage(float damage) => throw new System.NotImplementedException();
+
+        [Inject]
+        private void Inject(DetectedZone detectedZone)
+        {
+            _detectedZone = detectedZone;
+            //_inputHandler = targetChangerInject.ActionsInputHandler;
+            //_inputHandler.Attack += Attack;
+        }
     }
 }
