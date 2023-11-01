@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ArenaHero.Battle.Skills
 {
     public class SkillsHandler : MonoBehaviour
     {
-        [SerializeField] private Dictionary<MonoBehaviour, MonoBehaviour> _skills = new()
-        {
+        private Skill[] _skills;
 
-        };
-
-        public void OnValidate()
+        private void Awake()
         {
-            //foreach (var skill in _skills)
-            //    skill.OnValidate(this);
+            _skills = GetComponentsInChildren<Skill>();
+
+            foreach (Skill skill in _skills)
+                skill.Run();
         }
     }
 }
