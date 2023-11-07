@@ -9,16 +9,16 @@ namespace ArenaHero.Utils.StateMachine
 
         public WindowStateMachine Window => _windowStateMachine;
 
-        public GameStateMachine(Func<Dictionary<Type, State<GameStateMachine>>> getStates) : base(getStates) { }
+        public GameStateMachine(WindowStateMachine machine, Func<Dictionary<Type, State<GameStateMachine>>> getStates)
+            : base(getStates) =>
+            _windowStateMachine = machine;
 
-        public void SetWindow<TWindow>() where TWindow : WindowState
-        {
+        public void SetWindow<TWindow>()
+            where TWindow : WindowState =>
             _windowStateMachine.EnterIn<TWindow>();
-        }
 
-        public TState TryGetState<TState>() where TState : State<GameStateMachine>
-        {
-            return (TState)TryGetState(typeof(TState));
-        }
+        public TState TryGetState<TState>()
+            where TState : State<GameStateMachine> =>
+            (TState)TryGetState(typeof(TState));
     }
 }

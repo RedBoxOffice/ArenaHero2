@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ArenaHero.Utils.StateMachine
 {
-    public class GameSceneInitializer : MonoBehaviour, ISceneLoadHandlerState<GameStateMachine>
+    public class GameSceneInitializer : MonoBehaviour, ISceneLoadHandlerOnState<GameStateMachine>
     {
         [SerializeField] private List<Window> _windows;
 

@@ -15,9 +15,8 @@ namespace ArenaHero.Utils.StateMachine
             StateUpdated?.Invoke();
         }
 
-        public TState TryGetState<TState>(Window window) where TState : State<WindowStateMachine>
-        {
-            return (TState)TryGetState(window.GetType());
-        }
+        public TState TryGetState<TState>(Window window) 
+            where TState : State<WindowStateMachine> =>
+            (TState)TryGetState(window.WindowType);
     }
 }

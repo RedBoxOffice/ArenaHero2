@@ -878,7 +878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e13031d86c6da646b8ced433df95765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _triggerZone: {fileID: 331894573}
+  _detectedZone: {fileID: 331894573}
   _lookTargetPoint: {fileID: 1142116025}
   _levelData: {fileID: 11400000, guid: f00eea5c27840b845b09a3275c525b7b, type: 2}
   _waveHandler: {fileID: 170266345}

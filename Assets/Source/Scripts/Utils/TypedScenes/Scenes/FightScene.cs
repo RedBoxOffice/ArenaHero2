@@ -29,10 +29,11 @@ namespace ArenaHero.Utils.TypedScenes
             return LoadScene(_sceneName, loadSceneMode);
         }
         
-        public static void Load<TState>(ArenaHero.Utils.StateMachine.GameStateMachine machine, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
+        public static void Load<TState, T>(GameStateMachine machine, T argument, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
             where TState : State<GameStateMachine>
+        
         {
-            LoadScene(_sceneName, loadSceneMode, machine);
+            LoadScene<TState, T>(_sceneName, loadSceneMode, machine, argument);
         }
     }
 }

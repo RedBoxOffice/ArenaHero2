@@ -4,7 +4,8 @@
     {
         private Window _window;
 
-        public void Init(Window window) => _window = window;
+        public void Init(Window window) => 
+            _window = window;
 
         public override void Enter()
         {

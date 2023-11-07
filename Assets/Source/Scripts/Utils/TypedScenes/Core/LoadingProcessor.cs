@@ -34,28 +34,19 @@ namespace ArenaHero.Utils.TypedScenes
             LoadingModelAction = null;
         }
 
-        public void RegisterLoadingModel<TMachine, TState>(TMachine machine) where TMachine : StateMachine<TMachine> where TState : State<TMachine>
-        {
-            LoadingModelAction = () =>
-            {
-                CallSceneLoaded<ISceneLoadHandlerState<TMachine>>((handler) => handler.OnSceneLoaded<TState>(machine));
+        public void RegisterLoadingModel<TMachine, TState>(TMachine machine)
+            where TMachine : StateMachine<TMachine>
+            where TState : State<TMachine> =>
+            LoadingModelAction += () =>
+                CallSceneLoaded<ISceneLoadHandlerOnState<TMachine>>((handler) => handler.OnSceneLoaded<TState>(machine));
 
-                RegisterLoadingModel();
-            };
-        }
+        public void RegisterLoadingModel<T>(T argument) =>
+            LoadingModelAction += () =>
+                CallSceneLoaded<ISceneLoadHandlerOnArgument<T>>((handler) => handler.OnSceneLoaded(argument));
 
-        public void RegisterLoadingModel<T>(T argument)
-        {
-            LoadingModelAction = () =>
-            {
-                CallSceneLoaded<ISceneLoadHandler<T>>((handler) => handler.OnSceneLoaded(argument));
-
-                RegisterLoadingModel();
-            };
-        }
-
-        private void RegisterLoadingModel() =>
-            CallSceneLoaded<ISceneLoadHandler>((handler) => handler.OnSceneLoaded());
+        public void RegisterLoadingModel() =>
+            LoadingModelAction += () =>
+                CallSceneLoaded<ISceneLoadHandler>((handler) => handler.OnSceneLoaded());
 
         private void CallSceneLoaded<THandler>(Action<THandler> onSceneLoaded)
         {
