@@ -66,9 +66,14 @@ namespace Game.TypedScenes.Editor
             loadMethod.Name = asyncLoad ? "LoadAsync" : "Load";
             loadMethod.Attributes = MemberAttributes.Public | MemberAttributes.Static;
 
-            var loadingStatement = "LoadScene(_sceneName, loadSceneMode";
+            var loadingStatement = "LoadScene";
 
-            void AddParameter(Type type, string argumentName)
+            if (isStateLoad)
+                loadingStatement += "<TState, T>";
+
+            loadingStatement += "(_sceneName, loadSceneMode";
+
+            void AddParameter(string type, string argumentName)
             {
                 var parameter = new CodeParameterDeclarationExpression(type, argumentName);
                 loadMethod.Parameters.Add(parameter);
@@ -78,20 +83,23 @@ namespace Game.TypedScenes.Editor
             if (isStateLoad)
             {
                 if (machine != null)
-                    AddParameter(machine, nameof(machine));
+                    AddParameter(nameof(GameStateMachine), nameof(machine));
 
                 var targetTypeParameter = new CodeTypeParameter("TState");
 
                 var tstate = new CodeTypeReference("State");
-                tstate.TypeArguments.Add(new CodeTypeReference("GameStateMachine"));
+                tstate.TypeArguments.Add(new CodeTypeReference(nameof(GameStateMachine)));
 
                 targetTypeParameter.Constraints.Add(tstate);
 
                 loadMethod.TypeParameters.Add(targetTypeParameter);
+                loadMethod.TypeParameters.Add(new CodeTypeParameter("T"));
+
+                AddParameter("T", "argument");
             }
 
-            if (parameterType != null)
-                AddParameter(parameterType, "argument");
+            //if (parameterType != null)
+            //    AddParameter("T", "argument");
 
             if (asyncLoad)
             {

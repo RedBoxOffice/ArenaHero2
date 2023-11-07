@@ -70,7 +70,7 @@ namespace ArenaHero
                 };
             });
 
-            var gameStateMachine = new GameStateMachine(() =>
+            var gameStateMachine = new GameStateMachine(windowStateMachine, () =>
             {
                 return new Dictionary<Type, State<GameStateMachine>>()
                 {

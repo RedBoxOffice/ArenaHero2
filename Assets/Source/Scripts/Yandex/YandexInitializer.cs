@@ -1,5 +1,6 @@
 using Agava.YandexGames;
 using ArenaHero.Utils.StateMachine;
+using ArenaHero.Utils.TypedScenes;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -25,15 +26,15 @@ namespace ArenaHero.Yandex
         private IEnumerator InitSDK()
         {
 #if !UNITY_EDITOR
-        yield return YandexGamesSdk.Initialize(_callBack);
+            yield return YandexGamesSdk.Initialize(_callBack);
 
-        if (PlayerAccount.IsAuthorized == false)
-            PlayerAccount.StartAuthorizationPolling(1500);
+            if (PlayerAccount.IsAuthorized == false)
+                PlayerAccount.StartAuthorizationPolling(1500);
 #else
             _callBack();
 #endif
 
-            //Fight.Load<FightState>(_gameStateMachine);
+            FightScene.Load<FightState, string>(_gameStateMachine, "sas");
 
             yield return null;
         }

@@ -11,24 +11,14 @@ namespace ArenaHero.Utils.TypedScenes
             return SceneManager.LoadSceneAsync(sceneName, loadSceneMode);
         }
 
-        protected static AsyncOperation LoadScene<TState>(string sceneName, LoadSceneMode loadSceneMode, TMachine machine)
+        protected static AsyncOperation LoadScene<TState, T>(string sceneName, LoadSceneMode loadSceneMode, TMachine machine, T argument = default)
             where TState : State<TMachine>
         {
             LoadingProcessor.Instance.RegisterLoadingModel<TMachine, TState>(machine);
-            return SceneManager.LoadSceneAsync(sceneName, loadSceneMode);
-        }
 
-        protected static AsyncOperation LoadScene<T>(string sceneName, LoadSceneMode loadSceneMode, T argument)
-        {
-            LoadingProcessor.Instance.RegisterLoadingModel(argument);
-            return SceneManager.LoadSceneAsync(sceneName, loadSceneMode);
-        }
-    }
+            if (argument != null)
+                LoadingProcessor.Instance.RegisterLoadingModel(argument);
 
-    public abstract class TypedScene
-    {
-        protected static AsyncOperation LoadScene(string sceneName, LoadSceneMode loadSceneMode)
-        {
             return SceneManager.LoadSceneAsync(sceneName, loadSceneMode);
         }
 
