@@ -10,7 +10,7 @@ using ArenaHero.InputSystem;
 
 namespace ArenaHero
 {
-    public class FightSceneInstaller : MonoBehaviour, IInstaller, ISceneLoadHandlerOnState<GameStateMachine>, ISceneLoadHandlerOnArgument<string>
+    public class FightSceneInstaller : MonoBehaviour, IInstaller
     {
         [SerializeField] private DetectedZone _detectedZone;
         [SerializeField] private LookTargetPoint _lookTargetPoint;
@@ -33,16 +33,6 @@ namespace ArenaHero
             descriptor.AddInstance(_levelData);
             descriptor.AddInstance(_waveHandler);
             descriptor.AddInstance(_hero);
-        }
-
-        public void OnSceneLoaded<TState>(GameStateMachine machine) where TState : State<GameStateMachine>
-        {
-            Debug.Log("TSTATE");
-        }
-
-        public void OnSceneLoaded(string argument)
-        {
-            Debug.Log(argument);
         }
     }
 }
