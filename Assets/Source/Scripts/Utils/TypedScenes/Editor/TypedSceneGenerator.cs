@@ -30,20 +30,24 @@ namespace Game.TypedScenes.Editor
 
             AddConstantValue(targetClass, typeof(string), "_sceneName", sceneName);
 
-            var loadingParameters = SceneAnalyzer.GetLoadingParameters(scene);
-            foreach (var loadingParameter in loadingParameters)
-            {
-                AddLoadingMethod(targetClass, loadingParameter);
-                AddLoadingMethod(targetClass, loadingParameter, asyncLoad: true);
-                AddLoadingMethod(targetClass, loadingParameter, isStateLoad: true, machine: typeof(GameStateMachine));
-            }
+            //var loadingParameters = SceneAnalyzer.GetLoadingParameters(scene);
+            //foreach (var loadingParameter in loadingParameters)
+            //{
+
+            //}
+
+            AddLoadingMethod(targetClass);
+            AddLoadingMethod(targetClass, asyncLoad: true);
+            AddLoadingMethod(targetClass, isStateLoad: true, machine: typeof(GameStateMachine));
 
             targetNamespace.Types.Add(targetClass);
             targetUnit.Namespaces.Add(targetNamespace);
 
             var provider = CodeDomProvider.CreateProvider("CSharp");
-            var options = new CodeGeneratorOptions();
-            options.BracingStyle = "C";
+            var options = new CodeGeneratorOptions
+            {
+                BracingStyle = "C"
+            };
 
             var code = new StringWriter();
             provider.GenerateCodeFromCompileUnit(targetUnit, code, options);
@@ -59,7 +63,7 @@ namespace Game.TypedScenes.Editor
             targetClass.Members.Add(pathConstant);
         }
 
-        private static void AddLoadingMethod(CodeTypeDeclaration targetClass, Type parameterType = null, bool asyncLoad = false,
+        private static void AddLoadingMethod(CodeTypeDeclaration targetClass, bool asyncLoad = false,
                                              bool isStateLoad = false, Type machine = null)
         {
             var loadMethod = new CodeMemberMethod();
