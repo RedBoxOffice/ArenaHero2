@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
 
-namespace Game.TypedScenes.Editor
+namespace ArenaHero.Utils.TypedScenes.Editor
 {
     public static class TypedSceneGenerator
     {
@@ -29,12 +29,6 @@ namespace Game.TypedScenes.Editor
             targetClass.TypeAttributes = System.Reflection.TypeAttributes.Class | System.Reflection.TypeAttributes.Public;
 
             AddConstantValue(targetClass, typeof(string), "_sceneName", sceneName);
-
-            //var loadingParameters = SceneAnalyzer.GetLoadingParameters(scene);
-            //foreach (var loadingParameter in loadingParameters)
-            //{
-
-            //}
 
             AddLoadingMethod(targetClass);
             AddLoadingMethod(targetClass, asyncLoad: true);

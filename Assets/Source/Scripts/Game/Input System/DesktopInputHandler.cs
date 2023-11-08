@@ -13,16 +13,16 @@ namespace ArenaHero.InputSystem
         public event Action ChangeTarget;
         public event Action Attack;
 
-        private void OnEnable()
-        {
-            if (_input != null)
-            {
-                _input.Movement.Horizontal.performed += ctx => OnHorizontal();
-                _input.Movement.Vertical.performed += ctx => OnVertical();
-                _input.Actions.ChangeTarget.performed += ctx => OnChangeTarget();
-                _input.Actions.Attack.performed += ctx => OnAttack();
-            }
-        }
+        //private void OnEnable()
+        //{
+        //    if (_input != null)
+        //    {
+        //        _input.Movement.Horizontal.performed += ctx => OnHorizontal();
+        //        _input.Movement.Vertical.performed += ctx => OnVertical();
+        //        _input.Actions.ChangeTarget.performed += ctx => OnChangeTarget();
+        //        _input.Actions.Attack.performed += ctx => OnAttack();
+        //    }
+        //}
 
         private void OnDisable()
         {

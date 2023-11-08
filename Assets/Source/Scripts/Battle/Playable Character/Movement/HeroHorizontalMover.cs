@@ -15,6 +15,8 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
 
         private TargetChanger _targetChanger;
 
+        private float GetRadius => Vector3.Distance(SelfRigidbody.position, Target.position);
+
         public void Dispose()
         {
             if (_targetChanger != null)
@@ -24,7 +26,8 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
         [Inject]
         private void Inject(IMovementInputHandler handler, TargetChanger targetChanger)
         {
-            base.Inject(handler);
+            InputHandler = handler;
+            InputHandler.Horizontal += OnMove;
 
             _targetChanger = targetChanger;
             _targetChanger.TargetChanging += OnTargetChanging;
@@ -34,37 +37,35 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
         {
             if (MoveCoroutine == null)
             {
-                var targetTransform = Target;
-                var playerPosition = SelfRigidbody.position;
+                Transform targetTransform = Target;
 
-                var radius = Vector3.Distance(playerPosition, targetTransform.position);
-
-                var distance = GetMoveDistance(radius);
+                float distance = GetMoveDistance(GetRadius);
 
                 float defaultY = transform.position.y;
 
-                MoveCoroutine = StartCoroutine(Move((currentTime) =>
-                {
-                    float angle = (distance * 360) / (2 * Mathf.PI * radius);
+                float angle = (distance * 360) / (2 * Mathf.PI * GetRadius);
 
-                    Quaternion rotation = Quaternion.Euler(0f, angle * currentTime * -direction, 0f);
-                    Vector3 newPosition = Target.position + 
-                                    (rotation * (SelfRigidbody.position - Target.position).normalized * radius);
+                MoveCoroutine = StartCoroutine(Move(() => true,
+                    (currentTime) =>
+                    {
+                        Quaternion rotation = Quaternion.Euler(0f, angle * currentTime * -direction, 0f);
+                        Vector3 newPosition = Target.position + 
+                                        (rotation * (SelfRigidbody.position - Target.position).normalized * GetRadius);
 
-                    newPosition.y = defaultY;
+                        newPosition.y = defaultY;
 
-                    LookTarget();
+                        LookTarget();
 
-                    return newPosition;
-                }));
+                        return newPosition;
+                    }));
             }
         }
 
-        private void OnTargetChanging(Transform newCentralObject)
+        private void OnTargetChanging(Transform newTarget)
         {
-            Vector3 offset = SelfRigidbody.position - newCentralObject.position;
-            Target = newCentralObject;
-            SelfRigidbody.position = Target.position + offset;
+            //Vector3 offset = SelfRigidbody.position - newTarget.position;
+            //Target = newTarget;
+            //SelfRigidbody.position = Target.position + offset;
         }
 
         private float GetMoveDistance(float radius)

@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestFightScene.unity
     guid: 3ed1181a35e82524f9b93922c15c4f40
+  - enabled: 1
+    path: Assets/Scenes/ControlScene.unity
+    guid: 184c8f7d6e6c7664fafcc14f0af0f031
   m_configObjects: {}

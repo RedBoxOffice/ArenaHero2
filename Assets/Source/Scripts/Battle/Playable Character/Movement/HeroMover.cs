@@ -1,4 +1,5 @@
 ﻿using ArenaHero.InputSystem;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -9,23 +10,18 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
     {
         [SerializeField] protected float TimeToTarget;
         [SerializeField] protected Transform Target;
+        [SerializeField] protected Rigidbody SelfRigidbody;
 
         protected Coroutine MoveCoroutine;
         protected IMovementInputHandler InputHandler;
-        protected Rigidbody SelfRigidbody;
 
-        private void Awake()
-        {
-            SelfRigidbody = GetComponent<Rigidbody>();
-        }
-
-        private void OnEnable()
-        {
-            if (InputHandler != null)
-            {
-                InputHandler.Vertical += OnMove;
-            }
-        }
+        //private void OnEnable()
+        //{
+        //    if (InputHandler != null)
+        //    {
+        //        InputHandler.Vertical += OnMove;
+        //    }
+        //}
 
         private void OnDisable()
         {
@@ -33,12 +29,6 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
             {
                 InputHandler.Vertical -= OnMove;
             }
-        }
-
-        protected virtual void Inject(IMovementInputHandler inputHandler)
-        {
-            InputHandler = inputHandler;
-            InputHandler.Horizontal += OnMove;
         }
 
         protected abstract void OnMove(float direction);
@@ -50,12 +40,15 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
             SelfRigidbody.MoveRotation(Quaternion.Euler(0f, Vector3.SignedAngle(Vector3.forward, offset, Vector3.up), 0f));
         }
 
-        protected IEnumerator Move(System.Func<float, Vector3> calculatePosition, System.Action endMoveCallBack = null)
+        protected IEnumerator Move(Func<bool> canMove, Func<float, Vector3> calculatePosition, Action endMoveCallBack = null)
         {
             float currentTime = 0;
 
             while (currentTime <= TimeToTarget)
             {
+                if (!canMove())
+                    break;
+
                 SelfRigidbody.MovePosition(calculatePosition(currentTime));
 
                 currentTime += Time.fixedDeltaTime;
