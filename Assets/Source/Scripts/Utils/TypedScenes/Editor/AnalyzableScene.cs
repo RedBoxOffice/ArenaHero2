@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 
-namespace Game.TypedScenes.Editor
+namespace ArenaHero.Utils.TypedScenes.Editor
 {
     public class AnalyzableScene : IDisposable
     {

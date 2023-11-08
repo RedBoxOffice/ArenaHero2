@@ -8,8 +8,10 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
     {
         [SerializeField] private float _distanceMove;
 
+        private float DistanceToTarget => Vector3.Distance(SelfRigidbody.position, Target.position);
+
         [Inject]
-        protected override void Inject(IMovementInputHandler handler)
+        private void Inject(IMovementInputHandler handler)
         {
             InputHandler = handler;
             InputHandler.Vertical += OnMove;
@@ -21,11 +23,14 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
             {
                 Vector3 startPosition = SelfRigidbody.position;
 
-                var targetPosition = SelfRigidbody.position + (direction * _distanceMove * transform.forward);
+                var distance = Mathf.Min(_distanceMove, DistanceToTarget);
+
+                var targetPosition = SelfRigidbody.position + (direction * distance * transform.forward);
 
                 LookTarget();
 
                 MoveCoroutine = StartCoroutine(Move(
+                    () => DistanceToTarget > 5 || direction == -1,
                     (currentTime) =>
                         Vector3.Lerp(startPosition, targetPosition, currentTime / TimeToTarget),
                     LookTarget));

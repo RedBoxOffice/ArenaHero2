@@ -1,11 +1,13 @@
 ﻿#if UNITY_EDITOR
+using ArenaHero.Utils.TypedScenes.Editor.Loader;
+using ArenaHero.Utils.TypedScenes.Loader;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
 
-namespace Game.TypedScenes.Editor
+namespace ArenaHero.Utils.TypedScenes.Editor
 {
     public class ScenePostprocessor : AssetPostprocessor
     {
@@ -37,6 +39,11 @@ namespace Game.TypedScenes.Editor
             {
                 var sourceCode = TypedSceneGenerator.Generate(analyzableScene);
                 TypedSceneStorage.Save(analyzableScene.Name, sourceCode);
+
+                var sourceCodeLoader = TypedLoaderGenerator.Generate(analyzableScene);
+                TypedLoaderStorage.SaveClass(analyzableScene.Name + TypedLoaderSettings.ClassPostName, sourceCodeLoader);
+
+                TypedLoadHandler.UpdateLoaders();
 
                 if (EditorBuildSettings.scenes.All(scene => scene.guid.ToString() != analyzableScene.GUID))
                 {

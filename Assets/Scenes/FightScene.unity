@@ -1691,6 +1691,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeToTarget: 0.3
   Target: {fileID: 1142116024}
+  SelfRigidbody: {fileID: 1427476287}
   _distanceMove: 10
 --- !u!114 &1427476289
 MonoBehaviour:
@@ -1718,6 +1719,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeToTarget: 0.3
   Target: {fileID: 1142116024}
+  SelfRigidbody: {fileID: 1427476287}
   _distanceRange:
     _min: 1
     _max: 10

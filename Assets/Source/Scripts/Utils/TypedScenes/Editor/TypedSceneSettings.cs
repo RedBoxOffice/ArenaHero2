@@ -1,4 +1,4 @@
-﻿namespace Game.TypedScenes.Editor
+﻿namespace ArenaHero.Utils.TypedScenes.Editor
 {
     public static class TypedSceneSettings
     {

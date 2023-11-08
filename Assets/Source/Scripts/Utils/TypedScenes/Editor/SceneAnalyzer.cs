@@ -8,7 +8,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Game.TypedScenes.Editor
+namespace ArenaHero.Utils.TypedScenes.Editor
 {
     public static class SceneAnalyzer
     {
