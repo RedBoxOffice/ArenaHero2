@@ -13,11 +13,11 @@ namespace ArenaHero.Utils.TypedScenes.Loader.Generated
     using ArenaHero.Utils.StateMachine;
     
     
-    public class FightSceneLoader : ITypedLoader
+    public class FightSceneLoader<TState> : ITypedLoader
+        where TState : State<GameStateMachine>
     {
         
-        public static void Load<TState, T>(GameStateMachine machine, T argument = default)
-            where TState : State<GameStateMachine>
+        public static void Load<T>(GameStateMachine machine, T argument = default)
         
         {
             FightScene.Load<TState, T>(machine, argument);

@@ -57,7 +57,7 @@ namespace ArenaHero.Utils.TypedScenes.Loader
                 _loaders.Add(type.Name, type);
             }
 
-            Load(nameof(FightSceneLoader));
+            //Load(nameof(FightSceneLoader));
         }
 
         private static IEnumerable<Type> GetTypesInNamespace(Assembly assembly, string nameSpace) =>
