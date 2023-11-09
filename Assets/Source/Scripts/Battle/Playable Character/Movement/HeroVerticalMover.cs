@@ -1,4 +1,5 @@
-﻿using ArenaHero.InputSystem;
+﻿using System;
+using ArenaHero.InputSystem;
 using Reflex.Attributes;
 using UnityEngine;
 
@@ -17,24 +18,25 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
             InputHandler.Vertical += OnMove;
         }
 
+        private void OnDisable() =>
+            InputHandler.Vertical -= OnMove;
+
         protected override void OnMove(float direction)
         {
-            if (MoveCoroutine == null)
-            {
-                Vector3 startPosition = SelfRigidbody.position;
+            if (MoveCoroutine != null)
+                return;
+            
+            var startPosition = SelfRigidbody.position;
 
-                var distance = Mathf.Min(_distanceMove, DistanceToTarget);
+            var targetPosition = startPosition + (direction * _distanceMove * transform.forward);
 
-                var targetPosition = SelfRigidbody.position + (direction * distance * transform.forward);
+            LookTarget();
 
-                LookTarget();
-
-                MoveCoroutine = StartCoroutine(Move(
-                    () => DistanceToTarget > 5 || direction == -1,
-                    (currentTime) =>
-                        Vector3.Lerp(startPosition, targetPosition, currentTime / TimeToTarget),
-                    LookTarget));
-            }
+            MoveCoroutine = StartCoroutine(Move(
+                () => DistanceToTarget > 5 || direction == -1,
+                (normalTime) =>
+                    Vector3.Lerp(startPosition, targetPosition, normalTime),
+                LookTarget));
         }
     }
 }

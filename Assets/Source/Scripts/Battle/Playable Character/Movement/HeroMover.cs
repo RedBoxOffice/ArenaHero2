@@ -15,22 +15,6 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
         protected Coroutine MoveCoroutine;
         protected IMovementInputHandler InputHandler;
 
-        //private void OnEnable()
-        //{
-        //    if (InputHandler != null)
-        //    {
-        //        InputHandler.Vertical += OnMove;
-        //    }
-        //}
-
-        private void OnDisable()
-        {
-            if (InputHandler != null)
-            {
-                InputHandler.Vertical -= OnMove;
-            }
-        }
-
         protected abstract void OnMove(float direction);
 
         protected void LookTarget()
@@ -49,7 +33,7 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
                 if (!canMove())
                     break;
 
-                SelfRigidbody.MovePosition(calculatePosition(currentTime));
+                SelfRigidbody.MovePosition(calculatePosition(currentTime / TimeToTarget));
 
                 currentTime += Time.fixedDeltaTime;
 

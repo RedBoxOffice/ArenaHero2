@@ -9,8 +9,8 @@ namespace ArenaHero.Utils.Other
         [SerializeField] private float _min;
         [SerializeField] private float _max;
 
-        public float Min { get => _min; set { if (value < _max) _min = value; } }
-        public float Max { get => _max; set { if (value > _min) _max = value; } }
+        public float Min => _min;
+        public float Max => _max;
 
         public FloatRange(float min, float max)
         {
