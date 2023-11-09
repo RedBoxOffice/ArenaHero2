@@ -34,7 +34,7 @@ namespace ArenaHero.Yandex
             _callBack();
 #endif
 
-            ControlScene.Load<FightState, string>(_gameStateMachine, "sas");
+            FightScene.Load<FightState, string>(_gameStateMachine, "sas");
 
             yield return null;
         }

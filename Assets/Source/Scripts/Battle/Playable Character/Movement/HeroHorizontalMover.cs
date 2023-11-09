@@ -9,13 +9,11 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
 {
     public class HeroHorizontalMover : HeroMover, IDisposable
     {
-        [SerializeField] private FloatRange _distanceRange = new(1, 10);
-        [SerializeField] private FloatRange _radiusRange = new(1, 25);
+        [SerializeField] private FloatRange _distanceRange = new FloatRange(1, 10);
+        [SerializeField] private FloatRange _radiusRange = new FloatRange(1, 25);
         [SerializeField] private AnimationCurve _angleCurve;
 
         private TargetChanger _targetChanger;
-
-        private float GetRadius => Vector3.Distance(SelfRigidbody.position, Target.position);
 
         public void Dispose()
         {
@@ -35,31 +33,38 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
 
         protected override void OnMove(float direction)
         {
-            if (MoveCoroutine == null)
-            {
-                Transform targetTransform = Target;
+            if (MoveCoroutine != null)
+                return;
 
-                float distance = GetMoveDistance(GetRadius);
+            var targetPosition = Target.position;
+            
+            var distance = GetMoveDistance(GetRadius());
 
-                float defaultY = transform.position.y;
+            var defaultY = SelfRigidbody.position.y;
 
-                float angle = (distance * 360) / (2 * Mathf.PI * GetRadius);
+            var angle = (distance * 360) / (2 * Mathf.PI * GetRadius());
 
-                MoveCoroutine = StartCoroutine(Move(() => true,
-                    (currentTime) =>
-                    {
-                        Quaternion rotation = Quaternion.Euler(0f, angle * currentTime * -direction, 0f);
-                        Vector3 newPosition = Target.position + 
-                                        (rotation * (SelfRigidbody.position - Target.position).normalized * GetRadius);
+            MoveCoroutine = StartCoroutine(Move(() => true, 
+                (currentTime) =>
+                {
+                    var rotation = Quaternion.Euler(0f, angle * currentTime * -direction, 0f);
+                    
+                    var newPosition = targetPosition + 
+                        (rotation * (SelfRigidbody.position - targetPosition).normalized * GetRadius(targetPosition));
 
-                        newPosition.y = defaultY;
+                    newPosition.y = defaultY;
 
-                        LookTarget();
+                    LookTarget();
 
-                        return newPosition;
-                    }));
-            }
+                    return newPosition;
+                }));
         }
+
+        private float GetRadius() =>
+            Vector3.Distance(SelfRigidbody.position, Target.position);
+        
+        private float GetRadius(Vector3 targetPosition) =>
+            Vector3.Distance(SelfRigidbody.position, targetPosition);
 
         private void OnTargetChanging(Transform newTarget)
         {

@@ -49,11 +49,11 @@ namespace ArenaHero
 
         private void AudioInit(ContainerDescriptor descriptor, Context context)
         {
-            var backgoundAudio = new GameObject(nameof(AudioSource)).AddComponent<AudioSource>();
-            var gameAudio = backgoundAudio.gameObject.AddComponent<AudioSource>();
-            DontDestroyOnLoad(backgoundAudio);
+            var backgroundAudio = new GameObject(nameof(AudioSource)).AddComponent<AudioSource>();
+            var gameAudio = backgroundAudio.gameObject.AddComponent<AudioSource>();
+            DontDestroyOnLoad(backgroundAudio);
             _gameAudioHandler.Init();
-            var audioController = new AudioController(gameAudio, backgoundAudio, _gameAudioHandler, context);
+            var audioController = new AudioController(gameAudio, backgroundAudio, _gameAudioHandler, context);
 
 
             descriptor.AddInstance(audioController, typeof(IAudioController));
@@ -61,22 +61,16 @@ namespace ArenaHero
 
         private GameStateMachine GameStateMachineInit()
         {
-            var windowStateMachine = new WindowStateMachine(() =>
+            var windowStateMachine = new WindowStateMachine(() => new Dictionary<Type, State<WindowStateMachine>>()
             {
-                return new Dictionary<Type, State<WindowStateMachine>>()
-                {
-                    [typeof(FightWindowState)] = new FightWindowState(),
-                    [typeof(OverWindowState)] = new OverWindowState()
-                };
+                [typeof(FightWindowState)] = new FightWindowState(),
+                [typeof(OverWindowState)] = new OverWindowState(),
             });
 
-            var gameStateMachine = new GameStateMachine(windowStateMachine, () =>
+            var gameStateMachine = new GameStateMachine(windowStateMachine, () => new Dictionary<Type, State<GameStateMachine>>()
             {
-                return new Dictionary<Type, State<GameStateMachine>>()
-                {
-                    [typeof(FightState)] = new FightState(windowStateMachine),
-                    [typeof(OverState)] = new OverState(windowStateMachine)
-                };
+                [typeof(FightState)] = new FightState(windowStateMachine),
+                [typeof(OverState)] = new OverState(windowStateMachine),
             });
 
             return gameStateMachine;
