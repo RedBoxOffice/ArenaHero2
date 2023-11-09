@@ -7,80 +7,54 @@ using UnityEngine;
 
 namespace ArenaHero.Battle.PlayableCharacter.Movement
 {
-    public class HeroHorizontalMover : HeroMover, IDisposable
-    {
-        [SerializeField] private FloatRange _distanceRange = new FloatRange(1, 10);
-        [SerializeField] private FloatRange _radiusRange = new FloatRange(1, 25);
-        [SerializeField] private AnimationCurve _angleCurve;
+	public class HeroHorizontalMover : HeroMover
+	{
+		[SerializeField] private HorizontalMove _radius;
+		[SerializeField] private HorizontalMove _distance;
 
-        private TargetChanger _targetChanger;
+		[Inject]
+		private void Inject(IMovementInputHandler handler)
+		{
+			InputHandler = handler;
+			InputHandler.Horizontal += OnMove;
+		}
 
-        public void Dispose()
-        {
-            if (_targetChanger != null)
-                _targetChanger.TargetChanging -= OnTargetChanging;
-        }
+		private void OnDisable() =>
+			InputHandler.Horizontal -= OnMove;
 
-        [Inject]
-        private void Inject(IMovementInputHandler handler, TargetChanger targetChanger)
-        {
-            InputHandler = handler;
-            InputHandler.Horizontal += OnMove;
+		protected override void OnMove(float direction)
+		{
+			if (MoveCoroutine != null)
+				return;
 
-            _targetChanger = targetChanger;
-            _targetChanger.TargetChanging += OnTargetChanging;
-        }
+			var targetPosition = Target.position;
 
-        protected override void OnMove(float direction)
-        {
-            if (MoveCoroutine != null)
-                return;
+			var radius = Vector3.Distance(SelfRigidbody.position, targetPosition);
 
-            var targetPosition = Target.position;
-            
-            var distance = GetMoveDistance(GetRadius());
+			var distance = _distance.DistanceRange.Min + _distance.GetNormalValue(radius) * _distance.DistanceDelta;
 
-            var defaultY = SelfRigidbody.position.y;
+			var selfStartPosition = SelfRigidbody.position;
 
-            var angle = (distance * 360) / (2 * Mathf.PI * GetRadius());
+			var angle = (distance * 360) / (2 * Mathf.PI * radius);
 
-            MoveCoroutine = StartCoroutine(Move(() => true, 
-                (currentTime) =>
-                {
-                    var rotation = Quaternion.Euler(0f, angle * currentTime * -direction, 0f);
-                    
-                    var newPosition = targetPosition + 
-                        (rotation * (SelfRigidbody.position - targetPosition).normalized * GetRadius(targetPosition));
+			MoveCoroutine = StartCoroutine(Move(() => true,
+				(normalTime) =>
+				{
+					var currentAngle = Mathf.Lerp(0f, angle, normalTime);
+					var rotation = Quaternion.Euler(0f, currentAngle * -direction, 0f);
 
-                    newPosition.y = defaultY;
+					radius *= _radius.GetNormalValue(radius);
 
-                    LookTarget();
+					var newPosition = targetPosition +
+						rotation * (selfStartPosition - targetPosition).normalized * radius;
 
-                    return newPosition;
-                }));
-        }
+					newPosition.y = selfStartPosition.y;
 
-        private float GetRadius() =>
-            Vector3.Distance(SelfRigidbody.position, Target.position);
-        
-        private float GetRadius(Vector3 targetPosition) =>
-            Vector3.Distance(SelfRigidbody.position, targetPosition);
+					LookTarget();
 
-        private void OnTargetChanging(Transform newTarget)
-        {
-            //Vector3 offset = SelfRigidbody.position - newTarget.position;
-            //Target = newTarget;
-            //SelfRigidbody.position = Target.position + offset;
-        }
-
-        private float GetMoveDistance(float radius)
-        {
-            var deltaRadius = _radiusRange.Max - _radiusRange.Min;
-
-            var normalRadius = Mathf.Clamp01(radius / deltaRadius);
-            var normalDistance = _angleCurve.Evaluate(normalRadius);
-
-            return Mathf.Clamp(_distanceRange.Min + normalDistance, _distanceRange.Min, _distanceRange.Max);
-        }
-    }
+					return newPosition;
+				}
+			));
+		}
+	}
 }
