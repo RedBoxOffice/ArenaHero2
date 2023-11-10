@@ -38,7 +38,7 @@ namespace ArenaHero.Utils.StateMachine
         {
             var transition = new Transition<TMachine, TTargetState>(_stateMachine, reloadScene);
 
-            subject.Action += transition.Transit;
+            subject.ActionEnded += transition.Transit;
 
             _subscribtions.Add(new Subscription(subject, transition.Transit));
         }
@@ -46,13 +46,13 @@ namespace ArenaHero.Utils.StateMachine
         private void Subscribe()
         {
             foreach (var action in _subscribtions)
-                action.Subject.Action += action.Observer;
+                action.Subject.ActionEnded += action.Observer;
         }
 
         private void UnSubscribe()
         {
             foreach (var action in _subscribtions)
-                action.Subject.Action -= action.Observer;
+                action.Subject.ActionEnded -= action.Observer;
         }
     }
 }

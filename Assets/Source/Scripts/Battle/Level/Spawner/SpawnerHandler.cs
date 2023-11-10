@@ -27,7 +27,7 @@ namespace ArenaHero.Battle.Level
         private void OnDisable()
         {
             if (_waveHandler != null)
-                _waveHandler.Spawn -= OnSpawn;
+                _waveHandler.Spawning -= OnSpawning;
         }
 
         [Inject]
@@ -35,10 +35,10 @@ namespace ArenaHero.Battle.Level
         {
             _waveHandler = waveHandler;
             _target = hero;
-            _waveHandler.Spawn += OnSpawn;
+            _waveHandler.Spawning += OnSpawning;
         }
 
-        private void OnSpawn(Enemy enemy)
+        private void OnSpawning(Enemy enemy)
         {
             var init = new EnemyInit()
             {

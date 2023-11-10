@@ -1,19 +1,18 @@
-﻿using Agava.YandexGames;
+﻿using System;
+using System.Collections;
+using Agava.YandexGames;
 using ArenaHero.Yandex.Saves.Data;
 using ArenaHero.Yandex.Simulator;
-using System;
-using System.Collections;
-using System.Linq;
 using UnityEngine;
 
 namespace ArenaHero.Yandex.Saves
 {
     public class GamePlayerDataSaver : ISaver
     {
-        private PlayerData _playerData = new();
-        private YandexSimulator _yandexSimulator = new();
-        private Hashtable _accessMethodsHolders;
-        private Hashtable _playerDataEvents;
+        private readonly PlayerData _playerData = new PlayerData();
+        private readonly YandexSimulator _yandexSimulator = new YandexSimulator();
+        private readonly Hashtable _accessMethodsHolders;
+        private readonly Hashtable _playerDataEvents;
 
         public GamePlayerDataSaver()
         {
@@ -25,22 +24,17 @@ namespace ArenaHero.Yandex.Saves
                     getter: (_) => _playerData.CurrentLevel,
                     setter: (value) =>
                     {
-                        if (value == default)
+                        if (value == default(CurrentLevel))
                             throw new ArgumentNullException(nameof(value));
 
-                        if (_playerData.CurrentLevel.Index != value.Index)
-                        {
-                            _playerData.CurrentLevel = value;
-                            Save((Action<CurrentLevel>)_playerDataEvents[typeof(CurrentLevel)], value);
-                        }
-                    })
+                        if (_playerData.CurrentLevel.Index == value.Index)
+                            return;
+                        
+                        _playerData.CurrentLevel = value;
+                        Save((Action<CurrentLevel>)_playerDataEvents[typeof(CurrentLevel)], value);
+                    }
+                )
             };
-        }
-
-        [Serializable]
-        private class PlayerData
-        {
-            public CurrentLevel CurrentLevel = new(4);
         }
 
         public TData Get<TData>(TData value = default) where TData : class, IPlayerData
@@ -98,26 +92,29 @@ namespace ArenaHero.Yandex.Saves
                 throw new ArgumentNullException($"{nameof(GamePlayerDataSaver)} VALUE UPDATED");
             }
         }
-
+        
         public void Init()
         {
-            void onSuccessCallback(string data)
+#if !UNITY_EDITOR
+            PlayerAccount.GetCloudSaveData(OnSuccessCallback);
+#else
+            _yandexSimulator.Init(OnSuccessCallback);
+#endif
+
+            return;
+
+            void OnSuccessCallback(string data)
             {
                 var playerData = JsonUtility.FromJson<PlayerData>(data);
 
                 Set(playerData.CurrentLevel);
             }
-
-#if !UNITY_EDITOR
-            PlayerAccount.GetCloudSaveData(onSuccessCallback);
-#else
-            _yandexSimulator.Init(onSuccessCallback);
-#endif
         }
 
         private void Save()
         {
             string save = JsonUtility.ToJson(_playerData);
+            
 #if !UNITY_EDITOR
             PlayerAccount.SetCloudSaveData(save);
 #else

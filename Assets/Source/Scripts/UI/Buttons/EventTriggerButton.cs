@@ -6,16 +6,18 @@ namespace ArenaHero.UI
 {
     public abstract class EventTriggerButton : MonoBehaviour, ISubject
     {
-        public bool IsInteractable = true;
+        [SerializeField] private bool _isInteractable = true;
+        
+        public bool IsInteractable { get => _isInteractable; set => _isInteractable = value; }
 
-        public virtual event Action Action;
+        public virtual event Action ActionEnded;
 
         public virtual void OnClick()
         {
-            if (!IsInteractable)
+            if (!_isInteractable)
                 return;
-
-            Action?.Invoke();
+            
+            ActionEnded?.Invoke();
         }
     }
 }

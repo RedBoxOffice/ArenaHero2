@@ -7,58 +7,55 @@ using UnityEngine;
 
 namespace ArenaHero.Battle.Level
 {
-    public class WaveHandler : MonoBehaviour
-    {
-        private LevelData _currentLevelData;
-        private WaveData _currentWaveData;
+	public class WaveHandler : MonoBehaviour
+	{
+		private LevelData _currentLevelData;
+		private WaveData _currentWaveData;
 
-        private int _currentWaveIndex = 0;
-        private bool _isFight = true;
+		private int _currentWaveIndex = 0;
+		private bool _isFight = true;
 
-        public event Action<Enemy> Spawn;
+		[Inject]
+		private void Inject(LevelData levelData, IEndLevelStateChanged endLevel)
+		{
+			_currentLevelData = levelData;
+			_currentWaveData = _currentLevelData.GetWaveData(_currentWaveIndex);
+			endLevel.StateChanged += () => _isFight = false;
+		}
 
-        [Inject]
-        private void Inject(LevelData levelData, IOverFight over)
-        {
-            _currentLevelData = levelData;
-            _currentWaveData = _currentLevelData.GetWaveData(_currentWaveIndex);
-            over.Over += () => _isFight = false;
-        }
+		public event Action<Enemy> Spawning;
 
-        public void Start()
-        {
-            StartCoroutine(Fight());
-        }
+		public void Start() =>
+			StartCoroutine(Fight());
 
-        private IEnumerator Fight()
-        {
-            var waitNextSpawn = new WaitForSeconds(_currentWaveData.DelayBetweenSpawns);
+		private IEnumerator Fight()
+		{
+			var waitNextSpawn = new WaitForSeconds(_currentWaveData.DelayBetweenSpawns);
 
-            while (_isFight)
-            {
-                for (int i = 0; i < _currentWaveData.CountSpawns; i++)
-                {
-                    Spawn?.Invoke(_currentWaveData.GetEnemyForSpawn);
+			while (_isFight)
+			{
+				for (var i = 0; i < _currentWaveData.CountSpawns; i++)
+				{
+					Spawning?.Invoke(_currentWaveData.GetEnemyForSpawn);
 
-                    yield return waitNextSpawn;
-                }
+					yield return waitNextSpawn;
+				}
 
-                if (!TryChangeWave())
-                    _isFight = false;
-            }
-        }
+				if (!TryChangeWave())
+					_isFight = false;
+			}
+		}
 
-        private bool TryChangeWave()
-        {
-            _currentWaveIndex++;
+		private bool TryChangeWave()
+		{
+			_currentWaveIndex++;
 
-            if (_currentWaveIndex < _currentLevelData.WaveCount)
-            {
-                _currentWaveData = _currentLevelData.GetWaveData(_currentWaveIndex);
-                return true;
-            }
-            
-            return false;
-        }
-    }
+			if (_currentWaveIndex >= _currentLevelData.WaveCount)
+				return false;
+			
+			_currentWaveData = _currentLevelData.GetWaveData(_currentWaveIndex);
+			
+			return true;
+		}
+	}
 }

@@ -26,7 +26,7 @@ namespace ArenaHero
 
             var gameStateMachine = GameStateMachineInit();
 
-            descriptor.AddInstance(gameStateMachine.TryGetState<OverState>(), typeof(IOverFight));
+            descriptor.AddInstance(gameStateMachine.TryGetState<EndLevelState>(), typeof(IEndLevelStateChanged));
 
             YandexInit(descriptor, context, gameStateMachine);
         }
@@ -65,12 +65,14 @@ namespace ArenaHero
             {
                 [typeof(FightWindowState)] = new FightWindowState(),
                 [typeof(OverWindowState)] = new OverWindowState(),
+                [typeof(MenuWindowState)] = new MenuWindowState(),
             });
 
             var gameStateMachine = new GameStateMachine(windowStateMachine, () => new Dictionary<Type, State<GameStateMachine>>()
             {
                 [typeof(FightState)] = new FightState(windowStateMachine),
-                [typeof(OverState)] = new OverState(windowStateMachine),
+                [typeof(EndLevelState)] = new EndLevelState(windowStateMachine),
+                [typeof(MenuState)] = new MenuState(windowStateMachine),
             });
 
             return gameStateMachine;

@@ -11,32 +11,25 @@ namespace ArenaHero.Utils.StateMachine
 
         public State<TMachine> CurrentState { get; private set; }
 
-        public StateMachine(Func<Dictionary<Type, State<TMachine>>> getStates) => _state = getStates();
+        protected StateMachine(Func<Dictionary<Type, State<TMachine>>> getStates) => _state = getStates();
 
-        public void Dispose()
-        {
+        public void Dispose() =>
             CurrentState?.Exit();
-        }
 
-        public virtual void EnterIn<TState>() where TState : State<TMachine>
+        public void EnterIn<TState>() where TState : State<TMachine>
         {
             if (_state.ContainsKey(typeof(TState)) == false)
                 throw new NullReferenceException(nameof(_state));
 
-            if (_state.TryGetValue(typeof(TState), out State<TMachine> state))
-            {
-                CurrentState?.Exit();
-                CurrentState = state;
-                CurrentState.Enter();
-            }
+            if (!_state.TryGetValue(typeof(TState), out var state))
+                return;
+            
+            CurrentState?.Exit();
+            CurrentState = state;
+            CurrentState.Enter();
         }
 
-        protected State<TMachine> TryGetState(Type stateType)
-        {
-            if (_state.TryGetValue(stateType, out State<TMachine> state))
-                return state;
-            else 
-                return null;
-        }
+        protected State<TMachine> TryGetState(Type stateType) =>
+            _state.TryGetValue(stateType, out var state) ? state : null;
     }
 }
