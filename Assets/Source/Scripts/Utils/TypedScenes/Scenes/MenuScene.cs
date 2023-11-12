@@ -23,7 +23,7 @@ namespace ArenaHero.Utils.TypedScenes
             where TState : State<GameStateMachine>
         
         {
-            LoadScene<TState, T>(_sceneName, loadSceneMode, machine, argument);
+            LoadScene<TState, T>(_sceneName, loadSceneMode, machine, argument = default);
         }
     }
 }

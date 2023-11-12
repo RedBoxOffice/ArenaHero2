@@ -30,9 +30,7 @@ namespace ArenaHero.Utils.TypedScenes.Editor
 
             AddConstantValue(targetClass, typeof(string), "_sceneName", sceneName);
 
-            AddLoadingMethod(targetClass);
-            AddLoadingMethod(targetClass, asyncLoad: true);
-            AddLoadingMethod(targetClass, isStateLoad: true, machine: typeof(GameStateMachine));
+            AddLoadingMethod(targetClass, machine: typeof(GameStateMachine));
 
             targetNamespace.Types.Add(targetClass);
             targetUnit.Namespaces.Add(targetNamespace);
@@ -61,7 +59,7 @@ namespace ArenaHero.Utils.TypedScenes.Editor
         }
 
         private static void AddLoadingMethod(CodeTypeDeclaration targetClass, bool asyncLoad = false,
-                                             bool isStateLoad = false, Type machine = null)
+                                             Type machine = null)
         {
             var loadMethod = new CodeMemberMethod
             {
@@ -69,41 +67,29 @@ namespace ArenaHero.Utils.TypedScenes.Editor
                 Attributes = MemberAttributes.Public | MemberAttributes.Static
             };
 
-            var loadingStatement = "LoadScene";
+            var loadingStatement = "LoadScene<TState, T>(_sceneName, loadSceneMode";
 
-            if (isStateLoad)
-                loadingStatement += "<TState, T>";
+            AddParameter(nameof(GameStateMachine), nameof(machine));
+            
+            var targetTypeParameter = new CodeTypeParameter("TState");
 
-            loadingStatement += "(_sceneName, loadSceneMode";
+            var tstate = new CodeTypeReference("State");
+            tstate.TypeArguments.Add(new CodeTypeReference(nameof(GameStateMachine)));
 
-            if (isStateLoad)
-            {
-                if (machine != null)
-                    AddParameter(nameof(GameStateMachine), nameof(machine));
+            targetTypeParameter.Constraints.Add(tstate);
 
-                var targetTypeParameter = new CodeTypeParameter("TState");
+            loadMethod.TypeParameters.Add(targetTypeParameter);
+            loadMethod.TypeParameters.Add(new CodeTypeParameter("T"));
 
-                var tstate = new CodeTypeReference("State");
-                tstate.TypeArguments.Add(new CodeTypeReference(nameof(GameStateMachine)));
+            AddParameter("T", "argument = default");
 
-                targetTypeParameter.Constraints.Add(tstate);
-
-                loadMethod.TypeParameters.Add(targetTypeParameter);
-                loadMethod.TypeParameters.Add(new CodeTypeParameter("T"));
-
-                AddParameter("T", "argument");
-            }
-
-            //if (parameterType != null)
-            //    AddParameter("T", "argument");
-
+            loadingStatement += ")";
+            
             if (asyncLoad)
             {
                 loadMethod.ReturnType = new CodeTypeReference(typeof(AsyncOperation));
                 loadingStatement = "return " + loadingStatement;
             }
-
-            loadingStatement += ")";
 
             var loadingModeParameter = new CodeParameterDeclarationExpression(nameof(LoadSceneMode), "loadSceneMode = LoadSceneMode.Single");
             loadMethod.Parameters.Add(loadingModeParameter);

@@ -14,10 +14,10 @@ namespace ArenaHero.Utils.TypedScenes
     using ArenaHero.Utils.StateMachine;
     
     
-    public class InitializeScene : TypedScene<ArenaHero.Utils.StateMachine.GameStateMachine>
+    public class ControlScene : TypedScene<ArenaHero.Utils.StateMachine.GameStateMachine>
     {
         
-        private const string _sceneName = "InitializeScene";
+        private const string _sceneName = "ControlScene";
         
         public static void Load<TState, T>(GameStateMachine machine, T argument = default, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
             where TState : State<GameStateMachine>
