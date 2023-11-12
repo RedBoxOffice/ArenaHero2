@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace ArenaHero.Game.Level
 {
-	public class LevelLoader : MonoBehaviour, ISceneLoadHandlerOnState<GameStateMachine>
+	public class LevelLoader : MonoBehaviour, ISceneLoadHandlerOnState<GameStateMachine, object>
 	{
 		[SerializeField] private List<LevelData> _levels;
 
@@ -24,7 +24,7 @@ namespace ArenaHero.Game.Level
 		public void OnFightButtonClick() =>
 			FightScene.Load<FightState, LevelData>(_gameStateMachine, _levels[_getCurrentLevel().Index]);
 
-		public void OnSceneLoaded<TState>(GameStateMachine machine) where TState : State<GameStateMachine> =>
+		public void OnSceneLoaded<TState>(GameStateMachine machine, object argument = default) where TState : State<GameStateMachine> =>
 			_gameStateMachine = machine;
 	}
 }

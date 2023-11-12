@@ -51,18 +51,23 @@ namespace ArenaHero.Utils.TypedScenes.Editor
 
         private static void AddConstantValue(CodeTypeDeclaration targetClass, Type type, string name, string value)
         {
-            var pathConstant = new CodeMemberField(type, name);
-            pathConstant.Attributes = MemberAttributes.Private | MemberAttributes.Const;
-            pathConstant.InitExpression = new CodePrimitiveExpression(value);
+            var pathConstant = new CodeMemberField(type, name)
+            {
+                Attributes = MemberAttributes.Private | MemberAttributes.Const,
+                InitExpression = new CodePrimitiveExpression(value)
+            };
+            
             targetClass.Members.Add(pathConstant);
         }
 
         private static void AddLoadingMethod(CodeTypeDeclaration targetClass, bool asyncLoad = false,
                                              bool isStateLoad = false, Type machine = null)
         {
-            var loadMethod = new CodeMemberMethod();
-            loadMethod.Name = asyncLoad ? "LoadAsync" : "Load";
-            loadMethod.Attributes = MemberAttributes.Public | MemberAttributes.Static;
+            var loadMethod = new CodeMemberMethod
+            {
+                Name = asyncLoad ? "LoadAsync" : "Load",
+                Attributes = MemberAttributes.Public | MemberAttributes.Static
+            };
 
             var loadingStatement = "LoadScene";
 
@@ -70,13 +75,6 @@ namespace ArenaHero.Utils.TypedScenes.Editor
                 loadingStatement += "<TState, T>";
 
             loadingStatement += "(_sceneName, loadSceneMode";
-
-            void AddParameter(string type, string argumentName)
-            {
-                var parameter = new CodeParameterDeclarationExpression(type, argumentName);
-                loadMethod.Parameters.Add(parameter);
-                loadingStatement += $", {argumentName}";
-            }
 
             if (isStateLoad)
             {
@@ -111,6 +109,14 @@ namespace ArenaHero.Utils.TypedScenes.Editor
             loadMethod.Parameters.Add(loadingModeParameter);
             loadMethod.Statements.Add(new CodeSnippetExpression(loadingStatement));
             targetClass.Members.Add(loadMethod);
+            return;
+
+            void AddParameter(string type, string argumentName)
+            {
+                var parameter = new CodeParameterDeclarationExpression(type, argumentName);
+                loadMethod.Parameters.Add(parameter);
+                loadingStatement += $", {argumentName}";
+            }
         }
     }
 }

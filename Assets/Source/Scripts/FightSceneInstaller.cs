@@ -6,11 +6,12 @@ using ArenaHero.Utils.TypedScenes;
 using Reflex.Core;
 using UnityEngine;
 using ArenaHero.Battle.PlayableCharacter;
+using ArenaHero.Game.Level;
 using ArenaHero.InputSystem;
 
 namespace ArenaHero
 {
-    public class FightSceneInstaller : MonoBehaviour, IInstaller
+    public class FightSceneInstaller : MonoBehaviour, IInstaller, ISceneLoadHandlerOnState<GameStateMachine, LevelData>
     {
         [SerializeField] private DetectedZone _detectedZone;
         [SerializeField] private LookTargetPoint _lookTargetPoint;
@@ -18,6 +19,8 @@ namespace ArenaHero
         [SerializeField] private WaveHandler _waveHandler;
         [SerializeField] private Hero _hero;
 
+        private LevelInitializer _levelInitializer;
+        
         public void InstallBindings(ContainerDescriptor descriptor)
         {
             var inputInstaller = GetComponent<InputHandlerInstaller>();
@@ -34,5 +37,8 @@ namespace ArenaHero
             descriptor.AddInstance(_waveHandler);
             descriptor.AddInstance(_hero);
         }
+        public void OnSceneLoaded<TState>(GameStateMachine machine, LevelData argument = default)
+            where TState : State<GameStateMachine> =>
+            _levelInitializer = new LevelInitializer(argument, _waveHandler, _hero);
     }
 }

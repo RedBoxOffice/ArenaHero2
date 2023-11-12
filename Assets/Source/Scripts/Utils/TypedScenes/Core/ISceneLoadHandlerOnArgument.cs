@@ -1,7 +1,7 @@
 ﻿namespace ArenaHero.Utils.TypedScenes
 {
-    public interface ISceneLoadHandlerOnArgument<T>
+    public interface ISceneLoadHandlerOnArgument
     {
-        void OnSceneLoaded(T argument);
+        void OnSceneLoaded(int argument);
     }
 }

@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _waveData:
   - {fileID: 11400000, guid: 4f42f44c30b7dca4b8124323f76b1276, type: 2}
+  _environmentParent: {fileID: 4686233062094345343, guid: 143bba11bfd92174a898aac9f0fd283f, type: 3}
+  _spawnPointsHandler: {fileID: 2433738980480902237, guid: 4167a507662d0d841b5b5ba2a682176c, type: 3}
+  _navMeshData: {fileID: 23800000, guid: 2b8e8c83ce286e04cbfb08981efc1448, type: 2}

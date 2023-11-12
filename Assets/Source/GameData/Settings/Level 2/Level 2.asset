@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256eabdf900097a4fbeb2bcd80a3fac9, type: 3}
+  m_Name: Level 2
+  m_EditorClassIdentifier: 
+  _waveData:
+  - {fileID: 11400000, guid: 4f42f44c30b7dca4b8124323f76b1276, type: 2}
+  _environmentParent: {fileID: 1291535892338626167, guid: 827bcab8e79b01c4cab4ae1aee2a18d6, type: 3}
+  _spawnPointsHandler: {fileID: 5778740915496397363, guid: 2ac8fd8e3c5142149baa807ad91fce5d, type: 3}
+  _navMeshData: {fileID: 23800000, guid: 2ec729e066b2fe7438ecc7a934a79cfd, type: 2}

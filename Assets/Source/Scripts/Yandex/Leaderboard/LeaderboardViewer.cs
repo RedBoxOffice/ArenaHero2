@@ -7,7 +7,6 @@ using ArenaHero.Yandex.Simulator;
 using Reflex.Attributes;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace ArenaHero.Yandex.Leaderboard
 {
@@ -133,55 +132,57 @@ namespace ArenaHero.Yandex.Leaderboard
 
         private void SetScore(LevelInfo levelInfo)
         {
-#if !UNITY_EDITOR
-            int levelIndex = _saver.Get<CurrentLevel>().Index;
-
-            int score = levelInfo.BestScore;
-            if (PlayerAccount.IsAuthorized)
-            Leaderboard.SetScore(GetLeaderboardName(), score);
-#endif
+// #if !UNITY_EDITOR
+//             int levelIndex = _saver.Get<CurrentLevel>().Index;
+//
+//             int score = levelInfo.BestScore;
+//             if (PlayerAccount.IsAuthorized)
+//             Leaderboard.SetScore(GetLeaderboardName(), score);
+// #endif
         }
 
         private IEnumerator UpdateEntries()
         {
-            bool isSuccess = false;
+            // bool isSuccess = false;
 
-#if !UNITY_EDITOR
-        Leaderboard.GetEntries(
-            GetLeaderboardName(),
-            (result) =>
-            {
-                _allPlayers = result.entries;
-                isSuccess = true;
-            });
-#else
-            _allPlayers = _yandexSimulator.GetLeaderboardAllPlayers();
-            isSuccess = true;
-#endif
-
-            while (!isSuccess)
-                yield return null;
+// #if !UNITY_EDITOR
+//         Leaderboard.GetEntries(
+//             GetLeaderboardName(),
+//             (result) =>
+//             {
+//                 _allPlayers = result.entries;
+//                 isSuccess = true;
+//             });
+// #else
+//             _allPlayers = _yandexSimulator.GetLeaderboardAllPlayers();
+//             isSuccess = true;
+// #endif
+//
+//             while (!isSuccess)
+//                 yield return null;
+            yield return null;
         }
 
         private IEnumerator UpdatePlayerEntry()
         {
-            bool isSuccess = false;
-
-#if !UNITY_EDITOR
-        Leaderboard.GetPlayerEntry(
-            GetLeaderboardName(),
-            (result) =>
-            {
-                _playerEntry = result;
-                isSuccess = true;
-            });
-#else
-            _playerEntry = _yandexSimulator.GetLeaderboardPlayerEntry();
-            isSuccess = true;
-#endif
-
-            while (!isSuccess)
-                yield return null;
+//             bool isSuccess = false;
+//
+// #if !UNITY_EDITOR
+//         Leaderboard.GetPlayerEntry(
+//             GetLeaderboardName(),
+//             (result) =>
+//             {
+//                 _playerEntry = result;
+//                 isSuccess = true;
+//             });
+// #else
+//             _playerEntry = _yandexSimulator.GetLeaderboardPlayerEntry();
+//             isSuccess = true;
+// #endif
+//
+//             while (!isSuccess)
+//                 yield return null;
+            yield return null;
         }
 
         private string GetLocalizationAnonymousName()

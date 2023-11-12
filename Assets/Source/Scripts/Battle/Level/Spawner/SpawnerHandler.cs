@@ -1,7 +1,6 @@
 ﻿using ArenaHero.Battle.PlayableCharacter;
 using ArenaHero.Data;
 using ArenaHero.Utils.Object;
-using Reflex.Attributes;
 using UnityEngine;
 
 namespace ArenaHero.Battle.Level
@@ -14,8 +13,7 @@ namespace ArenaHero.Battle.Level
         private ObjectSpawner<EnemyInit> _spawner;
         private Hero _target;
 
-        [Inject]
-        private void Inject(WaveHandler waveHandler, Hero hero)
+        public void Init(WaveHandler waveHandler, Hero hero)
         {
             _waveHandler = waveHandler;
             _target = hero;
