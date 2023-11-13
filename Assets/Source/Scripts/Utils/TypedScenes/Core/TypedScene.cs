@@ -9,8 +9,6 @@ namespace ArenaHero.Utils.TypedScenes
         protected static AsyncOperation LoadScene<TState, T>(string sceneName, LoadSceneMode loadSceneMode, TMachine machine, T argument = default)
             where TState : State<TMachine>
         {
-            Debug.Log($"typed leveldata = {argument != null}");
-            
             LoadingProcessor.Instance.RegisterLoadingModel<TMachine, TState, T>(machine, argument);
 
             return SceneManager.LoadSceneAsync(sceneName, loadSceneMode);

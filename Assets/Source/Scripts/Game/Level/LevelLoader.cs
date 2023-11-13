@@ -23,8 +23,6 @@ namespace ArenaHero.Game.Level
 
 		public void OnFightButtonClick()
 		{
-			Debug.Log($"leveldata loading = {_levels[_getCurrentLevel().Index] != null}");
-			
 			FightScene.Load<FightState, LevelData>(_gameStateMachine, _levels[_getCurrentLevel().Index]);
 		}
 

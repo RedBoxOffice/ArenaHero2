@@ -1,4 +1,6 @@
-﻿namespace ArenaHero.Utils.StateMachine
+﻿using UnityEngine;
+
+namespace ArenaHero.Utils.StateMachine
 { 
     public abstract class WindowState : State<WindowStateMachine>
     {
@@ -14,7 +16,8 @@
 
         public override void Exit()
         {
-            _window.gameObject.SetActive(false);
+            if (_window != null)
+                _window.gameObject.SetActive(false);
         }
     }
 }

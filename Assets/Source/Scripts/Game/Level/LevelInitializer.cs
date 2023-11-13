@@ -14,8 +14,6 @@ namespace ArenaHero.Game.Level
 		
 		public LevelInitializer(LevelData levelData, WaveHandler waveHandler, Hero hero)
 		{
-			Debug.Log($" inject leveldata = {levelData != null}");
-			
 			var spawnerHandler = Object.Instantiate(levelData.SpawnPointsHandler).gameObject.GetComponent<SpawnerHandler>();
 			
 			spawnerHandler.Init(waveHandler, hero);
