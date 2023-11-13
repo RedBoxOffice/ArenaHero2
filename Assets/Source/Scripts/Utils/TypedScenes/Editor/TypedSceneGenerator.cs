@@ -81,7 +81,7 @@ namespace ArenaHero.Utils.TypedScenes.Editor
             loadMethod.TypeParameters.Add(targetTypeParameter);
             loadMethod.TypeParameters.Add(new CodeTypeParameter("T"));
 
-            AddParameter("T", "argument = default");
+            AddParameter("T", "argument",  " = default");
 
             loadingStatement += ")";
             
@@ -96,10 +96,10 @@ namespace ArenaHero.Utils.TypedScenes.Editor
             loadMethod.Statements.Add(new CodeSnippetExpression(loadingStatement));
             targetClass.Members.Add(loadMethod);
             return;
-
-            void AddParameter(string type, string argumentName)
+            
+            void AddParameter(string type, string argumentName, string defaultArgumentValue = "")
             {
-                var parameter = new CodeParameterDeclarationExpression(type, argumentName);
+                var parameter = new CodeParameterDeclarationExpression(type, argumentName + defaultArgumentValue);
                 loadMethod.Parameters.Add(parameter);
                 loadingStatement += $", {argumentName}";
             }

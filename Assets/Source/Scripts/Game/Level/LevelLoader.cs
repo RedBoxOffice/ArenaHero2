@@ -21,8 +21,12 @@ namespace ArenaHero.Game.Level
 		private void Inject(ISaver saver) =>
 			_getCurrentLevel = () => saver.Get<CurrentLevel>();
 
-		public void OnFightButtonClick() =>
+		public void OnFightButtonClick()
+		{
+			Debug.Log($"leveldata loading = {_levels[_getCurrentLevel().Index] != null}");
+			
 			FightScene.Load<FightState, LevelData>(_gameStateMachine, _levels[_getCurrentLevel().Index]);
+		}
 
 		public void OnSceneLoaded<TState>(GameStateMachine machine, object argument = default) where TState : State<GameStateMachine> =>
 			_gameStateMachine = machine;
