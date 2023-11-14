@@ -22,7 +22,10 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
         public void Init(LookTargetPoint lookTargetPoint) =>
             _target = lookTargetPoint.transform;
         
-        protected abstract void OnMove(float direction);
+        protected virtual void OnMove(float direction) =>
+            OnMove(direction, null);
+
+        protected abstract void OnMove(float direction, Action callBack);        
 
         protected void LookTarget()
         {
@@ -31,14 +34,17 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
             SelfRigidbody.MoveRotation(Quaternion.Euler(0f, Vector3.SignedAngle(Vector3.forward, offset, Vector3.up), 0f));
         }
 
-        protected IEnumerator Move(Func<bool> canMove, Func<float, Vector3> calculatePosition, Action endMoveCallBack = null)
+        protected IEnumerator Move(Func<bool> canMove, Func<float, Vector3> calculatePosition, Action endMoveCallBack = null, Action noCanMoveCallBack = null)
         {
             float currentTime = 0;
 
             while (currentTime <= _timeToTarget)
             {
                 if (!canMove())
+                {
+                    noCanMoveCallBack?.Invoke();
                     break;
+                }
 
                 SelfRigidbody.MovePosition(calculatePosition(currentTime / _timeToTarget));
 
