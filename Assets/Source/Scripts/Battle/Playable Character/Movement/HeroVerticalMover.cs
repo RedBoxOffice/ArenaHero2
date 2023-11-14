@@ -21,7 +21,7 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
         private void OnDisable() =>
             InputHandler.Vertical -= OnMove;
 
-        protected override void OnMove(float direction)
+        protected override void OnMove(float direction, Action callBack = null)
         {
             if (MoveCoroutine != null)
                 return;
@@ -36,7 +36,11 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
                 () => DistanceToTarget > 5 || direction == -1,
                 (normalTime) =>
                     Vector3.Lerp(startPosition, targetPosition, normalTime),
-                LookTarget));
+                () =>
+                {
+                    LookTarget();
+                    callBack?.Invoke();
+                }));
         }
     }
 }
