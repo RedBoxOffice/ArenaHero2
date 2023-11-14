@@ -8,13 +8,20 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
     [RequireComponent(typeof(Rigidbody))]
     public abstract class HeroMover : MonoBehaviour
     {
-        [SerializeField] protected float TimeToTarget;
-        [SerializeField] protected Transform Target;
-        [SerializeField] protected Rigidbody SelfRigidbody;
+        [SerializeField] private float _timeToTarget;
+        [SerializeField] private Transform _target;
+        [SerializeField] private Rigidbody _selfRigidbody;
 
         protected Coroutine MoveCoroutine;
         protected IMovementInputHandler InputHandler;
+        
+        protected Transform Target => _target;
+        
+        protected Rigidbody SelfRigidbody => _selfRigidbody;
 
+        public void Init(LookTargetPoint lookTargetPoint) =>
+            _target = lookTargetPoint.transform;
+        
         protected abstract void OnMove(float direction);
 
         protected void LookTarget()
@@ -28,12 +35,12 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
         {
             float currentTime = 0;
 
-            while (currentTime <= TimeToTarget)
+            while (currentTime <= _timeToTarget)
             {
                 if (!canMove())
                     break;
 
-                SelfRigidbody.MovePosition(calculatePosition(currentTime / TimeToTarget));
+                SelfRigidbody.MovePosition(calculatePosition(currentTime / _timeToTarget));
 
                 currentTime += Time.fixedDeltaTime;
 

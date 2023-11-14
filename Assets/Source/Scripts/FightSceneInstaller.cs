@@ -8,37 +8,58 @@ using UnityEngine;
 using ArenaHero.Battle.PlayableCharacter;
 using ArenaHero.Game.Level;
 using ArenaHero.InputSystem;
+using Cinemachine;
 
 namespace ArenaHero
 {
     public class FightSceneInstaller : MonoBehaviour, IInstaller, ISceneLoadHandlerOnState<GameStateMachine, LevelData>
     {
-        [SerializeField] private DetectedZone _detectedZone;
+        [SerializeField] private CinemachineVirtualCamera _virtualCamera;
         [SerializeField] private LookTargetPoint _lookTargetPoint;
         [SerializeField] private LevelData _levelData;
         [SerializeField] private WaveHandler _waveHandler;
-        [SerializeField] private Hero _hero;
+        [SerializeField] private Player _playerPrefab;
+        [SerializeField] private PlayerSpawnPoint _playerSpawnPoint;
 
-        private LevelInitializer _levelInitializer;
+        private Hero _hero;
         
+        private Hero Hero => GetHeroInitialized();
+
         public void InstallBindings(ContainerDescriptor descriptor)
         {
             var inputInstaller = GetComponent<InputHandlerInstaller>();
-            var inputHandler = inputInstaller.InstallBindings(_hero);
+            
+            _virtualCamera.Follow = Hero.gameObject.transform;
+
+            var detectedZone = Hero.gameObject.GetComponentInChildren<DetectedZone>();
+            
+            var inputHandler = inputInstaller.InstallBindings(Hero);
             descriptor.AddInstance(inputHandler, typeof(IMovementInputHandler), typeof(IActionsInputHandler));
 
-            var targetChangerInject = new TargetChangerInject(() => (_detectedZone, _lookTargetPoint, inputHandler));
-            TargetChanger targetChanger = new TargetChanger(targetChangerInject);
+            var targetChangerInject = new TargetChangerInject(() => (detectedZone, _lookTargetPoint, inputHandler));
+            var targetChanger = new TargetChanger(targetChangerInject);
             descriptor.AddInstance(targetChanger);
 
-            descriptor.AddInstance(_detectedZone);
+            descriptor.AddInstance(detectedZone);
 
             descriptor.AddInstance(_levelData);
             descriptor.AddInstance(_waveHandler);
-            descriptor.AddInstance(_hero);
+            descriptor.AddInstance(Hero);
         }
+        
         public void OnSceneLoaded<TState>(GameStateMachine machine, LevelData argument = default)
             where TState : State<GameStateMachine> =>
-            _levelInitializer = new LevelInitializer(argument, _waveHandler, _hero);
+            _ = new LevelInitializer(argument, _waveHandler, Hero);
+
+        private Hero SpawnPlayer() =>
+            Instantiate(_playerPrefab, _playerSpawnPoint.gameObject.transform.position, Quaternion.identity).GetComponentInChildren<Hero>();
+
+        private Hero GetHeroInitialized()
+        {
+            if (_hero == null)
+                _hero = SpawnPlayer().Init(_lookTargetPoint);
+
+            return _hero;
+        }
     }
 }
