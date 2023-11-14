@@ -14,17 +14,8 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
         public event Action<Enemy> EnemyDetected;
         public event Action<Enemy> EnemyLost;
 
-        public Enemy TryGetEnemy()
-        {
-            if (_enemies.Count != 0)
-            {
-                return _enemies[UnityEngine.Random.Range(0, _enemies.Count)];
-            }
-            else
-            {
-                return null;
-            }
-        }
+        public Enemy TryGetEnemy() =>
+            _enemies.Count != 0 ? _enemies[UnityEngine.Random.Range(0, _enemies.Count)] : null;
 
         private void OnTriggerEnter(Collider other)
         {
