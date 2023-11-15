@@ -1,4 +1,6 @@
-﻿using ArenaHero.InputSystem;
+﻿using ArenaHero.Battle.Skills;
+using ArenaHero.InputSystem;
+using Reflex.Attributes;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -14,7 +16,21 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
 
         protected Coroutine MoveCoroutine;
         protected IMovementInputHandler InputHandler;
-        
+
+        private DefaultAttackSkill _defaultAttackSkill;
+
+        [Inject]
+        private void Inject(DefaultAttackSkill defaultAttackSkill)
+        {
+            _defaultAttackSkill = defaultAttackSkill;
+            _defaultAttackSkill.TargetReach += OnMove;
+        }
+
+        private void OnDisable()
+        {
+            _defaultAttackSkill.TargetReach -= OnMove;
+        }
+
         protected Transform Target => _target;
         
         protected Rigidbody SelfRigidbody => _selfRigidbody;
