@@ -16,6 +16,8 @@ namespace ArenaHero.Game.Level
 		{
 			var spawnerHandler = Object.Instantiate(levelData.SpawnPointsHandler).gameObject.GetComponent<SpawnerHandler>();
 			
+			Debug.Log($"Hero Using");
+			
 			spawnerHandler.Init(waveHandler, hero);
 			
 			Object.Instantiate(levelData.EnvironmentParent);
