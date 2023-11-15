@@ -9,6 +9,7 @@ using ArenaHero.Battle.PlayableCharacter;
 using ArenaHero.Game.Level;
 using ArenaHero.InputSystem;
 using Cinemachine;
+using ArenaHero.Battle.Skills;
 
 namespace ArenaHero
 {
@@ -20,6 +21,7 @@ namespace ArenaHero
         [SerializeField] private WaveHandler _waveHandler;
         [SerializeField] private Player _playerPrefab;
         [SerializeField] private PlayerSpawnPoint _playerSpawnPoint;
+        [SerializeField] private DefaultAttackSkill _defaultAttackSkill;
 
         private Hero _hero;
         
@@ -42,6 +44,8 @@ namespace ArenaHero
 
             descriptor.AddInstance(detectedZone);
 
+            descriptor.AddInstance(_defaultAttackSkill);
+            descriptor.AddInstance(_lookTargetPoint);
             descriptor.AddInstance(_levelData);
             descriptor.AddInstance(_waveHandler);
             descriptor.AddInstance(Hero);
