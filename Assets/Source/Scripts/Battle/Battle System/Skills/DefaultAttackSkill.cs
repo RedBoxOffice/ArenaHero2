@@ -8,43 +8,40 @@ using UnityEngine;
 
 namespace ArenaHero.Battle.Skills
 {
-	public class DefaultAttackSkill : Skill
+	public class DefaultAttackSkill : Skill, IAttackable
 	{
-		private float _damage = 10f;
+		[SerializeField] private float _damage = 10f;
+		[SerializeField] private float _attackDistance = 5f;
+		
 		private IActionsInputHandler _inputHandler;
+		private ITargetHandler _targetHandler;
+		
+		private Transform Target => _targetHandler.Target;
 
-		private LookTargetPoint _lookTargetPoint;
-
-		public event Action<float, Action> TargetReach;
-		public event Action<float, Character> AttackEnemy;
-
-		[Inject]
-		private void Inject(IActionsInputHandler actionsInputHandler, LookTargetPoint lookTargetPoint)
+		private void Awake()
 		{
-			_lookTargetPoint = lookTargetPoint;
-			_inputHandler = actionsInputHandler;
-			_inputHandler.Attack += Run;
+			_targetHandler = GetComponentInParent<ITargetHandler>();
+			_inputHandler = GetComponentInParent<IActionsInputHandler>();
 		}
 
-		public override void Run()
-		{
-			Debug.Log("Mouse");
-			Attack();
-		}
-
-		private void Attack()
-		{
-			TargetReach?.Invoke(1, TryAttackEnemy);
-		}
+		public void Attack() =>
+			TryAttackEnemy();
 
 		private void TryAttackEnemy()
 		{
-			Debug.Log("Атака");
+			if (!Target.gameObject.transform.parent.gameObject.TryGetComponent(out ICharacter character))
+				return;
+			
+			if (CanAttack(character))
+				character.TakeDamage(_damage);
+		}
 
-			Enemy enemy = _lookTargetPoint.gameObject.GetComponentInParent<Enemy>();
-			Character character = enemy.gameObject.GetComponent<Character>();
-			AttackEnemy?.Invoke(_damage, character);
+		private bool CanAttack(ICharacter character)
+		{
+			if (character.Type != TriggerCharacterType)
+				return false;
 
+			return !(_attackDistance < Vector3.Distance(transform.position, character.Position));
 		}
 	}
 }

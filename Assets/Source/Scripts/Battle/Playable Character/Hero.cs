@@ -3,15 +3,16 @@ using UnityEngine;
 
 namespace ArenaHero.Battle.PlayableCharacter
 {
-    public class Hero : MonoBehaviour
+    public class Hero : MonoBehaviour, ITargetHandler
     {
+        private LookTargetPoint _lookTargetPoint;
+
+        public Transform Target => _lookTargetPoint.transform.parent.transform;
+        
         public Hero Init(LookTargetPoint lookTargetPoint)
         {
-            var movers = GetComponents<HeroMover>();
-
-            foreach (var mover in movers)
-                mover.Init(lookTargetPoint);
-
+            _lookTargetPoint = lookTargetPoint;
+            
             return this;
         }
     }

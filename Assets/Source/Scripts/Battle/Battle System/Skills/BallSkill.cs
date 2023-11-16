@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ArenaHero.Battle.Skills
 {
-    public class BallSkill : Skill
+    public class BallSkill : Skill, IUpdatableSkill 
     {
         [SerializeField] private Transform _centerTransform;
         [SerializeField] private GameObject _elementPrefab;
@@ -14,31 +14,42 @@ namespace ArenaHero.Battle.Skills
         [SerializeField] private float _speedRotation;
         [SerializeField, Range(-1, 1)] private int _directionAllRotation;
 
-        private List<GameObject> _elements = new();
+        private readonly List<GameObject> _elements = new List<GameObject>();
+        
         private float _currentAngleAllRotation = 0.01f;
         private Coroutine _updateCoroutine;
         private bool _isAlive;
-
-        public override void Run()
-        {
-            _isAlive = true;
-
-            if (_updateCoroutine != null)
-                StopCoroutine(_updateCoroutine);
-
-            CreateElements();
-
-            SetPositions();
-
-            _updateCoroutine = StartCoroutine(UpdateElements());
-        }
 
         private void OnValidate()
         {
             if (_directionAllRotation == 0)
                 _directionAllRotation = 1;
         }
+        
+        private void OnEnable()
+        {
+            _isAlive = true;
 
+            UpdateSkill();
+        }
+
+        private void OnDisable() =>
+            DeleteElements();
+
+        public void UpdateSkill()
+        {
+            if (_updateCoroutine != null)
+                StopCoroutine(_updateCoroutine);
+
+            DeleteElements();
+            
+            CreateElements();
+
+            SetPositions();
+
+            _updateCoroutine = StartCoroutine(UpdateElements());
+        }
+        
         private IEnumerator UpdateElements()
         {
             while (_isAlive)
@@ -61,12 +72,14 @@ namespace ArenaHero.Battle.Skills
 
         private void SetPositions()
         {
-            Vector3 position = new Vector3
+            const float maxCircleAngle = 360;
+            
+            var position = new Vector3
             {
                 x = _radius
             };
 
-            float angle = 360 / _countElements;
+            float angle = maxCircleAngle / _countElements;
 
             float currentAngle = 0;
 
@@ -76,6 +89,14 @@ namespace ArenaHero.Battle.Skills
 
                 currentAngle += angle;
             }
+        }
+
+        private void DeleteElements()
+        {
+            foreach (var element in _elements)
+                Destroy(element);
+            
+            _elements.Clear();
         }
     }
 }

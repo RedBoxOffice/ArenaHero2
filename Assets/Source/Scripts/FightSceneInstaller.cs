@@ -13,6 +13,7 @@ using ArenaHero.Battle.Skills;
 
 namespace ArenaHero
 {
+    [RequireComponent(typeof(FightSceneBeforeInitializer))]
     public class FightSceneInstaller : MonoBehaviour, IInstaller, ISceneLoadHandlerOnState<GameStateMachine, LevelData>
     {
         [SerializeField] private CinemachineVirtualCamera _virtualCamera;

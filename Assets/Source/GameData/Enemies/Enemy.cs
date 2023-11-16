@@ -1,12 +1,14 @@
 using ArenaHero.Utils.Object;
 using System;
+using ArenaHero.Battle;
 using UnityEngine;
 
 namespace ArenaHero.Data
 {
-    public abstract class Enemy : MonoBehaviour, IPoolingObject<EnemyInit>
+    public abstract class Enemy : MonoBehaviour, IPoolingObject<EnemyInit>, ITargetHandler
     {
         public GameObject SelfGameObject => gameObject;
+        
         public Transform Target { get; private set; }
 
         public abstract Type SelfType { get; }
