@@ -6,8 +6,8 @@ namespace ArenaHero.Battle.PlayableCharacter
     public class Hero : MonoBehaviour, ITargetHandler
     {
         private LookTargetPoint _lookTargetPoint;
-
-        public Transform Target => _lookTargetPoint.transform.parent.transform;
+        
+        public Target Target => _lookTargetPoint.Target;
         
         public Hero Init(LookTargetPoint lookTargetPoint)
         {

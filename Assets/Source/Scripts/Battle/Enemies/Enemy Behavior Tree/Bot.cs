@@ -7,13 +7,13 @@ namespace ArenaHero.Battle.Enemies.BehaviorTree
     {
         [SerializeField]
         private MonoBehaviour _inputSourceBehaviour;
-        private IBotInputhandler _inputSource;
+        private IBotInputHandler _inputSource;
 
         private NavMeshAgent _agent;
 
         private void Awake()
         {
-            _inputSource = (IBotInputhandler)_inputSourceBehaviour;
+            _inputSource = (IBotInputHandler)_inputSourceBehaviour;
             _agent = GetComponent<NavMeshAgent>();
         }
 
@@ -25,9 +25,9 @@ namespace ArenaHero.Battle.Enemies.BehaviorTree
 
         private void OnValidate()
         {
-            if (_inputSourceBehaviour && _inputSourceBehaviour is not IBotInputhandler)
+            if (_inputSourceBehaviour && _inputSourceBehaviour is not IBotInputHandler)
             {
-                Debug.LogError(nameof(_inputSourceBehaviour) + " needs to implement " + nameof(IBotInputhandler));
+                Debug.LogError(nameof(_inputSourceBehaviour) + " needs to implement " + nameof(IBotInputHandler));
                 _inputSourceBehaviour = null;
             }
         }

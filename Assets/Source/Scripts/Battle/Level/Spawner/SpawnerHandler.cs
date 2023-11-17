@@ -11,9 +11,9 @@ namespace ArenaHero.Battle.Level
         private WaveHandler _waveHandler;
         private SpawnPointsHandler _spawnPointsHandler;
         private ObjectSpawner<EnemyInit> _spawner;
-        private Hero _target;
+        private Target _target;
 
-        public void Init(WaveHandler waveHandler, Hero hero)
+        public void Init(WaveHandler waveHandler, Target hero)
         {
             _waveHandler = waveHandler;
             _target = hero;
@@ -39,7 +39,7 @@ namespace ArenaHero.Battle.Level
         {
             var init = new EnemyInit()
             {
-                Target = _target.transform
+                Target = _target
             };
 
             _spawner.Spawn(enemy, init, () => _spawnPointsHandler.GetSpawnPosition());

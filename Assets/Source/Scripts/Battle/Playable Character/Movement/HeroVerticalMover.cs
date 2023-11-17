@@ -9,7 +9,7 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
     {
         [SerializeField] private float _distanceMove;
 
-        private float DistanceToTarget => Vector3.Distance(SelfRigidbody.position, Target.position);
+        private float DistanceToTarget => Vector3.Distance(SelfRigidbody.position, Target.Transform.position);
 
         [Inject]
         private void Inject(IMovementInputHandler handler)

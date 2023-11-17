@@ -27,7 +27,7 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
 			if (MoveCoroutine != null)
 				return;
 
-			var targetPosition = Target.position;
+			var targetPosition = Target.Transform.position;
 
 			var radius = Vector3.Distance(SelfRigidbody.position, targetPosition);
 

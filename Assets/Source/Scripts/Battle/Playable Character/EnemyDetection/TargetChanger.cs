@@ -7,12 +7,12 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
 {
     public class TargetChanger : IDisposable
     {
-        private DetectedZone _triggerZone;
-        private LookTargetPoint _lookTargetPoint;
-        private LookTargetPoint _defaultLookTargetPoint;
-        private Enemy _currentEnemy;
+        private readonly DetectedZone _triggerZone;
+        private readonly LookTargetPoint _lookTargetPoint;
+        private readonly LookTargetPoint _defaultLookTargetPoint;
+        private readonly IActionsInputHandlerOnlyPlayer _actionsInputHandler;
 
-        private IActionsInputHandler _actionsInputHandler;
+        private Enemy _currentEnemy;
 
         public event Action<Transform> TargetChanging;
 
@@ -54,9 +54,10 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
                 _lookTargetPoint.transform.SetParent(null);
                 newPosition = _defaultLookTargetPoint.transform.localPosition;
             }
-
+            
             TargetChanging?.Invoke(newTarget);
             
+            _lookTargetPoint.UpdateTarget(new Target(_currentEnemy.transform, _currentEnemy.SelfDamagable));
             _lookTargetPoint.transform.localPosition = newPosition;
         }
 

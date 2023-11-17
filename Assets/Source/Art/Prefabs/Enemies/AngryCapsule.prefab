@@ -61,6 +61,7 @@ GameObject:
   - component: {fileID: 3866166350792084012}
   - component: {fileID: 3708880052510418231}
   - component: {fileID: 1325145663443565684}
+  - component: {fileID: 2272240135574202730}
   m_Layer: 0
   m_Name: AngryCapsule
   m_TagString: Untagged
@@ -160,6 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652a0f69c637f4e4f9107864e83fbb9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damagable: {fileID: 2272240135574202730}
 --- !u!114 &5212688663676030926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,8 +216,8 @@ MonoBehaviour:
       startIndex: 
       variableStartIndex: 
       JSONSerialization: '{"EntryTask":{"Type":"BehaviorDesigner.Runtime.Tasks.EntryTask","NodeData":{"Offset":"(372,30)"},"ID":0,"Name":"Entry","Instant":true},"RootTask":{"Type":"BehaviorDesigner.Runtime.Tasks.Repeater","NodeData":{"Offset":"(-1,120)"},"ID":1,"Name":"Repeater","Instant":true,"SharedIntcount":{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":null,"Int32mValue":0},"SharedBoolrepeatForever":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedBoolendOnFailure":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(0,122)"},"ID":2,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"ArenaHero.Battle.Enemies.BehaviorTree.Angry_Capsule.SetTargetPosition","NodeData":{"Offset":"(-337,173)"},"ID":3,"Name":"Set
-        Target Position","Instant":true,"SharedAngryCapsuleAngryCapsule":{"Type":"ArenaHero.Battle.Enemies.BehaviorTree.Angry_Capsule.SharedAngryCapsule","Name":null,"AngryCapsulemValue":0},"SharedVector3TargetPosition":{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"_targetPosition","IsShared":true,"Vector3mValue":"(0,0,0)"}},{"Type":"ArenaHero.Battle.Enemies.BehaviorTree.Angry_Capsule.SetMovementInput","NodeData":{"Offset":"(-154,166)"},"ID":4,"Name":"Set
-        Movement Input","Instant":true,"SharedBotInputSelfBotInput":{"Type":"ArenaHero.Battle.Enemies.BehaviorTree.SharedBotInput","Name":null,"BotInputmValue":1},"SharedVector3TargetPosition":{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"_targetPosition","IsShared":true,"Vector3mValue":"(0,0,0)"}},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(-3.327794,173.095245)"},"ID":5,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1}}]}]},"Variables":[null,{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"_targetPosition","IsShared":true,"Vector3mValue":"(0,0,0)"}]}'
+        Target Position","Instant":true,"SharedEnemyEnemy":{"Type":"ArenaHero.Battle.Enemies.BehaviorTree.SharedEnemy","Name":null,"EnemymValue":0},"SharedVector3TargetPosition":{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"_targetPosition","IsShared":true,"Vector3mValue":"(0,0,0)"}},{"Type":"ArenaHero.Battle.Enemies.BehaviorTree.Angry_Capsule.SetMovementInput","NodeData":{"Offset":"(-154,166)"},"ID":4,"Name":"Set
+        Movement Input","Instant":true,"SharedBotInputSelfBotInput":{"Type":"ArenaHero.Battle.Enemies.BehaviorTree.SharedBotInput","Name":null,"BotInputmValue":1},"SharedVector3TargetPosition":{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"_targetPosition","IsShared":true,"Vector3mValue":"(0,0,0)"}},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(-3.327794,173.095245)"},"ID":5,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":0.3},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1}}]}]},"Variables":[null,{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"_targetPosition","IsShared":true,"Vector3mValue":"(0,0,0)"}]}'
       fieldSerializationData:
         typeName: []
         fieldNameHash: 
@@ -251,3 +253,18 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &2272240135574202730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4849143585786420022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a27097d2ceb21914ca6dcc12f69e82a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterType: 1
+  _maxHealth: 100
+  _health: 0

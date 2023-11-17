@@ -1,8 +1,7 @@
 using System;
+using ArenaHero.Battle;
 using ArenaHero.Battle.Level;
-using ArenaHero.Battle.PlayableCharacter;
 using ArenaHero.Data;
-using UnityEngine;
 using UnityEngine.AI;
 using Object = UnityEngine.Object;
 
@@ -12,11 +11,9 @@ namespace ArenaHero.Game.Level
 	{
 		private NavMeshDataInstance _instance;
 		
-		public LevelInitializer(LevelData levelData, WaveHandler waveHandler, Hero hero)
+		public LevelInitializer(LevelData levelData, WaveHandler waveHandler, Target hero)
 		{
 			var spawnerHandler = Object.Instantiate(levelData.SpawnPointsHandler).gameObject.GetComponent<SpawnerHandler>();
-			
-			Debug.Log($"Hero Using");
 			
 			spawnerHandler.Init(waveHandler, hero);
 			

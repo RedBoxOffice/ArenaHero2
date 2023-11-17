@@ -18,7 +18,7 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
 
         private ITargetHandler _targetHandler;
 
-        protected Transform Target => _targetHandler.Target;
+        protected Target Target => _targetHandler.Target;
         
         protected Rigidbody SelfRigidbody => _selfRigidbody;
 
@@ -29,7 +29,7 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
 
         protected void LookTarget()
         {
-            var offset = Target.position - SelfRigidbody.position;
+            var offset = Target.Transform.position - SelfRigidbody.position;
             offset.Set(offset.x, 0, offset.z);
             SelfRigidbody.MoveRotation(Quaternion.Euler(0f, Vector3.SignedAngle(Vector3.forward, offset, Vector3.up), 0f));
         }
