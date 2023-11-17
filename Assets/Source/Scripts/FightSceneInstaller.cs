@@ -21,7 +21,6 @@ namespace ArenaHero
         [SerializeField] private WaveHandler _waveHandler;
         [SerializeField] private Player _playerPrefab;
         [SerializeField] private PlayerSpawnPoint _playerSpawnPoint;
-        [SerializeField] private DefaultAttackSkill _defaultAttackSkill;
 
         private Hero _hero;
         
@@ -43,8 +42,7 @@ namespace ArenaHero
             descriptor.AddInstance(targetChanger);
 
             descriptor.AddInstance(detectedZone);
-
-            descriptor.AddInstance(_defaultAttackSkill);
+            
             descriptor.AddInstance(_lookTargetPoint);
             descriptor.AddInstance(_levelData);
             descriptor.AddInstance(_waveHandler);
