@@ -27,22 +27,21 @@ namespace ArenaHero.Data
                 Debug.LogError(nameof(_damagable) + " needs to implement " + nameof(IDamagable));
                 _damagable = null;
             }
-            else
-            {
-                SelfDamagable = (IDamagable)_damagable;
-            }
 
             if (_damagable == null)
                 throw new NullReferenceException(nameof(_damagable));
         }
-        
-        public void Init(EnemyInit init) =>
-            Target = init.Target;
+
+        private void Start() =>
+            SelfDamagable = (IDamagable)_damagable;
 
         private void OnDisable()
         {
             Dead?.Invoke(this);
             Disable?.Invoke(this);
         }
+        
+        public void Init(EnemyInit init) =>
+            Target = init.Target;
     }
 }

@@ -4,6 +4,5 @@ namespace ArenaHero.Battle.Skills
 {
     public class SkillsHandler : MonoBehaviour
     {
-        
     }
 }

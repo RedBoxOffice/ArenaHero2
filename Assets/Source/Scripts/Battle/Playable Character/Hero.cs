@@ -1,4 +1,3 @@
-using ArenaHero.Battle.PlayableCharacter.Movement;
 using UnityEngine;
 
 namespace ArenaHero.Battle.PlayableCharacter
