@@ -1,7 +1,6 @@
-﻿
 namespace ArenaHero.Utils.StateMachine.States
 {
-    public class MagazineWindowState : WindowState
-    {
-    }
+	public class MagazineWindowState : WindowState
+	{
+	}
 }
