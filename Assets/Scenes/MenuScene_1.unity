@@ -1468,9 +1468,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2109550c5c4c4893be8b23dfb438d4a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _equipmentButton: {fileID: 1438643533}
+  _equipmentButton: {fileID: 2000883064}
   _selectLevelButton: {fileID: 1637428572}
   _talentsButton: {fileID: 335615769}
+  _magazineButton: {fileID: 1438643535}
 --- !u!4 &249775713
 Transform:
   m_ObjectHideFlags: 0
@@ -7429,10 +7430,10 @@ GameObject:
   - component: {fileID: 1438643529}
   - component: {fileID: 1438643532}
   - component: {fileID: 1438643531}
-  - component: {fileID: 1438643533}
   - component: {fileID: 1438643534}
+  - component: {fileID: 1438643535}
   m_Layer: 5
-  m_Name: EquipmentButton
+  m_Name: MagazineButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7497,19 +7498,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1438643528}
   m_CullTransparentMesh: 1
---- !u!114 &1438643533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1438643528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c7e757eddac472fb414ed347ff6e5ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isInteractable: 1
 --- !u!114 &1438643534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7554,7 +7542,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1438643533}
+      - m_Target: {fileID: 1438643535}
         m_TargetAssemblyTypeName: ArenaHero.UI.EventTriggerButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -7566,6 +7554,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1438643535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438643528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01514597771aa9b48888c13289adfb01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isInteractable: 1
 --- !u!1 &1457636210
 GameObject:
   m_ObjectHideFlags: 0
@@ -9458,6 +9459,7 @@ MonoBehaviour:
   - {fileID: 2071097746}
   - {fileID: 341008435}
   - {fileID: 673303393}
+  - {fileID: 1925664169}
 --- !u!4 &1647504443
 Transform:
   m_ObjectHideFlags: 0
@@ -11032,6 +11034,7 @@ GameObject:
   - component: {fileID: 1925664166}
   - component: {fileID: 1925664168}
   - component: {fileID: 1925664167}
+  - component: {fileID: 1925664169}
   m_Layer: 5
   m_Name: PanelOfMagazine
   m_TagString: Untagged
@@ -11100,6 +11103,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1925664165}
   m_CullTransparentMesh: 1
+--- !u!114 &1925664169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925664165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f07bdcf8e520fbc4498bd5bb23d696cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1989168275
 GameObject:
   m_ObjectHideFlags: 0
@@ -11179,8 +11194,9 @@ GameObject:
   - component: {fileID: 2000883063}
   - component: {fileID: 2000883062}
   - component: {fileID: 2000883061}
+  - component: {fileID: 2000883064}
   m_Layer: 5
-  m_Name: Character
+  m_Name: EquipmentButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11251,10 +11267,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 341008431}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 2000883064}
+        m_TargetAssemblyTypeName: ArenaHero.UI.EventTriggerButton, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11262,42 +11278,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 673303392}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1925664165}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2071097742}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &2000883062
 MonoBehaviour:
@@ -11337,6 +11317,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2000883059}
   m_CullTransparentMesh: 1
+--- !u!114 &2000883064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000883059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c7e757eddac472fb414ed347ff6e5ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isInteractable: 1
 --- !u!1 &2009398970
 GameObject:
   m_ObjectHideFlags: 0
