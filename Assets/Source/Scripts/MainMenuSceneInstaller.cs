@@ -14,6 +14,7 @@ namespace ArenaHero
 		[SerializeField] private EventTriggerButton _equipmentButton;
 		[SerializeField] private EventTriggerButton _selectLevelButton;
 		[SerializeField] private EventTriggerButton _talentsButton;
+		[SerializeField] private EventTriggerButton _magazineButton;
 
 		private MainMenuWindowStateMachine _windowStateMachine;
 		
@@ -24,6 +25,7 @@ namespace ArenaHero
 				[typeof(EquipmentWindowState)] = new EquipmentWindowState(),
 				[typeof(SelectLevelWindowState)] = new SelectLevelWindowState(),
 				[typeof(TalentsWindowState)] = new TalentsWindowState(),
+				[typeof(MagazineWindowState)] = new MagazineWindowState(),
 			});
 
 			descriptor.AddInstance(_windowStateMachine);
@@ -33,6 +35,7 @@ namespace ArenaHero
 			transitionInitializer.InitTransition<EquipmentWindowState>(_equipmentButton);
 			transitionInitializer.InitTransition<SelectLevelWindowState>(_selectLevelButton);
 			transitionInitializer.InitTransition<TalentsWindowState>(_talentsButton);
+			transitionInitializer.InitTransition<MagazineWindowState>(_magazineButton);
 		}	
 	}
 }
