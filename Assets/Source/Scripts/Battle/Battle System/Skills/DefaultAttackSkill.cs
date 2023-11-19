@@ -17,7 +17,9 @@ namespace ArenaHero.Battle.Skills
 		private void OnEnable()
 		{
 			if (_inputHandler != null)
+			{
 				_inputHandler.Attack += Attack;
+			}
 		}
 		
 		private void Start()
@@ -27,8 +29,13 @@ namespace ArenaHero.Battle.Skills
 			_inputHandler.Attack += Attack;
 		}
 
-		private void OnDisable() =>
-			_inputHandler.Attack -= Attack;
+		private void OnDisable()
+		{
+			if (_inputHandler != null)
+			{
+				_inputHandler.Attack -= Attack;
+			}
+		}
 
 		public void Attack() =>
 			TryAttackEnemy();
@@ -36,10 +43,21 @@ namespace ArenaHero.Battle.Skills
 		private void TryAttackEnemy()
 		{
 			if (CanAttack())
+			{
+				Debug.Log($"{_character.name} attack {Target.Transform.name}");
+				
 				Target.Damagable.TakeDamage(_damage);
+			}
 		}
-		
-		private bool CanAttack() =>
-			!(_attackDistance < Vector3.Distance(transform.position, Target.Transform.position));
+
+		private bool CanAttack()
+		{
+			if (Target.Damagable == null)
+			{
+				return false;
+			}
+			
+			return !(_attackDistance < Vector3.Distance(transform.position, Target.Transform.position));
+		}
 	}
 }

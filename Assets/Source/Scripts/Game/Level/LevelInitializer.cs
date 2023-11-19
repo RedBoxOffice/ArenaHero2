@@ -9,7 +9,7 @@ namespace ArenaHero.Game.Level
 {
 	public class LevelInitializer : IDisposable
 	{
-		private NavMeshDataInstance _instance;
+		private NavMeshDataInstance _instanceNavMesh;
 		
 		public LevelInitializer(LevelData levelData, WaveHandler waveHandler, Target hero)
 		{
@@ -19,10 +19,10 @@ namespace ArenaHero.Game.Level
 			
 			Object.Instantiate(levelData.EnvironmentParent);
 		
-			_instance = NavMesh.AddNavMeshData(levelData.NavMeshData);
+			_instanceNavMesh = NavMesh.AddNavMeshData(levelData.NavMeshData);
 		}
-			
+
 		public void Dispose() =>
-			_instance.Remove();
+			NavMesh.RemoveNavMeshData(_instanceNavMesh);
 	}
 }
