@@ -300,7 +300,7 @@ GameObject:
   - component: {fileID: 2433738980480902237}
   - component: {fileID: 2433738980480902238}
   m_Layer: 0
-  m_Name: Spawner Handler
+  m_Name: "Spawner_W1S1_\u0421learing"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
