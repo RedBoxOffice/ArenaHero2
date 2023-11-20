@@ -1,10 +1,8 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ArenaHero.Battle.Skills
 {
-    public abstract class Skill : MonoBehaviour
-    {
-        public abstract void Run();
-    }
+	public abstract class Skill : MonoBehaviour
+	{
+	}
 }

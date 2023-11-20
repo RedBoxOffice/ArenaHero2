@@ -7,12 +7,12 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
 {
     public class TargetChanger : IDisposable
     {
-        private DetectedZone _triggerZone;
-        private LookTargetPoint _lookTargetPoint;
-        private LookTargetPoint _defaultLookTargetPoint;
-        private Enemy _currentEnemy;
+        private readonly DetectedZone _triggerZone;
+        private readonly LookTargetPoint _lookTargetPoint;
+        private readonly LookTargetPoint _defaultLookTargetPoint;
+        private readonly IActionsInputHandlerOnlyPlayer _actionsInputHandler;
 
-        private IActionsInputHandler _actionsInputHandler;
+        private Enemy _currentEnemy;
 
         public event Action<Transform> TargetChanging;
 
@@ -26,6 +26,8 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
             _triggerZone.EnemyDetected += OnEnemyDetected;
             _triggerZone.EnemyLost += OnEnemyLost;
             _actionsInputHandler.ChangeTarget += OnChangeTarget;
+            
+            OnChangeTarget();
         }
 
         public void Dispose()
@@ -39,24 +41,28 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
         {
             _currentEnemy = _triggerZone.TryGetEnemy();
 
-            Transform newTarget;
+            Transform newEnemy;
+            Target newTarget;
             Vector3 newPosition;
 
             if (_currentEnemy != null)
             {
-                newTarget = _currentEnemy.transform;
-                _lookTargetPoint.transform.SetParent(newTarget);
+                newEnemy = _currentEnemy.transform;
+                _lookTargetPoint.transform.SetParent(newEnemy);
                 newPosition = Vector3.zero;
+                newTarget = new Target(_currentEnemy.transform, _currentEnemy.SelfDamagable);
             }
             else
             {
-                newTarget = _defaultLookTargetPoint.transform;
+                newEnemy = _defaultLookTargetPoint.transform;
                 _lookTargetPoint.transform.SetParent(null);
                 newPosition = _defaultLookTargetPoint.transform.localPosition;
+                newTarget = new Target(_defaultLookTargetPoint.transform, null);
             }
-
-            TargetChanging?.Invoke(newTarget);
             
+            TargetChanging?.Invoke(newEnemy);
+            
+            _lookTargetPoint.UpdateTarget(newTarget);
             _lookTargetPoint.transform.localPosition = newPosition;
         }
 

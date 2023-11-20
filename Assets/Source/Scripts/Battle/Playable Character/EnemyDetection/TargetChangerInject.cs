@@ -7,9 +7,9 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
     {
         public readonly DetectedZone TriggerZone;
         public readonly LookTargetPoint LookTargetPoint;
-        public readonly IActionsInputHandler ActionsInputHandler;
+        public readonly IActionsInputHandlerOnlyPlayer ActionsInputHandler;
 
-        public TargetChangerInject(Func<(DetectedZone, LookTargetPoint, IActionsInputHandler)> inject) =>
+        public TargetChangerInject(Func<(DetectedZone, LookTargetPoint, IActionsInputHandlerOnlyPlayer)> inject) =>
             (TriggerZone, LookTargetPoint, ActionsInputHandler) = inject();
     }
 }

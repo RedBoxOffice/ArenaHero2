@@ -1,4 +1,5 @@
-﻿using ArenaHero.Data;
+﻿using ArenaHero.Battle;
+using ArenaHero.Data;
 using ArenaHero.Battle.PlayableCharacter.EnemyDetection;
 using ArenaHero.Battle.Level;
 using ArenaHero.Utils.StateMachine;
@@ -17,12 +18,12 @@ namespace ArenaHero
     {
         [SerializeField] private CinemachineVirtualCamera _virtualCamera;
         [SerializeField] private LookTargetPoint _lookTargetPoint;
-        [SerializeField] private LevelData _levelData;
         [SerializeField] private WaveHandler _waveHandler;
         [SerializeField] private Player _playerPrefab;
         [SerializeField] private PlayerSpawnPoint _playerSpawnPoint;
 
         private Hero _hero;
+        private LevelData _levelData;
         
         private Hero Hero => GetHeroInitialized();
 
@@ -48,10 +49,14 @@ namespace ArenaHero
             descriptor.AddInstance(_waveHandler);
             descriptor.AddInstance(Hero);
         }
-        
+
         public void OnSceneLoaded<TState>(GameStateMachine machine, LevelData argument = default)
-            where TState : State<GameStateMachine> =>
-            _ = new LevelInitializer(argument, _waveHandler, Hero);
+            where TState : State<GameStateMachine>
+        {
+            _levelData = argument;
+            
+            _ = new LevelInitializer(_levelData, _waveHandler, new Target(Hero.transform, Hero.gameObject.GetComponent<IDamagable>()));
+        }
 
         private Hero SpawnPlayer() =>
             Instantiate(_playerPrefab, _playerSpawnPoint.gameObject.transform.position, Quaternion.identity).GetComponentInChildren<Hero>();

@@ -6,12 +6,12 @@ namespace ArenaHero.Battle.Enemies.BehaviorTree.Angry_Capsule
 {
     public class SetTargetPosition : Action
     {
-        public SharedAngryCapsule AngryCapsule;
+        public SharedEnemy Enemy;
         public SharedVector3 TargetPosition;
 
         public override TaskStatus OnUpdate()
         {
-            TargetPosition.Value = AngryCapsule.Value.Target.position;
+            TargetPosition.Value = Enemy.Value.Target.Transform.position;
             return TaskStatus.Success;
         }
     }

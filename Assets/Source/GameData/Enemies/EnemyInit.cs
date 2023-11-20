@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+﻿using ArenaHero.Battle;
 
 namespace ArenaHero.Data
 {
     public struct EnemyInit
     {
-        public Transform Target;
+        public Target Target;
     }
 }

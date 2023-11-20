@@ -9,7 +9,7 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
     {
         [SerializeField] private float _distanceMove;
 
-        private float DistanceToTarget => Vector3.Distance(SelfRigidbody.position, Target.position);
+        private float DistanceToTarget => Vector3.Distance(SelfRigidbody.position, Target.Transform.position);
 
         [Inject]
         private void Inject(IMovementInputHandler handler)
@@ -21,7 +21,7 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
         private void OnDisable() =>
             InputHandler.Vertical -= OnMove;
 
-        protected override void OnMove(float direction, Action callBack = null)
+        protected override void OnMove(float direction)
         {
             if (MoveCoroutine != null)
                 return;
@@ -33,14 +33,10 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
             LookTarget();
 
             MoveCoroutine = StartCoroutine(Move(
-                () => DistanceToTarget > 5 || direction == -1,
+                () => DistanceToTarget > 5 || direction == (int)Direction.Back,
                 (normalTime) =>
                     Vector3.Lerp(startPosition, targetPosition, normalTime),
-                () =>
-                {
-                    LookTarget();
-                    callBack?.Invoke();
-                }));
+                LookTarget));
         }
     }
 }
