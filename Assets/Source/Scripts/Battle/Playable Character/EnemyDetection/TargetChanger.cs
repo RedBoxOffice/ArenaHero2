@@ -26,6 +26,8 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
             _triggerZone.EnemyDetected += OnEnemyDetected;
             _triggerZone.EnemyLost += OnEnemyLost;
             _actionsInputHandler.ChangeTarget += OnChangeTarget;
+            
+            OnChangeTarget();
         }
 
         public void Dispose()

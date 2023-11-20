@@ -220,8 +220,8 @@ MonoBehaviour:
         Target Position","Instant":true,"SharedEnemyEnemy":{"Type":"ArenaHero.Battle.Enemies.BehaviorTree.SharedEnemy","Name":null,"EnemymValue":0},"SharedVector3TargetPosition":{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"_targetPosition","IsShared":true,"Vector3mValue":"(0,0,0)"}},{"Type":"ArenaHero.Battle.Enemies.BehaviorTree.Angry_Capsule.SetMovementInput","NodeData":{"Offset":"(-154,166)"},"ID":4,"Name":"Set
         Movement Input","Instant":true,"SharedBotInputSelfBotInput":{"Type":"ArenaHero.Battle.Enemies.BehaviorTree.SharedBotInput","Name":null,"BotInputmValue":1},"SharedVector3TargetPosition":{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"_targetPosition","IsShared":true,"Vector3mValue":"(0,0,0)"}},{"Type":"BehaviorDesigner.Runtime.Tasks.ReturnSuccess","NodeData":{"Offset":"(31.5,170)"},"ID":5,"Name":"Return
         Success","Instant":true,"Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.ConditionalEvaluator","NodeData":{"Offset":"(0,110)"},"ID":6,"Name":"Conditional
-        Evaluator","Instant":true,"SharedBoolreevaluate":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"ConditionalconditionalTask":{"Type":"ArenaHero.Battle.Enemies.BehaviorTree.Angry_Capsule.AttackCondition","SharedFloat_attackDistance":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":5},"MonoBehaviour_targetHandlerBehaviour":2},"BooleangraphLabel":true,"Children":[{"Type":"ArenaHero.Battle.Enemies.BehaviorTree.Angry_Capsule.SetAttack","NodeData":{"Offset":"(-0.5,105)"},"ID":7,"Name":"Set
-        Attack","Instant":true,"SharedBotInput_botInput":{"Type":"ArenaHero.Battle.Enemies.BehaviorTree.SharedBotInput","Name":null,"BotInputmValue":3}}]}]}]}]},"Variables":[null,{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"_targetPosition","IsShared":true,"Vector3mValue":"(0,0,0)"}]}'
+        Evaluator","Instant":true,"SharedBoolreevaluate":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"ConditionalconditionalTask":{"Type":"ArenaHero.Battle.Enemies.BehaviorTree.Angry_Capsule.AttackCondition","SharedCharacterCharacter":{"Type":"ArenaHero.Battle.Enemies.BehaviorTree.SharedCharacter","Name":null,"CharactermValue":2},"MonoBehaviourTargetHandlerBehaviour":3},"BooleangraphLabel":true,"Children":[{"Type":"ArenaHero.Battle.Enemies.BehaviorTree.Angry_Capsule.SetAttack","NodeData":{"Offset":"(-0.5,105)"},"ID":7,"Name":"Set
+        Attack","Instant":true,"SharedBotInput_botInput":{"Type":"ArenaHero.Battle.Enemies.BehaviorTree.SharedBotInput","Name":null,"BotInputmValue":4}}]}]}]}]},"Variables":[null,{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"_targetPosition","IsShared":true,"Vector3mValue":"(0,0,0)"}]}'
       fieldSerializationData:
         typeName: []
         fieldNameHash: 
@@ -230,6 +230,7 @@ MonoBehaviour:
         unityObjects:
         - {fileID: 2855612362623389543}
         - {fileID: 5212688663676030926}
+        - {fileID: 2272240135574202730}
         - {fileID: 2855612362623389543}
         - {fileID: 5212688663676030926}
         byteData: 
@@ -271,9 +272,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a27097d2ceb21914ca6dcc12f69e82a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterType: 1
-  _maxHealth: 100
-  _health: 0
+  _currentHealth: 0
+  _data: {fileID: 11400000, guid: a8994aef1cd847e408a13dc94dbb5391, type: 2}
 --- !u!1001 &4207189389195450725
 PrefabInstance:
   m_ObjectHideFlags: 0

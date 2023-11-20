@@ -34,7 +34,7 @@ namespace ArenaHero.Yandex
             _callBack();
 #endif
 
-            MenuScene.Load<MenuState, object>(_gameStateMachine);
+            MenuScene_1.Load<MenuState, object>(_gameStateMachine);
 
             yield return null;
         }
