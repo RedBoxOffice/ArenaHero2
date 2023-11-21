@@ -3,7 +3,10 @@ using ArenaHero.InputSystem;
 using Reflex.Attributes;
 using System;
 using System.Collections;
+using Unity.Collections;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.Experimental.AI;
 
 namespace ArenaHero.Battle.PlayableCharacter.Movement
 {
@@ -17,6 +20,8 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
         protected IMovementInputHandler InputHandler;
 
         private ITargetHandler _targetHandler;
+        private NavMeshWorld _navMeshWorld;
+        private NavMeshQuery _navMeshQuery;
 
         protected Target Target => _targetHandler.Target;
         
@@ -24,6 +29,15 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
 
         private void Awake() =>
             _targetHandler = GetComponentInParent<ITargetHandler>();
+
+        private void Start()
+        {
+            _navMeshWorld = NavMeshWorld.GetDefaultWorld();
+            _navMeshQuery = new NavMeshQuery(_navMeshWorld, Allocator.None);
+        }
+
+        protected virtual void OnDisable() =>
+            _navMeshQuery.Dispose();
 
         protected abstract void OnMove(float direction);
 
@@ -43,7 +57,9 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
                 if (!canMove())
                     break;
 
-                SelfRigidbody.MovePosition(calculatePosition(currentTime / _timeToTarget));
+                Vector3 targetPosition = GetWorldPositionFromNavMesh(calculatePosition(currentTime / _timeToTarget));
+                
+                SelfRigidbody.MovePosition(targetPosition);
 
                 currentTime += Time.fixedDeltaTime;
 
@@ -54,5 +70,8 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
 
             MoveCoroutine = null;
         }
+
+        private Vector3 GetWorldPositionFromNavMesh(Vector3 targetPosition) =>
+            _navMeshQuery.MapLocation(targetPosition, Vector3.positiveInfinity, 0).position;
     }
 }

@@ -1,13 +1,12 @@
-using System;
 using ArenaHero.Battle;
 using ArenaHero.Battle.Level;
 using ArenaHero.Data;
+using UnityEngine;
 using UnityEngine.AI;
-using Object = UnityEngine.Object;
 
 namespace ArenaHero.Game.Level
 {
-	public class LevelInitializer : IDisposable
+	public class LevelInitializer
 	{
 		private NavMeshDataInstance _instanceNavMesh;
 		
