@@ -19,8 +19,11 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
 			InputHandler.Horizontal += OnMove;
 		}
 
-		private void OnDisable() =>
+		protected override void OnDisable()
+		{
+			base.OnDisable();
 			InputHandler.Horizontal -= OnMove;
+		}
 
 		protected override void OnMove(float direction)
 		{

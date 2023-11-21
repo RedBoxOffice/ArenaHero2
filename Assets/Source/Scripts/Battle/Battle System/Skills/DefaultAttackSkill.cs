@@ -1,63 +1,43 @@
-using ArenaHero.InputSystem;
+using System.Collections;
 using UnityEngine;
 
 namespace ArenaHero.Battle.Skills
 {
-	public class DefaultAttackSkill : Skill, IAttackable
+	public class DefaultAttackSkill : AttackSkill, IAttackable
 	{
-		[SerializeField] private float _damage = 10f;
-		[SerializeField] private float _attackDistance = 5f;
-		[SerializeField] private Character _character;
+		private Coroutine _cooldownCoroutine;
 		
-		private IActionsInputHandler _inputHandler;
-		private ITargetHandler _targetHandler;
-		
-		private Target Target => _targetHandler.Target;
-
-		private void OnEnable()
-		{
-			if (_inputHandler != null)
-			{
-				_inputHandler.Attack += Attack;
-			}
-		}
-		
-		private void Start()
-		{
-			_targetHandler = _character.GetComponent<ITargetHandler>();
-			_inputHandler = _character.GetComponent<IActionsInputHandler>();
-			_inputHandler.Attack += Attack;
-		}
-
-		private void OnDisable()
-		{
-			if (_inputHandler != null)
-			{
-				_inputHandler.Attack -= Attack;
-			}
-		}
-
 		public void Attack() =>
 			TryAttackEnemy();
 
+		protected override void OnAttack() =>
+			Attack();
+		
 		private void TryAttackEnemy()
 		{
 			if (CanAttack())
 			{
-				Debug.Log($"{_character.name} attack {Target.Transform.name}");
+				_cooldownCoroutine = StartCoroutine(Cooldown());
 				
-				Target.Damagable.TakeDamage(_damage);
+				Target.Damagable.TakeDamage(CharacterData.BaseDamage);
 			}
 		}
 
 		private bool CanAttack()
 		{
-			if (Target.Damagable == null)
+			if (Target.Damagable == null || _cooldownCoroutine != null)
 			{
 				return false;
 			}
 			
-			return !(_attackDistance < Vector3.Distance(transform.position, Target.Transform.position));
+			return !(CharacterData.AttackDistance < Vector3.Distance(transform.position, Target.Transform.position));
+		}
+
+		private IEnumerator Cooldown()
+		{
+			yield return new WaitForSeconds(CharacterData.AttackCooldown);
+
+			_cooldownCoroutine = null;
 		}
 	}
 }

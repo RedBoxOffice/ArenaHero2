@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FightSceneDima.unity
     guid: bf03c864d90e5be4899f2a6654229056
+  - enabled: 1
+    path: Assets/Scenes/FightSceneSlava.unity
+    guid: 7df27b250ccef434fb4b8ee03dcd7036
   m_configObjects: {}

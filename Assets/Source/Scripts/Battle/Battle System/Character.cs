@@ -1,25 +1,25 @@
-﻿using UnityEngine;
+﻿using Source.GameData.Characters;
+using UnityEngine;
 
 namespace ArenaHero.Battle
 {
     public class Character : MonoBehaviour, ICharacter
     {
-        [SerializeField] private CharacterType _characterType;
-        [SerializeField] private float _maxHealth;
-        [SerializeField] private float _health;
+        [SerializeField] private float _currentHealth;
+        [SerializeField] private CharacterData _data;
 
-        public CharacterType Type => _characterType;
-
+        public CharacterData Data => _data;
+        
         public Vector3 Position => transform.position;
 
         private void Awake()
         {
-            _health = _maxHealth;
+            _currentHealth = _data.MaxHealth;
         }
 
         public void TakeDamage(float damage)
         {
-            _health -= damage;
+            _currentHealth -= damage;
         }
     }
 }

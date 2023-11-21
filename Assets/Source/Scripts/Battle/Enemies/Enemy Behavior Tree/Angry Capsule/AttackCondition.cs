@@ -6,27 +6,18 @@ namespace ArenaHero.Battle.Enemies.BehaviorTree.Angry_Capsule
 {
 	public class AttackCondition : Conditional
 	{
-		public SharedFloat _attackDistance;
-		public MonoBehaviour _targetHandlerBehaviour;
-
+		public SharedCharacter Character;
+		
 		private ITargetHandler _targetHandler;
 		
 		public override void OnAwake()
 		{
-			if (_targetHandlerBehaviour && _targetHandlerBehaviour is not ITargetHandler)
-			{
-				Debug.LogError(nameof(_targetHandlerBehaviour) + " needs to implement " + nameof(ITargetHandler));
-				_targetHandlerBehaviour = null;
-			}
-			else
-			{
-				_targetHandler = (ITargetHandler)_targetHandlerBehaviour;
-			}
+			_targetHandler = Character.Value.GetComponent<ITargetHandler>();
 		}
 		
 		public override TaskStatus OnUpdate()
 		{
-			if ((Vector3.Distance(_targetHandler.Target.Transform.position, transform.position)) <= _attackDistance.Value)
+			if ((Vector3.Distance(_targetHandler.Target.Transform.position, transform.position)) <= Character.Value.Data.AttackDistance)
 			{
 				return TaskStatus.Success;
 			}

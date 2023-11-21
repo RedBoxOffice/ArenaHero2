@@ -16,4 +16,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4f42f44c30b7dca4b8124323f76b1276, type: 2}
   _environmentParent: {fileID: 93424727532628042, guid: 4f0a7d0930e7dd0449e0b0b3820ea072, type: 3}
   _spawnPointsHandler: {fileID: 2433738980480902237, guid: 4167a507662d0d841b5b5ba2a682176c, type: 3}
-  _navMeshData: {fileID: 23800000, guid: 2b8e8c83ce286e04cbfb08981efc1448, type: 2}
+  _navMeshData: {fileID: 23800000, guid: 8c640bbd4b61d8f40ab2776e575413eb, type: 2}

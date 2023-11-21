@@ -1,16 +1,15 @@
 ﻿using ArenaHero.Battle;
-using ArenaHero.Data;
-using ArenaHero.Battle.PlayableCharacter.EnemyDetection;
 using ArenaHero.Battle.Level;
-using ArenaHero.Utils.StateMachine;
-using ArenaHero.Utils.TypedScenes;
-using Reflex.Core;
-using UnityEngine;
 using ArenaHero.Battle.PlayableCharacter;
+using ArenaHero.Battle.PlayableCharacter.EnemyDetection;
+using ArenaHero.Data;
 using ArenaHero.Game.Level;
 using ArenaHero.InputSystem;
+using ArenaHero.Utils.StateMachine;
+using ArenaHero.Utils.TypedScenes;
 using Cinemachine;
-using ArenaHero.Battle.Skills;
+using Reflex.Core;
+using UnityEngine;
 
 namespace ArenaHero
 {
@@ -24,8 +23,14 @@ namespace ArenaHero
 
         private Hero _hero;
         private LevelData _levelData;
+        private LevelInitializer _levelInitializer;
         
         private Hero Hero => GetHeroInitialized();
+
+        private void OnDisable()
+        {
+            _levelInitializer.Dispose();
+        }
 
         public void InstallBindings(ContainerDescriptor descriptor)
         {
@@ -55,7 +60,7 @@ namespace ArenaHero
         {
             _levelData = argument;
             
-            _ = new LevelInitializer(_levelData, _waveHandler, new Target(Hero.transform, Hero.gameObject.GetComponent<IDamagable>()));
+            _levelInitializer = new LevelInitializer(_levelData, _waveHandler, new Target(Hero.transform, Hero.gameObject.GetComponent<IDamagable>()));
         }
 
         private Hero SpawnPlayer() =>
