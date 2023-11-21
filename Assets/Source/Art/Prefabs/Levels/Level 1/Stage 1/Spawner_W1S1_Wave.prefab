@@ -396,7 +396,7 @@ GameObject:
   - component: {fileID: 5778740915496397363}
   - component: {fileID: 5778740915496397360}
   m_Layer: 0
-  m_Name: Spawner Handler
+  m_Name: Spawner_W1S1_Wave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
