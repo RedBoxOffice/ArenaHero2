@@ -8,11 +8,9 @@ namespace ArenaHero.Battle.Enemies.BehaviorTree
 	public class Bot : MonoBehaviour, IMover
 	{
 		[SerializeField] private MonoBehaviour _inputSourceBehaviour;
-		[SerializeField] private float _delayUpdateDestination = 0.3f;
 
 		private IBotInputHandler _inputSource;
 		private NavMeshAgent _agent;
-		private Coroutine _moveCoroutine;
 
 		public bool IsMoveLocked { get; private set; }
 
@@ -21,6 +19,12 @@ namespace ArenaHero.Battle.Enemies.BehaviorTree
 			_inputSource = (IBotInputHandler)_inputSourceBehaviour;
 			_agent = GetComponent<NavMeshAgent>();
 		}
+
+		private void OnEnable() =>
+			_inputSource.Move += OnMove;
+
+		private void OnDisable() =>
+			_inputSource.Move -= OnMove;
 
 		private void OnValidate()
 		{
@@ -31,9 +35,23 @@ namespace ArenaHero.Battle.Enemies.BehaviorTree
 			}
 		}
 
-		public bool TryMoveToDirectionOnDistance(Vector3 direction, float distance, float timeToTarget)
+		public bool TryMoveToDirectionOnDistance(Vector3 direction, float distance, float timeToTarget, out Action move)
 		{
-			if ()
+			move = null;
+			
+			if (IsMoveLocked)
+			{
+				return false;
+			}
+
+			move = () =>
+			{
+				Vector3 position = transform.position + (transform.forward * distance);
+				
+				UpdateDestination(position);
+			};
+
+			return true;
 		}
 
 		public void LockMove() =>
@@ -42,40 +60,19 @@ namespace ArenaHero.Battle.Enemies.BehaviorTree
 		public void UnlockMove() =>
 			IsMoveLocked = false;
 
-		public void OnMove()
+		private void OnMove(Vector3 position)
 		{
-			if (_moveCoroutine != null || IsMoveLocked)
+			if (IsMoveLocked)
 			{
 				return;
 			}
+
+			UpdateDestination(position);
 		}
 		
-		private IEnumerator UpdateDestination()
+		private void UpdateDestination(Vector3 position)
 		{
-			var delay = new WaitForSeconds(_delayUpdateDestination);
-
-			while (enabled)
-			{
-				Vector3 moveTarget;
-				if (IsMoveLocked)
-				{
-					moveTarget = 
-					
-				}
-				else
-				{
-					moveTarget = _inputSource.TargetPosition;
-				}
-				
-				_agent.SetDestination(moveTarget);
-
-				yield return delay;
-			}
-		}
-
-		private IEnumerator Wait(Coroutine routine, Action )
-		{
-			yield return routine;
+			_agent.SetDestination(position);
 		}
 	}
 }

@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6623249888830ea4aba5a00839645cbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeToTarget: 0.1
+  _timeToTarget: 0.3
   _selfRigidbody: {fileID: 9053175294299589168}
   _radius:
     _distanceRange:
@@ -366,7 +366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f3ec1a209737544b1eeb3e5b901a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeToTarget: 0.1
+  _timeToTarget: 0.3
   _selfRigidbody: {fileID: 9053175294299589168}
   _distanceMove: 10
 --- !u!54 &9053175294299589168

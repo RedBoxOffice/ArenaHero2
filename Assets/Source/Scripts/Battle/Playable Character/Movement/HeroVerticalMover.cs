@@ -24,12 +24,14 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
             InputHandler.Vertical -= OnMove;
         }
 
-        public override bool TryMoveToDirectionOnDistance(Vector3 direction, float distance, float timeToTarget)
+        public override bool TryMoveToDirectionOnDistance(Vector3 direction, float distance, float timeToTarget, out Action move)
         {
+            move = null;
+            
             if (direction != Vector3.forward || direction != Vector3.back)
                 return false;
 
-            Move(direction, distance, timeToTarget);
+            move = () => Move(direction, distance, timeToTarget);
 
             return true;
         }

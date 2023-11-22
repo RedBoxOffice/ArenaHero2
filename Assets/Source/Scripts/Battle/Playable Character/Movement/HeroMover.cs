@@ -41,7 +41,7 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
         protected virtual void OnDisable() =>
             _navMeshQuery.Dispose();
 
-        public abstract bool TryMoveToDirectionOnDistance(Vector3 direction, float distance, float timeToTarget);
+        public abstract bool TryMoveToDirectionOnDistance(Vector3 direction, float distance, float timeToTarget, out Action move);
         
         public void LockMove() =>
             IsMoveLocked = true;
