@@ -60,7 +60,13 @@ namespace ArenaHero
         {
             _levelData = argument;
             
-            _levelInitializer = new LevelInitializer(_levelData, _waveHandler, new Target(Hero.transform, Hero.gameObject.GetComponent<IDamagable>()));
+            _levelInitializer = new LevelInitializer(
+                _levelData, 
+                _waveHandler, 
+                new Target(
+                    Hero.transform, 
+                    Hero.GetComponent<IDamagable>(),
+                    Hero.GetComponents<IMover>()));
         }
 
         private Hero SpawnPlayer() =>

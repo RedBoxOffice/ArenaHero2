@@ -1,5 +1,6 @@
 using ArenaHero.Utils.Object;
 using System;
+using System.Collections.Generic;
 using ArenaHero.Battle;
 using UnityEngine;
 
@@ -8,7 +9,11 @@ namespace ArenaHero.Data
     public abstract class Enemy : MonoBehaviour, IPoolingObject<EnemyInit>, ITargetHandler
     {
         [SerializeField] private MonoBehaviour _damagable;
-        
+
+        private IMover[] _movers;
+
+        public IReadOnlyCollection<IMover> Movers => _movers;
+         
         public GameObject SelfGameObject => gameObject;
 
         public IDamagable SelfDamagable { get; private set; }
@@ -30,6 +35,8 @@ namespace ArenaHero.Data
 
             if (_damagable == null)
                 throw new NullReferenceException(nameof(_damagable));
+
+            _movers = GetComponents<IMover>();
         }
 
         private void Start() =>

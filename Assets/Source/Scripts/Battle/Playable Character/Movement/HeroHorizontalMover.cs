@@ -25,26 +25,43 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
 			InputHandler.Horizontal -= OnMove;
 		}
 
-		protected override void OnMove(float direction)
+		protected override void OnMove(float direction) =>
+			Move(Vector3.right * direction);
+
+		public override bool TryMoveToDirectionOnDistance(Vector3 direction, float distance, float timeToTarget)
 		{
-			if (MoveCoroutine != null)
+			if (direction != Vector3.left || direction != Vector3.right)
+				return false;
+
+			Move(direction, distance, timeToTarget);
+
+			return true;
+		}
+
+		private void Move(Vector3 direction, float distance = 0, float timeToTarget = 0)
+		{
+			if (MoveCoroutine != null || IsMoveLocked)
 				return;
 
 			var targetPosition = Target.Transform.position;
 
 			var radius = Vector3.Distance(SelfRigidbody.position, targetPosition);
 
-			var distance = _distance.DistanceRange.Min + _distance.GetNormalValue(radius) * _distance.DistanceDelta;
+			if (distance == 0)
+			{
+				distance = _distance.DistanceRange.Min + _distance.GetNormalValue(radius) * _distance.DistanceDelta;
+			}
 
 			var selfStartPosition = SelfRigidbody.position;
 
 			var angle = (distance * 360) / (2 * Mathf.PI * radius);
 
-			MoveCoroutine = StartCoroutine(Move(() => true,
-				(normalTime) =>
+			MoveCoroutine = StartCoroutine(Move(
+				canMove: () => true,
+				calculatePosition: normalTime =>
 				{
 					var currentAngle = Mathf.Lerp(0f, angle, normalTime);
-					var rotation = Quaternion.Euler(0f, currentAngle * -direction, 0f);
+					var rotation = Quaternion.Euler(0f, currentAngle * -direction.x, 0f);
 
 					radius *= _radius.GetNormalValue(radius);
 
@@ -56,7 +73,8 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
 					LookTarget();
 
 					return newPosition;
-				}
+				},
+				timeToTarget: timeToTarget
 			));
 		}
 	}
