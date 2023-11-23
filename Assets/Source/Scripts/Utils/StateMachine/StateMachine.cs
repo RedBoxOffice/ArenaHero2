@@ -4,9 +4,7 @@ using System;
 namespace ArenaHero.Utils.StateMachine
 {
     public abstract class StateMachine<TMachine> : IDisposable where TMachine : StateMachine<TMachine>
-    {
-        private List<State<TMachine>> _states;
-
+    {       
         private Dictionary<Type, State<TMachine>> _state;
 
         public State<TMachine> CurrentState { get; private set; }
