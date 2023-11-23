@@ -24,22 +24,37 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
             InputHandler.Vertical -= OnMove;
         }
 
-        protected override void OnMove(float direction)
+        public override void TryMoveToDirectionOnDistance(Vector3 direction, float distance, float timeToTarget)
+        {
+            StopMove();
+            
+            if (direction == Vector3.forward || direction == Vector3.back)
+            {
+                Move(direction, distance, timeToTarget);
+            }
+        }
+        
+        protected override void OnMove(float direction) =>
+            Move(Vector3.forward * direction);
+
+        private void Move(Vector3 direction, float distance = 0, float timeToTarget = 0)
         {
             if (MoveCoroutine != null)
                 return;
-            
+
             var startPosition = SelfRigidbody.position;
 
-            var targetPosition = startPosition + (direction * _distanceMove * transform.forward);
+            distance = distance == 0 ? _distanceMove : distance;
+
+            var targetPosition = startPosition + (direction.z * distance * transform.forward);
 
             LookTarget();
 
             MoveCoroutine = StartCoroutine(Move(
-                () => DistanceToTarget > 5 || direction == (int)Direction.Back,
-                (normalTime) =>
-                    Vector3.Lerp(startPosition, targetPosition, normalTime),
-                LookTarget));
+                canMove:() => DistanceToTarget > 5 || direction == Vector3.back,
+                calculatePosition: normalTime => Vector3.Lerp(startPosition, targetPosition, normalTime),
+                endMoveCallBack: LookTarget,
+                timeToTarget: timeToTarget));
         }
     }
 }

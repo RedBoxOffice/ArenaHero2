@@ -14,6 +14,7 @@ namespace ArenaHero.Utils.StateMachine
 				var state = machine.TryGetState<WindowState>(window);
 
 				state.Init(window);
+				state.Exit();
 			}
 		}
 	}

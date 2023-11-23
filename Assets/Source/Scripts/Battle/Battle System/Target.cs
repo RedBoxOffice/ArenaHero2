@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ArenaHero.Battle
@@ -8,6 +9,7 @@ namespace ArenaHero.Battle
 		private IDamagable _damagable;
 
 		public Transform Transform => _transform;
+		
 		public IDamagable Damagable => _damagable;
 
 		public Target(Transform transform, IDamagable damagable)

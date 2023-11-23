@@ -48,8 +48,11 @@ namespace ArenaHero.UI
                 _layoutGroup.LayoutUpdated += UpdateContentPosition;
         }
 
-        private void OnDisable() =>
-            _layoutGroup.LayoutUpdated -= UpdateContentPosition;
+        private void OnDisable()
+        {
+            if (_layoutGroup != null)
+                _layoutGroup.LayoutUpdated -= UpdateContentPosition;
+        }
 
         public void OnDrag(PointerEventData eventData) =>
             UpdateTargetPositon();
