@@ -7,19 +7,15 @@ namespace ArenaHero.Battle
 	{
 		private Transform _transform;
 		private IDamagable _damagable;
-		private IReadOnlyCollection<IMover> _movers;
 
 		public Transform Transform => _transform;
 		
 		public IDamagable Damagable => _damagable;
-		
-		public IReadOnlyCollection<IMover> Movers => _movers;
 
-		public Target(Transform transform, IDamagable damagable, IReadOnlyCollection<IMover> movers)
+		public Target(Transform transform, IDamagable damagable)
 		{
 			_transform = transform;
 			_damagable = damagable;
-			_movers = movers;
 		}
 	}
 }

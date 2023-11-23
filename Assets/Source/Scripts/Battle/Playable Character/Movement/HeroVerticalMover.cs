@@ -24,16 +24,14 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
             InputHandler.Vertical -= OnMove;
         }
 
-        public override bool TryMoveToDirectionOnDistance(Vector3 direction, float distance, float timeToTarget, out Action move)
+        public override void TryMoveToDirectionOnDistance(Vector3 direction, float distance, float timeToTarget)
         {
-            move = null;
+            StopMove();
             
-            if (direction != Vector3.forward || direction != Vector3.back)
-                return false;
-
-            move = () => Move(direction, distance, timeToTarget);
-
-            return true;
+            if (direction == Vector3.forward || direction == Vector3.back)
+            {
+                Move(direction, distance, timeToTarget);
+            }
         }
         
         protected override void OnMove(float direction) =>
@@ -41,7 +39,7 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
 
         private void Move(Vector3 direction, float distance = 0, float timeToTarget = 0)
         {
-            if (MoveCoroutine != null || IsMoveLocked)
+            if (MoveCoroutine != null)
                 return;
 
             var startPosition = SelfRigidbody.position;

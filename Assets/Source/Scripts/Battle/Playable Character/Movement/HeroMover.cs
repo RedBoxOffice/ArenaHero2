@@ -1,11 +1,8 @@
-﻿using ArenaHero.Battle.Skills;
-using ArenaHero.InputSystem;
-using Reflex.Attributes;
-using System;
+﻿using System;
 using System.Collections;
+using ArenaHero.InputSystem;
 using Unity.Collections;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Experimental.AI;
 
 namespace ArenaHero.Battle.PlayableCharacter.Movement
@@ -22,8 +19,6 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
         private ITargetHandler _targetHandler;
         private NavMeshWorld _navMeshWorld;
         private NavMeshQuery _navMeshQuery;
-
-        public bool IsMoveLocked { get; private set; }
         
         protected Target Target => _targetHandler.Target;
         
@@ -41,13 +36,7 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
         protected virtual void OnDisable() =>
             _navMeshQuery.Dispose();
 
-        public abstract bool TryMoveToDirectionOnDistance(Vector3 direction, float distance, float timeToTarget, out Action move);
-        
-        public void LockMove() =>
-            IsMoveLocked = true;
-        
-        public void UnlockMove() =>
-            IsMoveLocked = false;    
+        public abstract void TryMoveToDirectionOnDistance(Vector3 direction, float distance, float timeToTarget);
         
         protected abstract void OnMove(float direction);
 
@@ -74,13 +63,22 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
                 SelfRigidbody.MovePosition(targetPosition);
 
                 currentTime += Time.fixedDeltaTime;
-
+                
                 yield return new WaitForFixedUpdate();
             }
 
             endMoveCallBack?.Invoke();
 
             MoveCoroutine = null;
+        }
+
+        protected void StopMove()
+        {
+            if (MoveCoroutine != null)
+            {
+                StopCoroutine(MoveCoroutine);
+                MoveCoroutine = null;
+            }
         }
 
         private Vector3 GetWorldPositionFromNavMesh(Vector3 targetPosition) =>

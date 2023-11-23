@@ -65,8 +65,7 @@ namespace ArenaHero
                 _waveHandler, 
                 new Target(
                     Hero.transform, 
-                    Hero.GetComponent<IDamagable>(),
-                    Hero.GetComponents<IMover>()));
+                    Hero.GetComponent<IDamagable>()));
         }
 
         private Hero SpawnPlayer() =>

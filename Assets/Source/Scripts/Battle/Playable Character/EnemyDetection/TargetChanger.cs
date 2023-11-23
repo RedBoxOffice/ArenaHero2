@@ -50,14 +50,14 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
                 newEnemy = _currentEnemy.transform;
                 _lookTargetPoint.transform.SetParent(newEnemy);
                 newPosition = Vector3.zero;
-                newTarget = new Target(_currentEnemy.transform, _currentEnemy.SelfDamagable, _currentEnemy.Movers);
+                newTarget = new Target(_currentEnemy.transform, _currentEnemy.SelfDamagable);
             }
             else
             {
                 newEnemy = _defaultLookTargetPoint.transform;
                 _lookTargetPoint.transform.SetParent(null);
                 newPosition = _defaultLookTargetPoint.transform.localPosition;
-                newTarget = new Target(_defaultLookTargetPoint.transform, null, null);
+                newTarget = new Target(_defaultLookTargetPoint.transform, null);
             }
             
             TargetChanging?.Invoke(newEnemy);

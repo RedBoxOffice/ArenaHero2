@@ -12,8 +12,6 @@ namespace ArenaHero.Battle.Enemies.BehaviorTree
 		private IBotInputHandler _inputSource;
 		private NavMeshAgent _agent;
 
-		public bool IsMoveLocked { get; private set; }
-
 		private void Awake()
 		{
 			_inputSource = (IBotInputHandler)_inputSourceBehaviour;
@@ -35,44 +33,17 @@ namespace ArenaHero.Battle.Enemies.BehaviorTree
 			}
 		}
 
-		public bool TryMoveToDirectionOnDistance(Vector3 direction, float distance, float timeToTarget, out Action move)
+		public void TryMoveToDirectionOnDistance(Vector3 direction, float distance, float timeToTarget)
 		{
-			move = null;
-			
-			if (IsMoveLocked)
-			{
-				return false;
-			}
-
-			move = () =>
-			{
-				Vector3 position = transform.position + (transform.forward * distance);
+			Vector3 position = transform.position + (transform.forward * distance);
 				
-				UpdateDestination(position);
-			};
-
-			return true;
-		}
-
-		public void LockMove() =>
-			IsMoveLocked = true;
-
-		public void UnlockMove() =>
-			IsMoveLocked = false;
-
-		private void OnMove(Vector3 position)
-		{
-			if (IsMoveLocked)
-			{
-				return;
-			}
-
 			UpdateDestination(position);
 		}
-		
-		private void UpdateDestination(Vector3 position)
-		{
+
+		private void OnMove(Vector3 position) =>
+			UpdateDestination(position);
+
+		private void UpdateDestination(Vector3 position) =>
 			_agent.SetDestination(position);
-		}
 	}
 }
