@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ArenaHero.UI
 {
-    public class GameButton : EventTriggerButton
+    public class FightButton : EventTriggerButton
     {
 
     }

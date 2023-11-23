@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace ArenaHero.Utils.StateMachine
 {
@@ -10,4 +7,3 @@ namespace ArenaHero.Utils.StateMachine
         public override Type WindowType => typeof(PauseWindowState);
     }
 }
-
