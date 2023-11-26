@@ -9,6 +9,6 @@ namespace ArenaHero.Utils.StateMachine
 			WindowsInit(machine.Window);
 
 			machine.EnterIn<TState>();
-		}
+		}		
 	}
 }

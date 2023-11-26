@@ -7,7 +7,7 @@ namespace ArenaHero.Utils.StateMachine
 	{
 		[SerializeField] private List<Window> _windows;
 		
-		protected void WindowsInit(WindowStateMachine machine)
+		public void WindowsInit(WindowStateMachine machine)
 		{
 			foreach (var window in _windows)
 			{
