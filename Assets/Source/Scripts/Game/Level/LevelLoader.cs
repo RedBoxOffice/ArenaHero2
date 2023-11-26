@@ -10,21 +10,21 @@ using UnityEngine;
 
 namespace ArenaHero.Game.Level
 {
-	public class LevelLoader : MonoBehaviour, ISceneLoadHandlerOnState<GameStateMachine, object>
-	{
-		[SerializeField] private List<LevelData> _levels;
+    public class LevelLoader : MonoBehaviour, ISceneLoadHandlerOnState<GameStateMachine, object>
+    {
+        [SerializeField] private List<LevelData> _levels;
 
-		private Func<CurrentLevel> _getCurrentLevel;
-		private GameStateMachine _gameStateMachine;
-		
-		[Inject]
-		private void Inject(ISaver saver) =>
-			_getCurrentLevel = () => saver.Get<CurrentLevel>();
+        private Func<CurrentLevel> _getCurrentLevel;
+        private GameStateMachine _gameStateMachine;
 
-		public void OnFightButtonClick() =>
-			FightSceneSlava.Load<FightState, LevelData>(_gameStateMachine, _levels[_getCurrentLevel().Index]);
+        [Inject]
+        private void Inject(ISaver saver) =>
+            _getCurrentLevel = () => saver.Get<CurrentLevel>();
 
-		public void OnSceneLoaded<TState>(GameStateMachine machine, object argument = default) where TState : State<GameStateMachine> =>
-			_gameStateMachine = machine;
-	}
+        public void OnFightButtonClick() =>
+            FightSceneDima.Load<FightState, LevelData>(_gameStateMachine, _levels[_getCurrentLevel().Index]);
+
+        public void OnSceneLoaded<TState>(GameStateMachine machine, object argument = default) where TState : State<GameStateMachine> =>
+            _gameStateMachine = machine;
+    }
 }

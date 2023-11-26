@@ -1,131 +1,109 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Agava.YandexGames;
 using ArenaHero.Yandex.Saves.Data;
 using ArenaHero.Yandex.Simulator;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace ArenaHero.Yandex.Saves
 {
-    public class GamePlayerDataSaver : ISaver
-    {
-        private readonly PlayerData _playerData = new PlayerData();
-        private readonly YandexSimulator _yandexSimulator = new YandexSimulator();
-        private readonly Hashtable _accessMethodsHolders;
-        private readonly Hashtable _playerDataEvents;
+	public class GamePlayerDataSaver : ISaver
+	{
+		private readonly YandexSimulator _yandexSimulator = new YandexSimulator();
+		private readonly Hashtable _saves;
 
-        public GamePlayerDataSaver()
-        {
-            _playerDataEvents = new Hashtable();
+		private GameSavesData _gameSavesData = new GameSavesData();
 
-            _accessMethodsHolders = new Hashtable()
-            {
-                [typeof(CurrentLevel)] = new SaveAccessMethodsHolder<CurrentLevel>(
-                    getter: (_) => _playerData.CurrentLevel,
-                    setter: (value) =>
-                    {
-                        if (value == default(CurrentLevel))
-                            throw new ArgumentNullException(nameof(value));
+		public GamePlayerDataSaver()
+		{
+			_saves = new Hashtable
+			{
+				[typeof(CurrentLevel)] = new Func<CurrentLevel>(() => _gameSavesData.CurrentLevel),
+			};
+		}
 
-                        if (_playerData.CurrentLevel.Index == value.Index)
-                            return;
-                        
-                        _playerData.CurrentLevel = value;
-                        Save((Action<CurrentLevel>)_playerDataEvents[typeof(CurrentLevel)], value);
-                    }
-                )
-            };
-        }
+		public TData Get<TData>(TData value = default)
+			where TData : SaveData
+		{
+			if (CanDoIt<TData>() is false)
+				return null;
 
-        public TData Get<TData>(TData value = default) where TData : class, IPlayerData
-        {
-            if (_accessMethodsHolders.ContainsKey(typeof(TData)))
-            {
-                var holder = (SaveAccessMethodsHolder<TData>)_accessMethodsHolders[typeof(TData)];
-                return holder.Getter(value);
-            }
-            else
-            {
-                throw new ArgumentNullException($"{nameof(GamePlayerDataSaver)} GET DATA");
-            }
-        }
+			return (TData)((Func<TData>)_saves[typeof(TData)])().Clone();
+		}
 
-        public void Set<TData>(TData value = default) where TData : class, IPlayerData
-        {
-            if (_accessMethodsHolders.ContainsKey(typeof(TData)))
-            {
-                var holder = (SaveAccessMethodsHolder<TData>)_accessMethodsHolders[typeof(TData)];
-                holder.Setter(value);
-            }
-            else
-            {
-                throw new ArgumentNullException($"{nameof(GamePlayerDataSaver)} SET DATA");
-            }
-        }
+		public void Set<TData>(TData value)
+			where TData : SaveData
+		{
+			if (CanDoIt<TData>() is false)
+				return;
 
-        public void SubscribeValueUpdated<TData>(Action<TData> subAction) where TData : class, IPlayerData
-        {
-            if (_playerDataEvents.ContainsKey(typeof(TData)))
-            {
-                var action = (Action<TData>)_playerDataEvents[typeof(TData)];
+			((Func<TData>)_saves[typeof(TData)])().UpdateValue(value, Save);
+		}
 
-                action += subAction;
-                _playerDataEvents[typeof(TData)] = action;
-            }
-            else
-            {
-                _playerDataEvents.Add(typeof(TData), subAction);
-            }
-        }
+		public void SubscribeValueUpdated<TData>(Action<SaveData> observer)
+			where TData : SaveData
+		{
+			if (CanDoIt<TData>())
+			{
+				((Func<TData>)_saves[typeof(TData)])().ValueUpdated += observer;
+			}
+		}
 
-        public void UnsubscribeValueUpdated<TData>(Action<TData> subAction) where TData : class, IPlayerData
-        {
-            if (_playerDataEvents.ContainsKey(typeof(TData)))
-            {
-                var action = (Action<TData>)_playerDataEvents[typeof(TData)];
+		public void UnsubscribeValueUpdated<TData>(Action<SaveData> observer)
+			where TData : SaveData
+		{
+			if (CanDoIt<TData>())
+			{
+				((Func<TData>)_saves[typeof(TData)])().ValueUpdated -= observer;
+			}
+		}
 
-                action -= subAction;
-                _playerDataEvents[typeof(TData)] = action;
-            }
-            else
-            {
-                throw new ArgumentNullException($"{nameof(GamePlayerDataSaver)} VALUE UPDATED");
-            }
-        }
-        
-        public void Init()
-        {
+		public void Init()
+		{
 #if !UNITY_EDITOR
             PlayerAccount.GetCloudSaveData(OnSuccessCallback);
 #else
-            _yandexSimulator.Init(OnSuccessCallback);
+			_yandexSimulator.Init(OnSuccessCallback);
 #endif
 
-            return;
+			return;
 
-            void OnSuccessCallback(string data)
-            {
-                var playerData = JsonUtility.FromJson<PlayerData>(data);
+			void OnSuccessCallback(string data)
+			{
+				var saves = JsonUtility.FromJson<GameSavesData>(data);
 
-                Set(playerData.CurrentLevel);
-            }
-        }
+				Debug.Log($"level = {saves.CurrentLevel.Index}");
+				_gameSavesData = saves;
+				
+			}
+		}
 
-        private void Save()
-        {
-            string save = JsonUtility.ToJson(_playerData);
-            
+		private void Save()
+		{
+			string save = JsonUtility.ToJson(_gameSavesData);
+
+			Debug.Log($"SAVE = {save}");
+
 #if !UNITY_EDITOR
             PlayerAccount.SetCloudSaveData(save);
 #else
-            _yandexSimulator.Save(save);
+			_yandexSimulator.Save(save);
 #endif
-        }
+		}
 
-        private void Save<T>(Action<T> saved, T valueCallback)
-        {
-            Save();
-            saved?.Invoke(valueCallback);
-        }
-    }
+		private bool CanDoIt<TData>()
+			where TData : SaveData
+		{
+			if (_saves.ContainsKey(typeof(TData)))
+			{
+				return true;
+			}
+			else
+			{
+				throw new ArgumentNullException(typeof(TData).Name, "not contains key");
+			}
+		}
+	}
 }

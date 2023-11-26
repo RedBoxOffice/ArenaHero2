@@ -64,8 +64,9 @@ namespace ArenaHero
             var windowStateMachine = new WindowStateMachine(() => new Dictionary<Type, State<WindowStateMachine>>()
             {
                 [typeof(FightWindowState)] = new FightWindowState(),
-                [typeof(OverWindowState)] = new OverWindowState(),
+                [typeof(EndLevelWindowState)] = new EndLevelWindowState(),
                 [typeof(MenuWindowState)] = new MenuWindowState(),
+                [typeof(PauseWindowState)] = new PauseWindowState(),
             });
 
             var gameStateMachine = new GameStateMachine(windowStateMachine, () => new Dictionary<Type, State<GameStateMachine>>()
@@ -73,7 +74,8 @@ namespace ArenaHero
                 [typeof(FightState)] = new FightState(windowStateMachine),
                 [typeof(EndLevelState)] = new EndLevelState(windowStateMachine),
                 [typeof(MenuState)] = new MenuState(windowStateMachine),
-            });
+                [typeof(PauseState)] = new PauseState(windowStateMachine)
+            }); ;
 
             return gameStateMachine;
         }

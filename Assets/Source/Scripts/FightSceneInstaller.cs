@@ -59,13 +59,8 @@ namespace ArenaHero
             where TState : State<GameStateMachine>
         {
             _levelData = argument;
-            
-            _levelInitializer = new LevelInitializer(
-                _levelData, 
-                _waveHandler, 
-                new Target(
-                    Hero.transform, 
-                    Hero.GetComponent<IDamagable>()));
+            GetComponent<UIFightSceneInitializer>().Init(machine);
+            _levelInitializer = new LevelInitializer(_levelData, _waveHandler, new Target(Hero.transform, Hero.gameObject.GetComponent<IDamagable>()));
         }
 
         private Hero SpawnPlayer() =>

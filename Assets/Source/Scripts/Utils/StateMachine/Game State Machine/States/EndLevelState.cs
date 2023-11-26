@@ -10,7 +10,7 @@ namespace ArenaHero.Utils.StateMachine
 
         public override void Enter()
         {
-            WindowStateMachine.EnterIn<OverWindowState>();
+            WindowStateMachine.EnterIn<EndLevelWindowState>();
             StateChanged?.Invoke();
         }
         public override void Exit() { }
