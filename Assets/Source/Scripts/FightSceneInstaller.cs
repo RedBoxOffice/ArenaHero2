@@ -58,6 +58,7 @@ namespace ArenaHero
         public void OnSceneLoaded<TState>(GameStateMachine machine, LevelData argument = default)
             where TState : State<GameStateMachine>
         {
+            GetComponent<WindowInitializer>().WindowsInit(machine.Window);
             _levelData = argument;
             GetComponent<UIFightSceneInitializer>().Init(machine);
             _levelInitializer = new LevelInitializer(_levelData, _waveHandler, new Target(Hero.transform, Hero.gameObject.GetComponent<IDamagable>()));

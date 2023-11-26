@@ -10,7 +10,7 @@ namespace ArenaHero.Utils.StateMachine
             _window = window;
 
         public override void Enter()
-        {
+        {          
             _window.gameObject.SetActive(true);
         }
 

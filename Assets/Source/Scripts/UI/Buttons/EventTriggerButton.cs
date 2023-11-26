@@ -14,8 +14,6 @@ namespace ArenaHero.UI
 
         public virtual void OnClick()
         {
-            Debug.Log("Button Click");
-            
             ActionEnded?.Invoke();
         }
     }
