@@ -9,7 +9,6 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
     {
         private readonly DetectedZone _triggerZone;
         private readonly LookTargetPoint _lookTargetPoint;
-        private readonly LookTargetPoint _defaultLookTargetPoint;
         private readonly IActionsInputHandlerOnlyPlayer _actionsInputHandler;
 
         private Enemy _currentEnemy;
@@ -19,7 +18,6 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
         public TargetChanger(TargetChangerInject inject)
         {
             _triggerZone = inject.TriggerZone;
-            _defaultLookTargetPoint = inject.LookTargetPoint;
             _lookTargetPoint = inject.LookTargetPoint;
             _actionsInputHandler = inject.ActionsInputHandler;
 
@@ -39,42 +37,73 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
 
         private void OnChangeTarget()
         {
-            _currentEnemy = _triggerZone.TryGetEnemy();
-
-            Transform newEnemy;
-            Target newTarget;
-            Vector3 newPosition;
-
-            if (_currentEnemy != null)
-            {
-                newEnemy = _currentEnemy.transform;
-                _lookTargetPoint.transform.SetParent(newEnemy);
-                newPosition = Vector3.zero;
-                newTarget = new Target(_currentEnemy.transform, _currentEnemy.SelfDamagable);
-            }
-            else
-            {
-                newEnemy = _defaultLookTargetPoint.transform;
-                _lookTargetPoint.transform.SetParent(null);
-                newPosition = _defaultLookTargetPoint.transform.localPosition;
-                newTarget = new Target(_defaultLookTargetPoint.transform, null);
-            }
+            UpdateEnemy();
             
-            TargetChanging?.Invoke(newEnemy);
-            
-            _lookTargetPoint.UpdateTarget(newTarget);
-            _lookTargetPoint.transform.localPosition = newPosition;
+            TargetChanging?.Invoke(GetTargetTransform());
+            _lookTargetPoint.transform.SetParent(GetParentForLookTargetPoint());
+            _lookTargetPoint.UpdateTarget(GetTarget());
+            _lookTargetPoint.transform.localPosition = GetTargetPointPosition();
         }
 
+        private void UpdateEnemy()
+        {
+            EnemyDiedUnSubscribe();
+            
+            _currentEnemy = _triggerZone.TryGetEnemy();
+            
+            EnemyDiedSubscribe();
+        }
+
+        private Transform GetTargetTransform() =>
+            _currentEnemy is null 
+                ? _lookTargetPoint.transform 
+                : _currentEnemy.transform;
+
+        private Transform GetParentForLookTargetPoint() =>
+            _currentEnemy is null 
+                ? null 
+                : _currentEnemy.transform;
+
+        private Vector3 GetTargetPointPosition() =>
+            _currentEnemy is null 
+                ? _lookTargetPoint.transform.localPosition 
+                : Vector3.zero;
+
+        private Target GetTarget() =>
+            _currentEnemy is null 
+                ? new Target(_lookTargetPoint.transform, null) 
+                : new Target(_currentEnemy.transform, _currentEnemy.SelfDamagable);
+
+        private void EnemyDiedSubscribe()
+        {
+            if (_currentEnemy is not null)
+            {
+                _currentEnemy.SelfCharacter.Died += OnEnemyDisable;
+            }
+        }
+        
+        private void EnemyDiedUnSubscribe()
+        {
+            if (_currentEnemy is not null)
+            {
+                _currentEnemy.SelfCharacter.Died -= OnEnemyDisable;
+            }
+        }
+
+        private void OnEnemyDisable()
+        {
+            OnChangeTarget();
+        }
+        
         private void OnEnemyDetected(Enemy enemy)
         {
-            if (_currentEnemy == null)
+            if (_currentEnemy is null)
                 OnChangeTarget();
         }
 
         private void OnEnemyLost(Enemy enemy)
         {
-            if (_currentEnemy == null || _currentEnemy == enemy)
+            if (_currentEnemy is null || _currentEnemy.Equals(enemy))
             {
                 OnChangeTarget();
             }

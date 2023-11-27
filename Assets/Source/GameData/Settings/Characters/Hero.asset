@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Hero
   m_EditorClassIdentifier: 
   _maxHealth: 100
-  _baseDamage: 3
+  _baseDamage: 10
   _attackDistance: 5
   _attackCooldown: 0.5

@@ -27,10 +27,8 @@ namespace ArenaHero
         
         private Hero Hero => GetHeroInitialized();
 
-        private void OnDisable()
-        {
+        private void OnDisable() =>
             _levelInitializer.Dispose();
-        }
 
         public void InstallBindings(ContainerDescriptor descriptor)
         {
