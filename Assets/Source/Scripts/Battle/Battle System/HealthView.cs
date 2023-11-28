@@ -1,20 +1,25 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace ArenaHero.Battle
 {
 	public class HealthView : MonoBehaviour
 	{
-		[SerializeField] private Slider _healthSlider;
-		
+		[SerializeField] private MeshRenderer _healthBarMeshRenderer;
+
+		private MaterialPropertyBlock _materialPropertyBlock;
 		private ICharacter _character;
+		private Camera _mainCamera;
 		
 		private void Awake()
 		{
+			_materialPropertyBlock = new MaterialPropertyBlock();
+			_mainCamera = Camera.main;
 			_character = GetComponent<ICharacter>();
 			
-			_healthSlider.value = _character.Data.MaxHealth;
+			OnHealthChanged(_character.Data.MaxHealth);
 		}
 
 		private void OnEnable()
@@ -27,9 +32,23 @@ namespace ArenaHero.Battle
 			_character.HealthChanged -= OnHealthChanged;
 		}
 
+		private void FixedUpdate() =>
+			AlignCamera();
+
 		private void OnHealthChanged(float currentHealth)
 		{
-			_healthSlider.value = currentHealth / _character.Data.MaxHealth;
+			_healthBarMeshRenderer.GetPropertyBlock(_materialPropertyBlock);
+			_materialPropertyBlock.SetFloat("_Fill", currentHealth / _character.Data.MaxHealth);
+			_healthBarMeshRenderer.SetPropertyBlock(_materialPropertyBlock);
+		}
+
+		private void AlignCamera()
+		{
+			var mainCameraTransform = _mainCamera.transform;
+			var forward = _healthBarMeshRenderer.transform.position - mainCameraTransform.position;
+			forward.Normalize();
+			var up = Vector3.Cross(forward, mainCameraTransform.right);
+			_healthBarMeshRenderer.transform.rotation = Quaternion.LookRotation(forward, up);
 		}
 	}
 }

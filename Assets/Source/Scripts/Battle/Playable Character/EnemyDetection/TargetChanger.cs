@@ -37,23 +37,14 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
 
         private void OnChangeTarget()
         {
-            UpdateEnemy();
+            _currentEnemy = _triggerZone.TryGetEnemy();
             
             TargetChanging?.Invoke(GetTargetTransform());
             _lookTargetPoint.transform.SetParent(GetParentForLookTargetPoint());
             _lookTargetPoint.UpdateTarget(GetTarget());
             _lookTargetPoint.transform.localPosition = GetTargetPointPosition();
         }
-
-        private void UpdateEnemy()
-        {
-            EnemyDiedUnSubscribe();
-            
-            _currentEnemy = _triggerZone.TryGetEnemy();
-            
-            EnemyDiedSubscribe();
-        }
-
+        
         private Transform GetTargetTransform() =>
             _currentEnemy is null 
                 ? _lookTargetPoint.transform 
@@ -70,30 +61,9 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
                 : Vector3.zero;
 
         private Target GetTarget() =>
-            _currentEnemy is null 
-                ? new Target(_lookTargetPoint.transform, null) 
+            _currentEnemy is null
+                ? new Target(_lookTargetPoint.transform, null)
                 : new Target(_currentEnemy.transform, _currentEnemy.SelfDamagable);
-
-        private void EnemyDiedSubscribe()
-        {
-            if (_currentEnemy is not null)
-            {
-                _currentEnemy.SelfCharacter.Died += OnEnemyDisable;
-            }
-        }
-        
-        private void EnemyDiedUnSubscribe()
-        {
-            if (_currentEnemy is not null)
-            {
-                _currentEnemy.SelfCharacter.Died -= OnEnemyDisable;
-            }
-        }
-
-        private void OnEnemyDisable()
-        {
-            OnChangeTarget();
-        }
         
         private void OnEnemyDetected(Enemy enemy)
         {

@@ -36,7 +36,6 @@ namespace ArenaHero.UI
         {
             _getCurrentLevel = () => saver.Get<CurrentLevel>().Index;
             _setCurrentLevel = (index) => saver.Set(new CurrentLevel(index));
-
             Init();
 
             UpdateContentPosition();

@@ -16,10 +16,10 @@ namespace ArenaHero.Yandex.Leaderboard
         public Type SelfType => GetType();
         public GameObject SelfGameObject => gameObject;
 
-        public event Action<IPoolingObject<LeaderboardPlayerData>> Disable;
+        public event Action<IPoolingObject<LeaderboardPlayerData>> Disabled;
 
         private void OnDisable() =>
-            Disable?.Invoke(this);
+            Disabled?.Invoke(this);
 
         public void Init(LeaderboardPlayerData data)
         {

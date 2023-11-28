@@ -21,7 +21,6 @@ namespace ArenaHero.Yandex.Saves
 			_saves = new Hashtable
 			{
 				[typeof(CurrentLevel)] = new Func<CurrentLevel>(() => _gameSavesData.CurrentLevel),
-				[typeof(MaxHealth)] = new Func<MaxHealth>(() => _gameSavesData.MaxHealth),
 			};
 		}
 

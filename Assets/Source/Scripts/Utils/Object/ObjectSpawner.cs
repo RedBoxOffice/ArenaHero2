@@ -23,7 +23,7 @@ namespace ArenaHero.Utils.Object
                 spawningObject.SelfGameObject.transform.position = position;
             }
 
-            spawningObject.Disable += _pool.Return;
+            spawningObject.Disabled += _pool.Return;
             
             spawningObject.Init(init);
 

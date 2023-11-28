@@ -1,6 +1,7 @@
 using ArenaHero.Data;
 using System;
 using System.Collections.Generic;
+using ArenaHero.Utils.Object;
 using UnityEngine;
 
 namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
@@ -10,16 +11,22 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
         [SerializeField] private List<Enemy> _enemies = new List<Enemy>();
 
         public event Action<Enemy> EnemyDetected;
+        
         public event Action<Enemy> EnemyLost;
 
         public Enemy TryGetEnemy() =>
-            _enemies.Count != 0 ? _enemies[UnityEngine.Random.Range(0, _enemies.Count)] : null;
+            _enemies.Count != 0 
+                ? _enemies[UnityEngine.Random.Range(0, _enemies.Count)] 
+                : null;
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.TryGetComponent(out Enemy enemy))
             {
                 _enemies.Add(enemy);
+
+                enemy.Disabling += Lost;
+                
                 EnemyDetected?.Invoke(enemy);
             }
         }
@@ -28,9 +35,15 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
         {
             if (other.TryGetComponent(out Enemy enemy))
             {
-                _enemies.Remove(enemy);
-                EnemyLost?.Invoke(enemy);
+                Lost(enemy);
             }
+        }
+
+        private void Lost(Enemy enemy)
+        {
+            enemy.Disabling -= Lost;
+            _enemies.Remove(enemy);
+            EnemyLost?.Invoke(enemy);
         }
     }
 }

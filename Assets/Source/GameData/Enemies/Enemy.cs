@@ -10,17 +10,19 @@ namespace ArenaHero.Data
     {
         private ICharacter _character;
         
+        public event Action<Enemy> Disabling;
+        
+        public event Action<IPoolingObject<EnemyInit>> Disabled;
+
         public GameObject SelfGameObject => gameObject;
 
         public ICharacter SelfCharacter => _character;
-        
+
         public IDamagable SelfDamagable { get; private set; }
 
         public Target Target { get; private set; }
 
         public abstract Type SelfType { get; }
-        
-        public event Action<IPoolingObject<EnemyInit>> Disable;
 
         private void Awake()
         {
@@ -33,12 +35,15 @@ namespace ArenaHero.Data
 
         private void OnDisable()
         {
-            Disable?.Invoke(this);
+            Disabled?.Invoke(this);
             _character.Died -= OnDied;
         }
 
-        private void OnDied() =>
+        private void OnDied()
+        {
+            Disabling?.Invoke(this);
             gameObject.SetActive(false);
+        }
 
         public void Init(EnemyInit init) =>
             Target = init.Target;
