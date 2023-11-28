@@ -6,16 +6,16 @@ namespace ArenaHero.Battle
 	public class Target
 	{
 		private Transform _transform;
-		private IDamagable _damagable;
+		private IDamageable _damageable;
 
 		public Transform Transform => _transform;
 		
-		public IDamagable Damagable => _damagable;
+		public IDamageable Damageable => _damageable;
 
-		public Target(Transform transform, IDamagable damagable)
+		public Target(Transform transform, IDamageable damageable)
 		{
 			_transform = transform;
-			_damagable = damagable;
+			_damageable = damageable;
 		}
 	}
 }

@@ -8,6 +8,7 @@ using ArenaHero.Yandex.Saves;
 using Reflex.Core;
 using System;
 using System.Collections.Generic;
+using ArenaHero.Debugs;
 using UnityEngine;
 
 namespace ArenaHero
@@ -15,6 +16,7 @@ namespace ArenaHero
     public class ProjectInstaller : MonoBehaviour, IInstaller
     {
         [SerializeField] private GameAudioHandler _gameAudioHandler;
+        [SerializeField] private SceneLoader _sceneLoader = new SceneLoader();
 
         public void InstallBindings(ContainerDescriptor descriptor)
         {
@@ -29,6 +31,8 @@ namespace ArenaHero
             descriptor.AddInstance(gameStateMachine.TryGetState<EndLevelState>(), typeof(IEndLevelStateChanged));
 
             YandexInit(descriptor, context, gameStateMachine);
+
+            descriptor.AddInstance(_sceneLoader);
         }
 
         private void InputInit(ContainerDescriptor descriptor)
@@ -75,7 +79,7 @@ namespace ArenaHero
                 [typeof(EndLevelState)] = new EndLevelState(windowStateMachine),
                 [typeof(MenuState)] = new MenuState(windowStateMachine),
                 [typeof(PauseState)] = new PauseState(windowStateMachine)
-            }); ;
+            });
 
             return gameStateMachine;
         }
@@ -87,7 +91,7 @@ namespace ArenaHero
             descriptor.AddInstance(ad, typeof(ICounterForShowAd));
 
             var yandexSDKInitializer = new GameObject(nameof(YandexInitializer)).AddComponent<YandexInitializer>();
-            yandexSDKInitializer.Init(gameStateMachine, () =>
+            yandexSDKInitializer.Init(gameStateMachine, _sceneLoader, () =>
             {
                 saver.Init();
 

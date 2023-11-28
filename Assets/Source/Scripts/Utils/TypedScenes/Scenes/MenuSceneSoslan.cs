@@ -14,10 +14,10 @@ namespace ArenaHero.Utils.TypedScenes
     using ArenaHero.Utils.StateMachine;
     
     
-    public class W1_Level_1 : TypedScene<ArenaHero.Utils.StateMachine.GameStateMachine>
+    public class MenuSceneSoslan : TypedScene<ArenaHero.Utils.StateMachine.GameStateMachine>
     {
         
-        private const string _sceneName = "W1_Level_1";
+        private const string _sceneName = "MenuSceneSoslan";
         
         public static void Load<TState, T>(GameStateMachine machine, T argument = default, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
             where TState : State<GameStateMachine>

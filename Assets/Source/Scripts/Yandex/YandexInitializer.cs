@@ -1,8 +1,8 @@
 using Agava.YandexGames;
 using ArenaHero.Utils.StateMachine;
-using ArenaHero.Utils.TypedScenes;
 using System;
 using System.Collections;
+using ArenaHero.Debugs;
 using UnityEngine;
 
 namespace ArenaHero.Yandex
@@ -11,15 +11,15 @@ namespace ArenaHero.Yandex
     {
         private Action _callBack;
         private GameStateMachine _gameStateMachine;
+        private SceneLoader _sceneLoader;
 
-        private void Start()
-        {
+        private void Start() =>
             StartCoroutine(InitSDK());
-        }
 
-        public void Init(GameStateMachine gameStateMachine, Action sdkInitSuccessCallBack)
+        public void Init(GameStateMachine gameStateMachine, SceneLoader loader, Action sdkInitSuccessCallBack)
         {
             _gameStateMachine = gameStateMachine;
+            _sceneLoader = loader;
             _callBack = sdkInitSuccessCallBack;
         }
 
@@ -34,7 +34,7 @@ namespace ArenaHero.Yandex
             _callBack();
 #endif
 
-            MenuScene_1.Load<MenuState, object>(_gameStateMachine);
+            _sceneLoader.LoadMenu<MenuState, object>(_gameStateMachine);
 
             yield return null;
         }

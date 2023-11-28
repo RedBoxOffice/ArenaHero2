@@ -2,7 +2,7 @@
 
 namespace ArenaHero.Battle
 {
-    public interface IDamagable
+    public interface IDamageable
     {
         public event Action<float> HealthChanged;
         

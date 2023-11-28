@@ -3,13 +3,28 @@
 namespace ArenaHero.Yandex.Saves
 {
     [Serializable]
-    public abstract class SaveData
+    public abstract class SaveData<TData>
+        where TData : SaveData<TData>
     {
-        public abstract event Action<SaveData> ValueUpdated;
+        public event Action<TData> ValueUpdated;
 
-        public abstract void UpdateValue<TData>(TData value, Action successCallback)
-            where TData : SaveData;
+        public void TryUpdateValue(TData value, Action successCallback)
+        {
+            if (Equals(value))
+            {
+                return;
+            }
 
-        public abstract SaveData Clone();
+            UpdateValue(value);
+            
+            successCallback();
+            ValueUpdated?.Invoke(Clone());
+        }
+
+        public abstract TData Clone();
+
+        protected abstract void UpdateValue(TData value);
+
+        protected abstract bool Equals(TData value);
     }
 }

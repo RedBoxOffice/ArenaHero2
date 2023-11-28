@@ -33,7 +33,7 @@ namespace ArenaHero.Battle.Skills
 
 		private bool CanJerk()
 		{
-			if (Target.Damagable == null)
+			if (Target.Damageable == null)
 			{
 				return false;
 			}

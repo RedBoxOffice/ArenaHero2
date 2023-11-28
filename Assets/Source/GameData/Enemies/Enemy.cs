@@ -18,7 +18,7 @@ namespace ArenaHero.Data
 
         public ICharacter SelfCharacter => _character;
 
-        public IDamagable SelfDamagable { get; private set; }
+        public IDamageable SelfDamageable { get; private set; }
 
         public Target Target { get; private set; }
 
@@ -26,7 +26,7 @@ namespace ArenaHero.Data
 
         private void Awake()
         {
-            SelfDamagable = GetComponent<IDamagable>();
+            SelfDamageable = GetComponent<IDamageable>();
             _character = GetComponent<ICharacter>();
         }
 

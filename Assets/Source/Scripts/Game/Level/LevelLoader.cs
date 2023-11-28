@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using ArenaHero.Data;
+using ArenaHero.Debugs;
 using ArenaHero.Utils.StateMachine;
 using ArenaHero.Utils.TypedScenes;
 using ArenaHero.Yandex.Saves;
 using ArenaHero.Yandex.Saves.Data;
 using Reflex.Attributes;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace ArenaHero.Game.Level
 {
@@ -16,13 +18,17 @@ namespace ArenaHero.Game.Level
 
         private Func<CurrentLevel> _getCurrentLevel;
         private GameStateMachine _gameStateMachine;
+        private SceneLoader _sceneLoader;
 
         [Inject]
-        private void Inject(ISaver saver) =>
+        private void Inject(ISaver saver, SceneLoader sceneLoader)
+        {
             _getCurrentLevel = () => saver.Get<CurrentLevel>();
+            _sceneLoader = sceneLoader;
+        }
 
         public void OnFightButtonClick() =>
-            FightSceneSlava.Load<FightState, LevelData>(_gameStateMachine, _levels[_getCurrentLevel().Index]);
+            _sceneLoader.LoadFight<FightState, LevelData>(_gameStateMachine, _levels[_getCurrentLevel().Index]);
 
         public void OnSceneLoaded<TState>(GameStateMachine machine, object argument = default) where TState : State<GameStateMachine> =>
             _gameStateMachine = machine;

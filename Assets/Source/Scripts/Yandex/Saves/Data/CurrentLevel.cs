@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ArenaHero.Yandex.Saves.Data
 {
     [Serializable]
-    public class CurrentLevel : SaveData
+    public class CurrentLevel : SaveData<CurrentLevel>
     {
         [SerializeField] private int _index;
 
@@ -15,20 +15,14 @@ namespace ArenaHero.Yandex.Saves.Data
 
         public CurrentLevel(int index) =>
             _index = Mathf.Clamp(index, 0, int.MaxValue);
-
-        public override event Action<SaveData> ValueUpdated;
-
-        public override SaveData Clone() =>
+        
+        public override CurrentLevel Clone() =>
             new CurrentLevel(_index);
+        
+        protected override void UpdateValue(CurrentLevel value) =>
+            _index = value.Index;
 
-        public override void UpdateValue<TData>(TData value, Action successCallback)
-        {
-            if (value is CurrentLevel level)
-            {
-                _index = level.Index;
-                successCallback();
-                ValueUpdated?.Invoke(Clone());
-            }
-        }
+        protected override bool Equals(CurrentLevel value) =>
+            value.Index.Equals(_index);
     }
 }

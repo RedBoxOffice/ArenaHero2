@@ -21,29 +21,30 @@ namespace ArenaHero.Yandex.Saves
 			_saves = new Hashtable
 			{
 				[typeof(CurrentLevel)] = new Func<CurrentLevel>(() => _gameSavesData.CurrentLevel),
+				[typeof(CurrentLevelStage)] = new Func<CurrentLevelStage>(() => _gameSavesData.CurrentLevelStage)
 			};
 		}
 
 		public TData Get<TData>(TData value = default)
-			where TData : SaveData
+			where TData : SaveData<TData>
 		{
 			if (CanDoIt<TData>() is false)
 				return null;
 
-			return (TData)((Func<TData>)_saves[typeof(TData)])().Clone();
+			return ((Func<TData>)_saves[typeof(TData)])().Clone();
 		}
 
 		public void Set<TData>(TData value)
-			where TData : SaveData
+			where TData : SaveData<TData>
 		{
 			if (CanDoIt<TData>() is false)
 				return;
 
-			((Func<TData>)_saves[typeof(TData)])().UpdateValue(value, Save);
+			((Func<TData>)_saves[typeof(TData)])().TryUpdateValue(value, Save);
 		}
 
-		public void SubscribeValueUpdated<TData>(Action<SaveData> observer)
-			where TData : SaveData
+		public void SubscribeValueUpdated<TData>(Action<TData> observer)
+			where TData : SaveData<TData>
 		{
 			if (CanDoIt<TData>())
 			{
@@ -51,8 +52,8 @@ namespace ArenaHero.Yandex.Saves
 			}
 		}
 
-		public void UnsubscribeValueUpdated<TData>(Action<SaveData> observer)
-			where TData : SaveData
+		public void UnsubscribeValueUpdated<TData>(Action<TData> observer)
+			where TData : SaveData<TData>
 		{
 			if (CanDoIt<TData>())
 			{
@@ -90,7 +91,7 @@ namespace ArenaHero.Yandex.Saves
 		}
 
 		private bool CanDoIt<TData>()
-			where TData : SaveData
+			where TData : SaveData<TData>
 		{
 			if (_saves.ContainsKey(typeof(TData)))
 			{

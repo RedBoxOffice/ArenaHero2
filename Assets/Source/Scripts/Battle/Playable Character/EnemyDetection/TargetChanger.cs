@@ -12,7 +12,8 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
         private readonly IActionsInputHandlerOnlyPlayer _actionsInputHandler;
 
         private Enemy _currentEnemy;
-
+        private Enemy _previousEnemy;
+        
         public event Action<Transform> TargetChanging;
 
         public TargetChanger(TargetChangerInject inject)
@@ -37,12 +38,24 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
 
         private void OnChangeTarget()
         {
-            _currentEnemy = _triggerZone.TryGetEnemy();
+            _previousEnemy = null;
+            UpdateCurrentEnemy();
             
             TargetChanging?.Invoke(GetTargetTransform());
             _lookTargetPoint.transform.SetParent(GetParentForLookTargetPoint());
             _lookTargetPoint.UpdateTarget(GetTarget());
             _lookTargetPoint.transform.localPosition = GetTargetPointPosition();
+        }
+
+        private void UpdateCurrentEnemy()
+        {
+            _previousEnemy = _currentEnemy;
+            _currentEnemy = _triggerZone.TryGetEnemy();
+
+            if (_previousEnemy == _currentEnemy)
+            {
+                UpdateCurrentEnemy();
+            }
         }
         
         private Transform GetTargetTransform() =>
@@ -63,7 +76,7 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
         private Target GetTarget() =>
             _currentEnemy is null
                 ? new Target(_lookTargetPoint.transform, null)
-                : new Target(_currentEnemy.transform, _currentEnemy.SelfDamagable);
+                : new Target(_currentEnemy.transform, _currentEnemy.SelfDamageable);
         
         private void OnEnemyDetected(Enemy enemy)
         {

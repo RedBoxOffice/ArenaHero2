@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ArenaHero.Battle
 {
-	public interface ICharacter : IDamagable
+	public interface ICharacter : IDamageable
 	{
 		public event Action Died;
 		

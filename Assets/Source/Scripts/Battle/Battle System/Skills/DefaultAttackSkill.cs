@@ -19,13 +19,13 @@ namespace ArenaHero.Battle.Skills
 			{
 				_cooldownCoroutine = StartCoroutine(Cooldown());
 				
-				Target.Damagable.TakeDamage(CharacterData.BaseDamage);
+				Target.Damageable.TakeDamage(CharacterData.BaseDamage);
 			}
 		}
 
 		private bool CanAttack()
 		{
-			if (Target.Damagable == null || _cooldownCoroutine != null)
+			if (Target.Damageable == null || _cooldownCoroutine != null)
 			{
 				return false;
 			}
