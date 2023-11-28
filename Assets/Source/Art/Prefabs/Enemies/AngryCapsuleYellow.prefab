@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 2272240135574202730}
   - component: {fileID: 1875009453651373272}
   m_Layer: 0
-  m_Name: AngryCapsule
+  m_Name: AngryCapsuleYellow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -214,7 +214,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1b3957d5d7f0ec64098ed0a2d817ee15, type: 2}
+  - {fileID: 2100000, guid: dceb0fff45b17374e957f62aaf6205f5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

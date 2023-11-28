@@ -3,6 +3,8 @@ using ArenaHero.Utils.StateMachine;
 using Reflex.Attributes;
 using System;
 using System.Collections;
+using ArenaHero.Yandex.Saves;
+using ArenaHero.Yandex.Saves.Data;
 using UnityEngine;
 
 namespace ArenaHero.Battle.Level
@@ -10,16 +12,19 @@ namespace ArenaHero.Battle.Level
 	public class WaveHandler : MonoBehaviour
 	{
 		private LevelData _currentLevelData;
+		private StageData _currentStageData;
 		private WaveData _currentWaveData;
 
 		private int _currentWaveIndex = 0;
 		private bool _isFight = true;
 
 		[Inject]
-		private void Inject(LevelData levelData, IEndLevelStateChanged endLevel)
+		private void Inject(ISaver saver, LevelData levelData, IEndLevelStateChanged endLevel)
 		{
 			_currentLevelData = levelData;
-			_currentWaveData = _currentLevelData.GetWaveData(_currentWaveIndex);
+			_currentStageData = levelData.GetStageDataByIndex(saver.Get<CurrentLevelStage>().Index);
+			_currentWaveData = _currentStageData.GetWaveDataByIndex(_currentWaveIndex);
+			
 			endLevel.StateChanged += () => _isFight = false;
 		}
 
@@ -30,10 +35,15 @@ namespace ArenaHero.Battle.Level
 
 		private IEnumerator Fight()
 		{
+			var waitBetweenWave = new WaitForSeconds(_currentStageData.DelayBetweenWave);
 			var waitNextSpawn = new WaitForSeconds(_currentWaveData.DelayBetweenSpawns);
 
+			yield return new WaitForSeconds(_currentStageData.StartDelay);
+			
 			while (_isFight)
 			{
+				yield return waitBetweenWave;
+				
 				for (var i = 0; i < _currentWaveData.CountSpawns; i++)
 				{
 					Spawning?.Invoke(_currentWaveData.GetEnemyForSpawn);
@@ -50,10 +60,10 @@ namespace ArenaHero.Battle.Level
 		{
 			_currentWaveIndex++;
 
-			if (_currentWaveIndex >= _currentLevelData.WaveCount)
+			if (_currentWaveIndex >= _currentStageData.WaveCount)
 				return false;
 			
-			_currentWaveData = _currentLevelData.GetWaveData(_currentWaveIndex);
+			_currentWaveData = _currentStageData.GetWaveDataByIndex(_currentWaveIndex);
 			
 			return true;
 		}

@@ -52,6 +52,11 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
             _previousEnemy = _currentEnemy;
             _currentEnemy = _triggerZone.TryGetEnemy();
 
+            if (_currentEnemy is null)
+            {
+                return;
+            }
+            
             if (_previousEnemy == _currentEnemy)
             {
                 UpdateCurrentEnemy();

@@ -7,6 +7,7 @@ using ArenaHero.Game.Level;
 using ArenaHero.InputSystem;
 using ArenaHero.Utils.StateMachine;
 using ArenaHero.Utils.TypedScenes;
+using ArenaHero.Yandex.Saves;
 using Cinemachine;
 using Reflex.Core;
 using UnityEngine;
@@ -20,10 +21,10 @@ namespace ArenaHero
         [SerializeField] private WaveHandler _waveHandler;
         [SerializeField] private Player _playerPrefab;
         [SerializeField] private PlayerSpawnPoint _playerSpawnPoint;
+        [SerializeField] private LevelInitializer _levelInitializer;
 
         private Hero _hero;
         private LevelData _levelData;
-        private LevelInitializer _levelInitializer;
         
         private Hero Hero => GetHeroInitialized();
 
@@ -59,7 +60,7 @@ namespace ArenaHero
             GetComponent<WindowInitializer>().WindowsInit(machine.Window);
             _levelData = argument;
             GetComponent<UIFightSceneInitializer>().Init(machine);
-            _levelInitializer = new LevelInitializer(_levelData, _waveHandler, new Target(Hero.transform, Hero.gameObject.GetComponent<IDamageable>()));
+            _levelInitializer.Init(_levelData, _waveHandler, new Target(Hero.transform, Hero.gameObject.GetComponent<IDamageable>()));
         }
 
         private Hero SpawnPlayer() =>

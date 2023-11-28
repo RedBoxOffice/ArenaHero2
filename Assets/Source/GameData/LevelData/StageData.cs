@@ -12,7 +12,13 @@ namespace ArenaHero.Data
 		[SerializeField] private GameObject _environmentParent;
 		[SerializeField] private SpawnPointsHandler _spawnPointsHandler;
 		[SerializeField] private NavMeshData _navMeshData;
+		[SerializeField] private float _startDelay;
+		[SerializeField] private float _delayBetweenWave;
 
+		public float StartDelay => _startDelay;
+
+		public float DelayBetweenWave => _delayBetweenWave;
+		
 		public int WaveCount => _waveData.Length;
 		
 		public GameObject EnvironmentParent => _environmentParent;
