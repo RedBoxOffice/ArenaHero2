@@ -8,6 +8,7 @@ namespace ArenaHero.Yandex.Simulator
     {
         private readonly string _saveSimPath = "Assets/Source/Scripts/Yandex/Simulator/SaveSim.json";
         private readonly int _playerRank = 2;
+        
         private LeaderboardEntryResponse _playerEntrySim;
         private LeaderboardEntryResponse[] _allPlayersSim;
 

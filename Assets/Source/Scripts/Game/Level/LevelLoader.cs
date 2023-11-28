@@ -22,7 +22,7 @@ namespace ArenaHero.Game.Level
             _getCurrentLevel = () => saver.Get<CurrentLevel>();
 
         public void OnFightButtonClick() =>
-            FightSceneDima.Load<FightState, LevelData>(_gameStateMachine, _levels[_getCurrentLevel().Index]);
+            FightSceneSlava.Load<FightState, LevelData>(_gameStateMachine, _levels[_getCurrentLevel().Index]);
 
         public void OnSceneLoaded<TState>(GameStateMachine machine, object argument = default) where TState : State<GameStateMachine> =>
             _gameStateMachine = machine;

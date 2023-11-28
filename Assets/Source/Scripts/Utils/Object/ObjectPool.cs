@@ -8,7 +8,7 @@ namespace ArenaHero.Utils.Object
 
         public void Return(IPoolingObject<TInit> @object)
         {
-            @object.Disable -= Return;
+            @object.Disabled -= Return;
 
             Add(@object);
         }

@@ -8,13 +8,15 @@ namespace ArenaHero.Data
 {
     public abstract class Enemy : MonoBehaviour, IPoolingObject<EnemyInit>, ITargetHandler
     {
-        [SerializeField] private MonoBehaviour _damagable;
+        private ICharacter _character;
+        
+        public event Action<Enemy> Disabling;
+        
+        public event Action<IPoolingObject<EnemyInit>> Disabled;
 
-        private IMover[] _movers;
-
-        public IReadOnlyCollection<IMover> Movers => _movers;
-         
         public GameObject SelfGameObject => gameObject;
+
+        public ICharacter SelfCharacter => _character;
 
         public IDamagable SelfDamagable { get; private set; }
 
@@ -22,32 +24,27 @@ namespace ArenaHero.Data
 
         public abstract Type SelfType { get; }
 
-        public event Action<Enemy> Dead; 
-        public event Action<IPoolingObject<EnemyInit>> Disable;
-
-        private void OnValidate()
+        private void Awake()
         {
-            if (_damagable && _damagable is not IDamagable)
-            {
-                Debug.LogError(nameof(_damagable) + " needs to implement " + nameof(IDamagable));
-                _damagable = null;
-            }
-
-            if (_damagable == null)
-                throw new NullReferenceException(nameof(_damagable));
-
-            _movers = GetComponents<IMover>();
+            SelfDamagable = GetComponent<IDamagable>();
+            _character = GetComponent<ICharacter>();
         }
 
-        private void Start() =>
-            SelfDamagable = (IDamagable)_damagable;
+        private void OnEnable() =>
+            _character.Died += OnDied;
 
         private void OnDisable()
         {
-            Dead?.Invoke(this);
-            Disable?.Invoke(this);
+            Disabled?.Invoke(this);
+            _character.Died -= OnDied;
         }
-        
+
+        private void OnDied()
+        {
+            Disabling?.Invoke(this);
+            gameObject.SetActive(false);
+        }
+
         public void Init(EnemyInit init) =>
             Target = init.Target;
     }

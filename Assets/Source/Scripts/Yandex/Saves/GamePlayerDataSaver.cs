@@ -73,8 +73,6 @@ namespace ArenaHero.Yandex.Saves
 			void OnSuccessCallback(string data)
 			{
 				var saves = JsonUtility.FromJson<GameSavesData>(data);
-
-				Debug.Log($"level = {saves.CurrentLevel.Index}");
 				_gameSavesData = saves;
 				
 			}
@@ -83,8 +81,6 @@ namespace ArenaHero.Yandex.Saves
 		private void Save()
 		{
 			string save = JsonUtility.ToJson(_gameSavesData);
-
-			Debug.Log($"SAVE = {save}");
 
 #if !UNITY_EDITOR
             PlayerAccount.SetCloudSaveData(save);
