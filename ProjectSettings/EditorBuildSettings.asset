@@ -12,15 +12,6 @@ EditorBuildSettings:
     path: 
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/World_1/W1_Level_1.unity
-    guid: b97465321dc20f6459617a2513c2ecef
-  - enabled: 1
-    path: Assets/Scenes/TestFightScene.unity
-    guid: 3ed1181a35e82524f9b93922c15c4f40
-  - enabled: 1
-    path: Assets/Scenes/ControlScene.unity
-    guid: 184c8f7d6e6c7664fafcc14f0af0f031
-  - enabled: 1
     path: Assets/Source/Art/Weapons Mega Pack/Example_Scene.unity
     guid: 0c87a4e34d2c7074c9ccf244c60c8b86
   - enabled: 1
