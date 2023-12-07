@@ -11,7 +11,7 @@ namespace ArenaHero.Battle.Skills
 		protected override void Start()
 		{
 			base.Start();
-			_movers = Character.GetComponents<IMover>();
+			_movers = Character.GetComponents<IMover>();			
 		}
 
 		protected override void OnAttack() =>

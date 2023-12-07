@@ -21,7 +21,8 @@ namespace ArenaHero.Yandex.Saves
 			_saves = new Hashtable
 			{
 				[typeof(CurrentLevel)] = new Func<CurrentLevel>(() => _gameSavesData.CurrentLevel),
-				[typeof(CurrentLevelStage)] = new Func<CurrentLevelStage>(() => _gameSavesData.CurrentLevelStage)
+				[typeof(CurrentLevelStage)] = new Func<CurrentLevelStage>(() => _gameSavesData.CurrentLevelStage),
+				[typeof(Money)] = new Func<Money>(() => _gameSavesData.Money)
 			};
 		}
 
