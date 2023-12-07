@@ -34,7 +34,7 @@ namespace ArenaHero.UI
         [Inject]
         private void Inject(ISaver saver)
         {
-            _getCurrentLevel = () => saver.Get<CurrentLevel>().Index;
+            _getCurrentLevel = () => saver.Get<CurrentLevel>().Value;
             _setCurrentLevel = (index) => saver.Set(new CurrentLevel(index));
             Init();
 

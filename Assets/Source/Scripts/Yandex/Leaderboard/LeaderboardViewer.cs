@@ -68,7 +68,7 @@ namespace ArenaHero.Yandex.Leaderboard
 
         private void ShowBestScore()
         {
-            int index = _saver.Get<CurrentLevel>().Index;
+            int index = _saver.Get<CurrentLevel>().Value;
             //int score = _saver.Get(new LevelInfo(index, 0)).BestScore;
             //var data = GetPlayerData(rank: 1, name: GetLocalizationAnonymousName(), score: score);
 
@@ -198,7 +198,7 @@ namespace ArenaHero.Yandex.Leaderboard
 
         private string GetLeaderboardName()
         {
-            string leaderboardName = $"Level{_saver.Get<CurrentLevel>().Index + 1}";
+            string leaderboardName = $"Level{_saver.Get<CurrentLevel>().Value + 1}";
             return leaderboardName;
         }
     }

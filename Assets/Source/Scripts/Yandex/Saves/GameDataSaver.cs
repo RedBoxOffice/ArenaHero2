@@ -9,20 +9,27 @@ using UnityEngine;
 
 namespace ArenaHero.Yandex.Saves
 {
-	public class GamePlayerDataSaver : ISaver
+	public class GameDataSaver : ISaver
 	{
 		private readonly YandexSimulator _yandexSimulator = new YandexSimulator();
 		private readonly Hashtable _saves;
 
-		private GameSavesData _gameSavesData = new GameSavesData();
+		private GameSaves _gameSaves = new GameSaves();
 
-		public GamePlayerDataSaver()
+		public GameDataSaver()
 		{
 			_saves = new Hashtable
 			{
-				[typeof(CurrentLevel)] = new Func<CurrentLevel>(() => _gameSavesData.CurrentLevel),
-				[typeof(CurrentLevelStage)] = new Func<CurrentLevelStage>(() => _gameSavesData.CurrentLevelStage),
-				[typeof(Money)] = new Func<Money>(() => _gameSavesData.Money)
+				[typeof(CurrentLevel)] = new Func<CurrentLevel>(() => _gameSaves.CurrentLevel),
+				[typeof(CurrentLevelStage)] = new Func<CurrentLevelStage>(() => _gameSaves.CurrentLevelStage),
+				[typeof(Money)] = new Func<Money>(() => _gameSaves.Money),
+				[typeof(Crystals)] = new Func<Crystals>(() => _gameSaves.Crystals),
+				[typeof(ArmorMultiply)] = new Func<ArmorMultiply>(() => _gameSaves.ArmorMultiply),
+				[typeof(AuraMultiply)] = new Func<AuraMultiply>(() => _gameSaves.AuraMultiply),
+				[typeof(DamageMultiply)] = new Func<DamageMultiply>(() => _gameSaves.DamageMultiply),
+				[typeof(DurabilityMultiply)] = new Func<DurabilityMultiply>(() => _gameSaves.DurabilityMultiply),
+				[typeof(HealthMultiply)] = new Func<HealthMultiply>(() => _gameSaves.HealthMultiply),
+				[typeof(LuckMultiply)] = new Func<LuckMultiply>(() => _gameSaves.LuckMultiply),
 			};
 		}
 
@@ -74,15 +81,15 @@ namespace ArenaHero.Yandex.Saves
 
 			void OnSuccessCallback(string data)
 			{
-				var saves = JsonUtility.FromJson<GameSavesData>(data);
-				_gameSavesData = saves;
+				var saves = JsonUtility.FromJson<GameSaves>(data);
+				_gameSaves = saves;
 				
 			}
 		}
 
 		private void Save()
 		{
-			string save = JsonUtility.ToJson(_gameSavesData);
+			string save = JsonUtility.ToJson(_gameSaves);
 
 #if !UNITY_EDITOR
             PlayerAccount.SetCloudSaveData(save);

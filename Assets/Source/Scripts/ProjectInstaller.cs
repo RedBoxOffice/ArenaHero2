@@ -86,7 +86,7 @@ namespace ArenaHero
 
         private void YandexInit(ContainerDescriptor descriptor, Context context, GameStateMachine gameStateMachine)
         {
-            var saver = new GamePlayerDataSaver();
+            var saver = new GameDataSaver();
             var ad = new Ad(context, countOverBetweenShowsAd: 5);
             descriptor.AddInstance(ad, typeof(ICounterForShowAd));
 
