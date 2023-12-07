@@ -52,7 +52,7 @@ namespace ArenaHero.Game.Level
 		
 		private void InitializeLevel()
 		{
-			var currentStageIndex = _saver.Get<CurrentLevelStage>().Index;
+			var currentStageIndex = _saver.Get<CurrentLevelStage>().Value;
 			var currentStage = _levelData.GetStageDataByIndex(currentStageIndex);
 			
 			var spawnerHandler = Object.Instantiate(currentStage.SpawnPointsHandler).gameObject.GetComponent<SpawnerHandler>();

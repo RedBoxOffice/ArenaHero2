@@ -3,25 +3,19 @@ using UnityEngine;
 
 namespace ArenaHero.Yandex.Saves.Data
 {
-	public class CurrentLevelStage : SaveData<CurrentLevelStage>
+	[Serializable]
+	public class CurrentLevelStage : IntSave<CurrentLevelStage>
 	{
-		[SerializeField] private int _index;
-
-		public int Index => _index;
-		
 		public CurrentLevelStage() =>
-			_index = 0;
+			Init(0);
 
-		public CurrentLevelStage(int index) =>
-			_index = Mathf.Clamp(index, 0, int.MaxValue);
-
+		public CurrentLevelStage(int value) =>
+			Init(value);
+        
 		public override CurrentLevelStage Clone() =>
-			new CurrentLevelStage(_index);
+			new CurrentLevelStage(Value);
 		
-		protected override void UpdateValue(CurrentLevelStage value) =>
-			_index = value.Index;
-
-		protected override bool Equals(CurrentLevelStage value) =>
-			value.Index.Equals(_index);
+		private void Init(int value) =>
+			Value = Mathf.Clamp(value, 0, int.MaxValue);
 	}
 }

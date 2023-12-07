@@ -22,7 +22,7 @@ namespace ArenaHero.Battle.Level
 		private void Inject(ISaver saver, LevelData levelData, IEndLevelStateChanged endLevel)
 		{
 			_currentLevelData = levelData;
-			_currentStageData = levelData.GetStageDataByIndex(saver.Get<CurrentLevelStage>().Index);
+			_currentStageData = levelData.GetStageDataByIndex(saver.Get<CurrentLevelStage>().Value);
 			_currentWaveData = _currentStageData.GetWaveDataByIndex(_currentWaveIndex);
 			
 			endLevel.StateChanged += () => _isFight = false;

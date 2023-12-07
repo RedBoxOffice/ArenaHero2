@@ -61,7 +61,7 @@ MonoBehaviour:
   _gameAudioHandler: {fileID: 6460754850157210349}
   _sceneLoader:
     _isDebugMode: 1
-    _debugger: 3
+    _debugger: 1
 --- !u!114 &6460754850157210349
 MonoBehaviour:
   m_ObjectHideFlags: 0

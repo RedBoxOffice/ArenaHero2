@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ArenaHero.Game.UpgradeSystem;
 using ArenaHero.UI;
 using ArenaHero.Utils.StateMachine;
 using ArenaHero.Utils.StateMachine.States;
@@ -16,6 +17,9 @@ namespace ArenaHero
 		[SerializeField] private EventTriggerButton _selectLevelButton;
 		[SerializeField] private EventTriggerButton _talentsButton;
 		[SerializeField] private EventTriggerButton _magazineButton;
+
+		[Header("Upgrade")]
+		[SerializeField] private CharacteristicUpdater _characteristicUpdater;
 
 		private MainMenuWindowStateMachine _windowStateMachine;
 		
@@ -37,6 +41,8 @@ namespace ArenaHero
 			transitionInitializer.InitTransition<SelectLevelWindowState>(_selectLevelButton);
 			transitionInitializer.InitTransition<TalentsWindowState>(_talentsButton);
 			transitionInitializer.InitTransition<MagazineWindowState>(_magazineButton);
+
+			descriptor.AddInstance(_characteristicUpdater, typeof(IModelHandler ));
 		}
 
         public void OnSceneLoaded<TState>(GameStateMachine machine, object argument = default)

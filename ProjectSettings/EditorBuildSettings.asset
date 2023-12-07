@@ -8,18 +8,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/InitializeScene.unity
     guid: 66a5be384e8a57a408e2bea4692e9a34
-  - enabled: 1
+  - enabled: 0
     path: 
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
-    path: Assets/Scenes/World_1/W1_Level_1.unity
-    guid: b97465321dc20f6459617a2513c2ecef
-  - enabled: 1
-    path: Assets/Scenes/TestFightScene.unity
-    guid: 3ed1181a35e82524f9b93922c15c4f40
-  - enabled: 1
-    path: Assets/Scenes/ControlScene.unity
-    guid: 184c8f7d6e6c7664fafcc14f0af0f031
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Source/Art/Weapons Mega Pack/Example_Scene.unity
     guid: 0c87a4e34d2c7074c9ccf244c60c8b86
@@ -34,10 +34,10 @@ EditorBuildSettings:
     guid: fa0c63128d8e5b44dbd5343cf4249a81
   - enabled: 1
     path: 
-    guid: de450c2e019631a43aee57bb92f8303d
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: 
-    guid: b9aca3994dae6fd4bb5dbe10aaf1eed5
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/MenuSceneSlava.unity
     guid: 538a1e5e81081704d8389beda76e975a

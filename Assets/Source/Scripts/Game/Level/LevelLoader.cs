@@ -28,7 +28,7 @@ namespace ArenaHero.Game.Level
         }
 
         public void OnFightButtonClick() =>
-            _sceneLoader.LoadFight<FightState, LevelData>(_gameStateMachine, _levels[_getCurrentLevel().Index]);
+            _sceneLoader.LoadFight<FightState, LevelData>(_gameStateMachine, _levels[_getCurrentLevel().Value]);
 
         public void OnSceneLoaded<TState>(GameStateMachine machine, object argument = default) where TState : State<GameStateMachine> =>
             _gameStateMachine = machine;
