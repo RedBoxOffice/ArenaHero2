@@ -1,16 +1,13 @@
-﻿using ArenaHero.Battle.PlayableCharacter.EnemyDetection;
-using ArenaHero.InputSystem;
-using ArenaHero.Utils.Other;
+﻿using ArenaHero.InputSystem;
 using Reflex.Attributes;
-using System;
 using UnityEngine;
 
 namespace ArenaHero.Battle.PlayableCharacter.Movement
 {
 	public class HeroHorizontalMover : HeroMover
 	{
-		[SerializeField] private HorizontalMove _radius;
-		[SerializeField] private HorizontalMove _distance;
+		[SerializeField] private HorizontalMoveSettings _radius;
+		[SerializeField] private HorizontalMoveSettings _distance;
 
 		[Inject]
 		private void Inject(IMovementInputHandler handler)
@@ -25,9 +22,6 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
 			InputHandler.Horizontal -= OnMove;
 		}
 
-		protected override void OnMove(float direction) =>
-			Move(Vector3.right * direction);
-
 		public override void TryMoveToDirectionOnDistance(Vector3 direction, float distance, float timeToTarget)
 		{
 			StopMove();
@@ -38,6 +32,9 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
 			}
 		}
 
+		protected override void OnMove(float direction) =>
+			Move(Vector3.right * direction);
+		
 		private void Move(Vector3 direction, float distance = 0, float timeToTarget = 0)
 		{
 			if (MoveCoroutine != null)

@@ -1,7 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 namespace ArenaHero.Battle
 {
@@ -9,10 +6,12 @@ namespace ArenaHero.Battle
 	{
 		[SerializeField] private MeshRenderer _healthBarMeshRenderer;
 
+		private readonly int _fill = Shader.PropertyToID("_Fill");
+		
 		private MaterialPropertyBlock _materialPropertyBlock;
 		private ICharacter _character;
 		private Camera _mainCamera;
-		
+
 		private void Awake()
 		{
 			_materialPropertyBlock = new MaterialPropertyBlock();
@@ -22,15 +21,11 @@ namespace ArenaHero.Battle
 			OnHealthChanged(_character.Data.MaxHealth);
 		}
 
-		private void OnEnable()
-		{
+		private void OnEnable() =>
 			_character.HealthChanged += OnHealthChanged;
-		}
 
-		private void OnDisable()
-		{
+		private void OnDisable() =>
 			_character.HealthChanged -= OnHealthChanged;
-		}
 
 		private void FixedUpdate() =>
 			AlignCamera();
@@ -38,7 +33,7 @@ namespace ArenaHero.Battle
 		private void OnHealthChanged(float currentHealth)
 		{
 			_healthBarMeshRenderer.GetPropertyBlock(_materialPropertyBlock);
-			_materialPropertyBlock.SetFloat("_Fill", currentHealth / _character.Data.MaxHealth);
+			_materialPropertyBlock.SetFloat(_fill, currentHealth / _character.Data.MaxHealth);
 			_healthBarMeshRenderer.SetPropertyBlock(_materialPropertyBlock);
 		}
 

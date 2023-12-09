@@ -4,7 +4,9 @@ namespace ArenaHero.Utils.StateMachine
 {
     public class EndLevelState : GameState, IEndLevelStateChanged
     {
-        public EndLevelState(WindowStateMachine windowStateMachine) : base(windowStateMachine) { }
+        public EndLevelState(WindowStateMachine windowStateMachine) : base(windowStateMachine)
+        {
+        }
 
         public event Action StateChanged;
 
@@ -13,6 +15,9 @@ namespace ArenaHero.Utils.StateMachine
             WindowStateMachine.EnterIn<EndLevelWindowState>();
             StateChanged?.Invoke();
         }
-        public override void Exit() { }
+
+        public override void Exit()
+        {
+        }
     }
 }

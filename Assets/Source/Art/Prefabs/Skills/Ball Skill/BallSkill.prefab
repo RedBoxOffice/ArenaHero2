@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _centerTransform: {fileID: 2576910059721445958}
-  _elementPrefab: {fileID: 3114991108473727312, guid: 42f4875040026814dab400afcd74c520, type: 3}
-  _countElements: 12
+  _ballPrefab: {fileID: 4512936229229121812, guid: 42f4875040026814dab400afcd74c520, type: 3}
+  _countBalls: 0
   _radius: 4
   _speedRotation: 30
   _directionAllRotation: 1

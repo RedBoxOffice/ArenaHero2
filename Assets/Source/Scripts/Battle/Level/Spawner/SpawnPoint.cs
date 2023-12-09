@@ -2,5 +2,7 @@
 
 namespace ArenaHero.Battle.Level
 {
-    public class SpawnPoint : MonoBehaviour { }
+    public class SpawnPoint : MonoBehaviour
+    {
+    }
 }

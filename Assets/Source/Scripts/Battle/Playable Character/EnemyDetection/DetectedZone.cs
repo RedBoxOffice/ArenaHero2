@@ -1,8 +1,8 @@
-using ArenaHero.Data;
 using System;
 using System.Collections.Generic;
-using ArenaHero.Utils.Object;
+using ArenaHero.Data;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
 {
@@ -13,11 +13,6 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
         public event Action<Enemy> EnemyDetected;
         
         public event Action<Enemy> EnemyLost;
-
-        public Enemy TryGetEnemy() =>
-            _enemies.Count != 0 
-                ? _enemies[UnityEngine.Random.Range(0, _enemies.Count)] 
-                : null;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -39,6 +34,11 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
             }
         }
 
+        public Enemy TryGetEnemy() =>
+            _enemies.Count != 0 
+                ? _enemies[Random.Range(0, _enemies.Count)] 
+                : null;
+        
         private void Lost(Enemy enemy)
         {
             enemy.Disabling -= Lost;

@@ -13,12 +13,10 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
 
         private Enemy _currentEnemy;
         private Enemy _previousEnemy;
-        
-        public event Action<Transform> TargetChanging;
 
         public TargetChanger(TargetChangerInject inject)
         {
-            _triggerZone = inject.TriggerZone;
+            _triggerZone = inject.DetectedZone;
             _lookTargetPoint = inject.LookTargetPoint;
             _actionsInputHandler = inject.ActionsInputHandler;
 
@@ -41,14 +39,15 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
             _previousEnemy = null;
             UpdateCurrentEnemy();
             
-            TargetChanging?.Invoke(GetTargetTransform());
             _lookTargetPoint.transform.SetParent(GetParentForLookTargetPoint());
             _lookTargetPoint.UpdateTarget(GetTarget());
             _lookTargetPoint.transform.localPosition = GetTargetPointPosition();
         }
 
-        private void UpdateCurrentEnemy()
+        private void UpdateCurrentEnemy(int countRepeat = 0)
         {
+            const int MaxCountRepeat = 10;
+            
             _previousEnemy = _currentEnemy;
             _currentEnemy = _triggerZone.TryGetEnemy();
 
@@ -56,17 +55,17 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
             {
                 return;
             }
+
+            if (countRepeat > MaxCountRepeat)
+            {
+                return;
+            }
             
             if (_previousEnemy == _currentEnemy)
             {
-                UpdateCurrentEnemy();
+                UpdateCurrentEnemy(++countRepeat);
             }
         }
-        
-        private Transform GetTargetTransform() =>
-            _currentEnemy is null 
-                ? _lookTargetPoint.transform 
-                : _currentEnemy.transform;
 
         private Transform GetParentForLookTargetPoint() =>
             _currentEnemy is null 
@@ -86,7 +85,9 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
         private void OnEnemyDetected(Enemy enemy)
         {
             if (_currentEnemy is null)
+            {
                 OnChangeTarget();
+            }
         }
 
         private void OnEnemyLost(Enemy enemy)

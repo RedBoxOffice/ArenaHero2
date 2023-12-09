@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace ArenaHero.Battle.Enemies.BehaviorTree
@@ -8,6 +6,7 @@ namespace ArenaHero.Battle.Enemies.BehaviorTree
     public class BotInput : MonoBehaviour, IBotInputHandler
     {
         public event Action Attack;
+        
         public event Action<Vector3> Move;
 
         public void CallAttack() =>

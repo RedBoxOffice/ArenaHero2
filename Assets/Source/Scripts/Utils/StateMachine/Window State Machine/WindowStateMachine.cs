@@ -5,7 +5,9 @@ namespace ArenaHero.Utils.StateMachine
 {
     public class WindowStateMachine : StateMachine<WindowStateMachine>
     {
-        public WindowStateMachine(Func<Dictionary<Type, State<WindowStateMachine>>> getStates) : base(getStates) { }
+        public WindowStateMachine(Func<Dictionary<Type, State<WindowStateMachine>>> getStates) : base(getStates)
+        {
+        }
 
         public TState TryGetState<TState>(Window window) 
             where TState : State<WindowStateMachine> =>

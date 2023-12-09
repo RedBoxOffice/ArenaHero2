@@ -1,8 +1,5 @@
-using ArenaHero.Utils.StateMachine.States;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using ArenaHero.Utils.StateMachine.States;
 
 namespace ArenaHero.Utils.StateMachine.Windows
 {

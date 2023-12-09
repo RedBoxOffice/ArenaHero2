@@ -1527,6 +1527,7 @@ GameObject:
   - component: {fileID: 824417730}
   - component: {fileID: 824417731}
   - component: {fileID: 824417732}
+  - component: {fileID: 824417733}
   m_Layer: 0
   m_Name: Scene Scope
   m_TagString: Untagged
@@ -1590,6 +1591,7 @@ MonoBehaviour:
   _waveHandler: {fileID: 170266345}
   _playerPrefab: {fileID: 24557769438604130, guid: d34a671df0c4b1040af46898a8b77401, type: 3}
   _playerSpawnPoint: {fileID: 1026898032}
+  _levelInitializer: {fileID: 824417733}
 --- !u!114 &824417731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1621,6 +1623,18 @@ MonoBehaviour:
   - {fileID: 423185841}
   - {fileID: 177734684}
   - {fileID: 346686248}
+--- !u!114 &824417733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824417726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90b987bd34c3439ab311e6f2cf6a1fdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &837636950
 GameObject:
   m_ObjectHideFlags: 0

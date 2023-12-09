@@ -1,5 +1,4 @@
-﻿using ArenaHero.Battle.PlayableCharacter;
-using ArenaHero.Data;
+﻿using ArenaHero.Data;
 using ArenaHero.Utils.Object;
 using UnityEngine;
 
@@ -12,13 +11,6 @@ namespace ArenaHero.Battle.Level
         private SpawnPointsHandler _spawnPointsHandler;
         private ObjectSpawner<EnemyInit> _spawner;
         private Target _target;
-
-        public void Init(WaveHandler waveHandler, Target hero)
-        {
-            _waveHandler = waveHandler;
-            _target = hero;
-            _waveHandler.Spawning += OnSpawning;
-        }
         
         private void Awake()
         {
@@ -32,9 +24,18 @@ namespace ArenaHero.Battle.Level
         private void OnDisable()
         {
             if (_waveHandler != null)
+            {
                 _waveHandler.Spawning -= OnSpawning;
+            }
         }
 
+        public void Init(WaveHandler waveHandler, Target hero)
+        {
+            _waveHandler = waveHandler;
+            _target = hero;
+            _waveHandler.Spawning += OnSpawning;
+        }
+        
         private void OnSpawning(Enemy enemy)
         {
             var init = new EnemyInit()

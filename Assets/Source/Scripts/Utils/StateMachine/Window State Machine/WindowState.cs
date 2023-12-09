@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace ArenaHero.Utils.StateMachine
+﻿namespace ArenaHero.Utils.StateMachine
 { 
     public abstract class WindowState : State<WindowStateMachine>
     {
@@ -9,10 +7,8 @@ namespace ArenaHero.Utils.StateMachine
         public void Init(Window window) => 
             _window = window;
 
-        public override void Enter()
-        {          
+        public override void Enter() =>
             _window.gameObject.SetActive(true);
-        }
 
         public override void Exit()
         {

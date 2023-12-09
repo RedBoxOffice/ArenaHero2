@@ -1,6 +1,5 @@
-﻿using ArenaHero.Utils.StateMachine;
-using System;
-using ArenaHero.Data;
+﻿using System;
+using ArenaHero.Utils.StateMachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +8,7 @@ namespace ArenaHero.Utils.TypedScenes
     public class LoadingProcessor : MonoBehaviour
     {
         private static LoadingProcessor _instance;
+        
         private Action _loadingModelAction;
 
         public static LoadingProcessor Instance
@@ -24,7 +24,7 @@ namespace ArenaHero.Utils.TypedScenes
 
         private static void Initialize()
         {
-            _instance = new GameObject("LoadingProcessor").AddComponent<LoadingProcessor>();
+            _instance = new GameObject(nameof(LoadingProcessor)).AddComponent<LoadingProcessor>();
             _instance.transform.SetParent(null);
             DontDestroyOnLoad(_instance);
         }
@@ -39,7 +39,7 @@ namespace ArenaHero.Utils.TypedScenes
             where TMachine : StateMachine<TMachine>
             where TState : State<TMachine> =>
             _loadingModelAction = () =>
-                CallSceneLoaded<ISceneLoadHandlerOnState<TMachine, T>>((handler) => handler.OnSceneLoaded<TState>(machine, argument));
+                CallSceneLoaded<ISceneLoadHandlerOnState<TMachine, T>>(handler => handler.OnSceneLoaded<TState>(machine, argument));
 
         private void CallSceneLoaded<THandler>(Action<THandler> onSceneLoaded)
         {

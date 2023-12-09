@@ -1,7 +1,6 @@
 using System;
 using ArenaHero.Utils.StateMachine;
 using ArenaHero.Utils.TypedScenes;
-using ArenaHero.Utils.UnityTool;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

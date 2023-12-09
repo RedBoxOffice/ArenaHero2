@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ArenaHero.Game.UpgradeSystem;
 using ArenaHero.UI;
 using ArenaHero.Utils.StateMachine;
 using ArenaHero.Utils.StateMachine.States;
@@ -17,8 +18,19 @@ namespace ArenaHero
 		[SerializeField] private EventTriggerButton _talentsButton;
 		[SerializeField] private EventTriggerButton _magazineButton;
 
+		[Header("Upgrade")]
+		[SerializeField] private CharacteristicUpdater _characteristicUpdater;
+
 		private MainMenuWindowStateMachine _windowStateMachine;
-		
+		private Action _onEnableTransitions;
+		private Action _onDisableTransitions;
+
+		private void OnEnable() =>
+			_onEnableTransitions?.Invoke();
+
+		private void OnDisable() =>
+			_onDisableTransitions?.Invoke();
+
 		public void InstallBindings(ContainerDescriptor descriptor)
 		{
 			_windowStateMachine = new MainMenuWindowStateMachine(() => new Dictionary<Type, State<WindowStateMachine>>()
@@ -31,12 +43,14 @@ namespace ArenaHero
 
 			descriptor.AddInstance(_windowStateMachine);
 
-			var transitionInitializer = new TransitionInitializer<WindowStateMachine>(_windowStateMachine);
+			var transitionInitializer = new TransitionInitializer<WindowStateMachine>(_windowStateMachine, out _onEnableTransitions, out _onDisableTransitions);
 			
 			transitionInitializer.InitTransition<EquipmentWindowState>(_equipmentButton);
 			transitionInitializer.InitTransition<SelectLevelWindowState>(_selectLevelButton);
 			transitionInitializer.InitTransition<TalentsWindowState>(_talentsButton);
 			transitionInitializer.InitTransition<MagazineWindowState>(_magazineButton);
+
+			descriptor.AddInstance(_characteristicUpdater, typeof(IModelHandler ));
 		}
 
         public void OnSceneLoaded<TState>(GameStateMachine machine, object argument = default)

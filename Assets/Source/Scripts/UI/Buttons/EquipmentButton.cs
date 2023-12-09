@@ -1,4 +1,6 @@
 namespace ArenaHero.UI
 {
-	public class EquipmentButton : EventTriggerButton { }
+	public class EquipmentButton : EventTriggerButton
+	{
+	}
 }

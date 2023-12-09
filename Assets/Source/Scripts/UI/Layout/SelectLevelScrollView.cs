@@ -34,7 +34,7 @@ namespace ArenaHero.UI
         [Inject]
         private void Inject(ISaver saver)
         {
-            _getCurrentLevel = () => saver.Get<CurrentLevel>().Index;
+            _getCurrentLevel = () => saver.Get<CurrentLevel>().Value;
             _setCurrentLevel = (index) => saver.Set(new CurrentLevel(index));
             Init();
 
@@ -130,10 +130,9 @@ namespace ArenaHero.UI
 
         private void SetCellScale()
         {
-            GameObject centerChild;
             for (int i = 0; i < _content.childCount; i++)
             {
-                centerChild = _content.GetChild(i).gameObject;
+                var centerChild = _content.GetChild(i).gameObject;
                 centerChild.transform.DOKill();
 
                 if (i == _currentCenterChildIndex)
@@ -147,6 +146,7 @@ namespace ArenaHero.UI
         {
             float closest = 0;
             float maxDistance = Mathf.Infinity;
+            
             for (int i = 0; i < _childrenPositions.Count; i++)
             {
                 float position = _childrenPositions[i];
@@ -159,6 +159,7 @@ namespace ArenaHero.UI
                 closest = position;
                 _currentCenterChildIndex = i;
             }
+            
             return closest;
         }
 

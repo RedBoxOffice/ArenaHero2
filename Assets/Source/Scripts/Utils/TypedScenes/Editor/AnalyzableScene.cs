@@ -12,11 +12,16 @@ namespace ArenaHero.Utils.TypedScenes.Editor
         private bool _closeOnDispose;
         
         public Scene Scene { get; private set; }
-        public string Name { get; private set; }
-        public string GUID { get; private set; }
-        public string AssetPath { get; private set; }
         
-        private AnalyzableScene() {}
+        public string Name { get; private set; }
+        
+        public string GUID { get; private set; }
+        
+        public string AssetPath { get; private set; }
+
+        private AnalyzableScene()
+        {
+        }
 
         public static AnalyzableScene Create(string scenePath)
         {

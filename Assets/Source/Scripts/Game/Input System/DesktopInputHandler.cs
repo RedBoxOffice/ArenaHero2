@@ -9,22 +9,26 @@ namespace ArenaHero.InputSystem
         private PlayerInput _input;
 
         public event Action<float> Horizontal;
+        
         public event Action<float> Vertical;
+        
         public event Action ChangeTarget;
+        
         public event Action Attack;
 
-        private float GetHorizontal() => _input.Movement.Horizontal.ReadValue<float>();
-        private float GetVertical() => _input.Movement.Vertical.ReadValue<float>();
-
         [Inject]
-        private void Inject(PlayerInput handler)
+        private void Inject(PlayerInput input)
         {
-            _input = handler;
+            _input = input;
             
             _input.Movement.Horizontal.performed += _ => Horizontal?.Invoke(GetHorizontal());
             _input.Movement.Vertical.performed += _ => Vertical?.Invoke(GetVertical());
             _input.Actions.ChangeTarget.performed += _ => ChangeTarget?.Invoke();
             _input.Actions.Attack.performed += _ => Attack?.Invoke();
         }
+        
+        private float GetHorizontal() => _input.Movement.Horizontal.ReadValue<float>();
+        
+        private float GetVertical() => _input.Movement.Vertical.ReadValue<float>();
     }
 }

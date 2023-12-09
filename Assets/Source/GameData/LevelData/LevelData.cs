@@ -1,6 +1,4 @@
-﻿using ArenaHero.Battle.Level;
-using UnityEngine;
-using UnityEngine.AI;
+﻿using UnityEngine;
 
 namespace ArenaHero.Data
 {

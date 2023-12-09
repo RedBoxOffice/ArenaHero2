@@ -1,4 +1,6 @@
 namespace ArenaHero.UI
 {
-	public class SelectLevelButton : EventTriggerButton { }
+	public class SelectLevelButton : EventTriggerButton
+	{
+	}
 }

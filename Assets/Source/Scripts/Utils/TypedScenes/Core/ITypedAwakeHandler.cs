@@ -2,6 +2,6 @@
 {
     public interface ITypedAwakeHandler
     {
-        void OnSceneAwake();
+        public void OnSceneAwake();
     } 
 }
