@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace ArenaHero.Battle
 {
-    [RequireComponent(typeof(HealthView))]
     public class Character : MonoBehaviour, ICharacter
     {
         [SerializeField] private float _currentHealth;

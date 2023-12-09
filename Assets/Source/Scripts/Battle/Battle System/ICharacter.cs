@@ -1,6 +1,5 @@
 using System;
 using Source.GameData.Characters;
-using UnityEngine;
 
 namespace ArenaHero.Battle
 {
@@ -9,7 +8,5 @@ namespace ArenaHero.Battle
 		public event Action Died;
 		
 		public CharacterData Data { get; }
-		
-		public Vector3 Position { get; }
 	}
 }

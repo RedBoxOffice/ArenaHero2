@@ -1,5 +1,4 @@
 ﻿#if UNITY_EDITOR
-using ArenaHero.Utils.TypedScenes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,24 +11,6 @@ namespace ArenaHero.Utils.TypedScenes.Editor
 {
     public static class SceneAnalyzer
     {
-        public static IEnumerable<Type> GetLoadingParameters(AnalyzableScene analyzableScene)
-        {
-            var scene = analyzableScene.Scene;
-            var loadParameters = new List<Type> {null};
-            var componentTypes = GetAllTypes(scene);
-
-            loadParameters.AddRange(componentTypes
-                .Where(type => type.GetInterfaces()
-                    .Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ISceneLoadHandlerOnArgument)))
-                .SelectMany(type => type.GetMethods().Where(method => method.Name == "OnSceneLoaded"),
-                    (type, method) => method.GetParameters()[0].ParameterType));
-
-            if (loadParameters.Count > 1)
-                loadParameters.Remove(null);
-
-            return loadParameters;
-        }
-
         public static bool TryAddTypedProcessor(AnalyzableScene analyzableScene)
         {
             var scene = analyzableScene.Scene;

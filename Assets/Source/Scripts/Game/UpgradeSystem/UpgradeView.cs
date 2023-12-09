@@ -17,7 +17,6 @@ namespace ArenaHero.Game.UpgradeSystem
 		[Inject]
 		protected void Inject(IModelHandler modelHandler)
 		{
-			Debug.Log("VIEW INJECT");
 			_model = modelHandler.Get<TUpgrade>();
 
 			_model.Upgraded += (upgrade) =>

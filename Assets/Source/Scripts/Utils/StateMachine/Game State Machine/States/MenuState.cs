@@ -1,14 +1,16 @@
-using ArenaHero.Utils.StateMachine.States;
-
 namespace ArenaHero.Utils.StateMachine
 {
 	public class MenuState : GameState
 	{
-		public MenuState(WindowStateMachine windowStateMachine) : base(windowStateMachine) { }
+		public MenuState(WindowStateMachine windowStateMachine) : base(windowStateMachine)
+		{
+		}
 
 		public override void Enter() =>
 			WindowStateMachine.EnterIn<MenuWindowState>();
 
-		public override void Exit() { }
+		public override void Exit()
+		{
+		}
 	}
 }

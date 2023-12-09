@@ -13,9 +13,9 @@ namespace ArenaHero.Utils.Object
             _pool = pool;
         }
 
-        public IPoolingObject<TInit> Spawn(IPoolingObject<TInit> @object, TInit init, System.Func<Vector3> getSpawnPosition = null)
+        public IPoolingObject<TInit> Spawn(IPoolingObject<TInit> poolingObject, TInit init, System.Func<Vector3> getSpawnPosition = null)
         {
-            IPoolingObject<TInit> spawningObject = GetObject(@object);
+            IPoolingObject<TInit> spawningObject = GetObject(poolingObject);
 
             if (getSpawnPosition != null)
             {
@@ -32,18 +32,10 @@ namespace ArenaHero.Utils.Object
             return spawningObject;
         }
 
-        private IPoolingObject<TInit> GetObject(IPoolingObject<TInit> @object)
-        {
-            IPoolingObject<TInit> spawningObject = _pool.TryGetObjectByType(@object.SelfType) ?? CreateObject(@object);
+        private IPoolingObject<TInit> GetObject(IPoolingObject<TInit> poolingObject) =>
+            _pool.TryGetObjectByType(poolingObject.SelfType) ?? CreateObject(poolingObject);
 
-            return spawningObject;
-        }
-
-        private IPoolingObject<TInit> CreateObject(IPoolingObject<TInit> @object)
-        {
-            IPoolingObject<TInit> newObject = _factory.GetNewObject(@object);
-
-            return newObject;
-        }
+        private IPoolingObject<TInit> CreateObject(IPoolingObject<TInit> poolingObject) =>
+            _factory.GetNewObject(poolingObject);
     }
 }

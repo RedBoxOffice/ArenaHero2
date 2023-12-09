@@ -2,9 +2,9 @@
 {
     public abstract class GameState : State<GameStateMachine>
     {
-        protected WindowStateMachine WindowStateMachine { get; private set; }
-
-        public GameState(WindowStateMachine windowStateMachine) =>
+        protected GameState(WindowStateMachine windowStateMachine) =>
             WindowStateMachine = windowStateMachine;
+        
+        protected WindowStateMachine WindowStateMachine { get; }
     }
 }

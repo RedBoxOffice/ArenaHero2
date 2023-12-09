@@ -8,7 +8,6 @@ using ArenaHero.Yandex.Saves;
 using ArenaHero.Yandex.Saves.Data;
 using Reflex.Attributes;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace ArenaHero.Game.Level
 {
@@ -30,7 +29,8 @@ namespace ArenaHero.Game.Level
         public void OnFightButtonClick() =>
             _sceneLoader.LoadFight<FightState, LevelData>(_gameStateMachine, _levels[_getCurrentLevel().Value]);
 
-        public void OnSceneLoaded<TState>(GameStateMachine machine, object argument = default) where TState : State<GameStateMachine> =>
+        public void OnSceneLoaded<TState>(GameStateMachine machine, object argument = default)
+            where TState : State<GameStateMachine> =>
             _gameStateMachine = machine;
     }
 }

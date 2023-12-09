@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ArenaHero.Game.UpgradeSystem.Models;
@@ -59,10 +58,8 @@ namespace ArenaHero.Game.UpgradeSystem
 			{
 				return (UpgradeModel<TMultiply>)_models[typeof(TMultiply)];
 			}
-			else
-			{
-				throw new ArgumentException();
-			}
+			
+			throw new ArgumentException();
 		}
 	}
 }

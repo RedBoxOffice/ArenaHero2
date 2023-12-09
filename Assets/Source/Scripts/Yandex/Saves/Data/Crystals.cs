@@ -6,8 +6,10 @@ namespace ArenaHero.Yandex.Saves.Data
 	[Serializable]
 	public class Crystals : IntSave<Crystals>
 	{
+		private const int DefaultValue = 20;
+		
 		public Crystals() =>
-			Init(20);
+			Init(DefaultValue);
 		
 		public Crystals(int value) =>
 			Init(value);

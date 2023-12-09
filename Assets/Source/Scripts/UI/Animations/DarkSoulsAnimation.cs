@@ -1,15 +1,8 @@
-using ArenaHero.Utils.StateMachine;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Text;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using Color = UnityEngine.Color;
-using Image = UnityEngine.UI.Image;
 
 namespace ArenaHero.UI
 {
@@ -24,10 +17,8 @@ namespace ArenaHero.UI
         [SerializeField] private float _waitTime;
         [SerializeField] private GameObject _window;
        
-        private void OnEnable()
-        {           
-            StartCoroutine(DiedAnimation());            
-        }       
+        private void OnEnable() =>
+            StartCoroutine(DiedAnimation());
 
         private IEnumerator FadeIn(Action<float> changeColor, float current, float target)
         {

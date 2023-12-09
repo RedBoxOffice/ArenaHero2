@@ -1,11 +1,11 @@
 ﻿#if UNITY_EDITOR
-using ArenaHero.Utils.StateMachine;
 using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.IO;
+using System.Reflection;
+using ArenaHero.Utils.StateMachine;
 using UnityEngine;
-using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
 
 namespace ArenaHero.Utils.TypedScenes.Editor
@@ -26,7 +26,7 @@ namespace ArenaHero.Utils.TypedScenes.Editor
                                             new CodeTypeReference(typeof(GameStateMachine))
                                         }));
 
-            targetClass.TypeAttributes = System.Reflection.TypeAttributes.Class | System.Reflection.TypeAttributes.Public;
+            targetClass.TypeAttributes = TypeAttributes.Class | TypeAttributes.Public;
 
             AddConstantValue(targetClass, typeof(string), "_sceneName", sceneName);
 

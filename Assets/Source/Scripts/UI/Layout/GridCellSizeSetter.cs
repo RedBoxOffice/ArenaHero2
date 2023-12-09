@@ -1,4 +1,3 @@
-using ArenaHero.Utils.UnityTool;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,13 +14,6 @@ namespace ArenaHero.UI
         [SerializeField] private RectTransform _parent;
 
         private GridLayoutGroup _grid;
-
-        private enum AspectType
-        {
-            Horizontal,
-            Vertical,
-            None
-        }
 
         private void OnValidate()
         {
@@ -59,22 +51,18 @@ namespace ArenaHero.UI
 
             return size;
 
-            void CalculateX()
-            {
+            void CalculateX() =>
                 size.x = _parent.rect.size.x / _columnCount - _grid.spacing.x - _grid.padding.left - _grid.padding.right;
-            }
 
-            void CalculateY()
-            {
+            void CalculateY() =>
                 size.y = _parent.rect.size.y / _rowCount - _grid.spacing.y - _grid.padding.top - _grid.padding.bottom;
-            }
         }
 
-        public void SetLayoutHorizontal() { }
-
-        public void SetLayoutVertical()
+        public void SetLayoutHorizontal()
         {
-            _grid.cellSize = CalculateSize();
         }
+
+        public void SetLayoutVertical() =>
+            _grid.cellSize = CalculateSize();
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using ArenaHero.InputSystem;
+﻿using ArenaHero.InputSystem;
 using Reflex.Attributes;
 using UnityEngine;
 

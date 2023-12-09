@@ -1,9 +1,6 @@
 ﻿using Agava.YandexGames;
-using ArenaHero.Game.AudioControl;
 using ArenaHero.Utils.StateMachine;
 using ArenaHero.Yandex;
-using ArenaHero.Yandex.AD;
-using ArenaHero.Yandex.Localization;
 using ArenaHero.Yandex.Saves;
 using Reflex.Core;
 using System;
@@ -15,7 +12,6 @@ namespace ArenaHero
 {
     public class ProjectInstaller : MonoBehaviour, IInstaller
     {
-        [SerializeField] private GameAudioHandler _gameAudioHandler;
         [SerializeField] private SceneLoader _sceneLoader = new SceneLoader();
 
         public void InstallBindings(ContainerDescriptor descriptor)
@@ -23,8 +19,6 @@ namespace ArenaHero
             InputInit(descriptor);
 
             var context = GameContextInit();
-
-            AudioInit(descriptor, context);
 
             var gameStateMachine = GameStateMachineInit();
 
@@ -43,24 +37,12 @@ namespace ArenaHero
             descriptor.AddInstance(playerInput);
         }
 
-        private Context GameContextInit()
+        private ApplicationFocusHandler GameContextInit()
         {
-            var context = new GameObject(nameof(Context)).AddComponent<Context>();
+            var context = new GameObject(nameof(ApplicationFocusHandler)).AddComponent<ApplicationFocusHandler>();
             DontDestroyOnLoad(context);
 
             return context;
-        }
-
-        private void AudioInit(ContainerDescriptor descriptor, Context context)
-        {
-            var backgroundAudio = new GameObject(nameof(AudioSource)).AddComponent<AudioSource>();
-            var gameAudio = backgroundAudio.gameObject.AddComponent<AudioSource>();
-            DontDestroyOnLoad(backgroundAudio);
-            _gameAudioHandler.Init();
-            var audioController = new AudioController(gameAudio, backgroundAudio, _gameAudioHandler, context);
-
-
-            descriptor.AddInstance(audioController, typeof(IAudioController));
         }
 
         private GameStateMachine GameStateMachineInit()
@@ -84,11 +66,9 @@ namespace ArenaHero
             return gameStateMachine;
         }
 
-        private void YandexInit(ContainerDescriptor descriptor, Context context, GameStateMachine gameStateMachine)
+        private void YandexInit(ContainerDescriptor descriptor, ApplicationFocusHandler applicationFocusHandler, GameStateMachine gameStateMachine)
         {
             var saver = new GameDataSaver();
-            var ad = new Ad(context, countOverBetweenShowsAd: 5);
-            descriptor.AddInstance(ad, typeof(ICounterForShowAd));
 
             var yandexSDKInitializer = new GameObject(nameof(YandexInitializer)).AddComponent<YandexInitializer>();
             yandexSDKInitializer.Init(gameStateMachine, _sceneLoader, () =>
@@ -99,7 +79,6 @@ namespace ArenaHero
 #if !UNITY_EDITOR
                 lang = YandexGamesSdk.Environment.i18n.lang;
 #endif
-                GameLanguage.Value = lang;
             });
 
             descriptor.AddInstance(saver, typeof(ISaver));

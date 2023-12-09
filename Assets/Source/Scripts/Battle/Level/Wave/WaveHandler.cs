@@ -11,17 +11,15 @@ namespace ArenaHero.Battle.Level
 {
 	public class WaveHandler : MonoBehaviour
 	{
-		private LevelData _currentLevelData;
 		private StageData _currentStageData;
 		private WaveData _currentWaveData;
 
-		private int _currentWaveIndex = 0;
+		private int _currentWaveIndex;
 		private bool _isFight = true;
 
 		[Inject]
 		private void Inject(ISaver saver, LevelData levelData, IEndLevelStateChanged endLevel)
 		{
-			_currentLevelData = levelData;
 			_currentStageData = levelData.GetStageDataByIndex(saver.Get<CurrentLevelStage>().Value);
 			_currentWaveData = _currentStageData.GetWaveDataByIndex(_currentWaveIndex);
 			

@@ -5,42 +5,37 @@ namespace ArenaHero.Utils.StateMachine
 {
     public class TransitionInitializer<TMachine> where TMachine : StateMachine<TMachine>
     {
-        private TMachine _stateMachine;
-        private List<Subscription> _subscribtions = new List<Subscription>();
+        private readonly TMachine _stateMachine;
+        private readonly List<Subscription> _subscribtions = new List<Subscription>();
 
-        private struct Subscription
+        public TransitionInitializer(TMachine stateMachine, out Action onEnable, out Action onDisable)
         {
-            public ISubject Subject;
-            public Action Observer;
-
-            public Subscription(ISubject subject, Action observer)
-            {
-                Subject = subject;
-                Observer = observer;
-            }
+            onEnable = OnEnable;
+            onDisable = OnDisable;
+            
+            _stateMachine = stateMachine;
         }
 
-        public TransitionInitializer(TMachine stateMachine) => _stateMachine = stateMachine;
+        public void InitTransition<TTargetState>(ISubject subject, Action reloadScene = null)
+            where TTargetState : State<TMachine>
+        {
+            var transition = new Transition<TMachine, TTargetState>(_stateMachine, reloadScene);
 
-        public void OnEnable()
+            //subject.ActionEnded += transition.Transit;
+
+            _subscribtions.Add(new Subscription(subject, transition.Transit));
+        }
+        
+        private void OnEnable()
         {
             if (_subscribtions != null)
                 Subscribe();
         }
 
-        public void OnDisable()
+        private void OnDisable()
         {
             if (_subscribtions != null)
                 UnSubscribe();
-        }
-
-        public void InitTransition<TTargetState>(ISubject subject, Action reloadScene = null) where TTargetState : State<TMachine>
-        {
-            var transition = new Transition<TMachine, TTargetState>(_stateMachine, reloadScene);
-
-            subject.ActionEnded += transition.Transit;
-
-            _subscribtions.Add(new Subscription(subject, transition.Transit));
         }
 
         private void Subscribe()

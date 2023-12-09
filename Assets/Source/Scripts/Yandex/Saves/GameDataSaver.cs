@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using Agava.YandexGames;
 using ArenaHero.Yandex.Saves.Data;
 using ArenaHero.Yandex.Simulator;
-using Newtonsoft.Json;
 using UnityEngine;
 
 namespace ArenaHero.Yandex.Saves
@@ -105,10 +103,8 @@ namespace ArenaHero.Yandex.Saves
 			{
 				return true;
 			}
-			else
-			{
-				throw new ArgumentNullException(typeof(TData).Name, "not contains key");
-			}
+			
+			throw new ArgumentNullException(typeof(TData).Name, "not contains key");
 		}
 	}
 }

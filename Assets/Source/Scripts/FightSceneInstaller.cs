@@ -7,7 +7,6 @@ using ArenaHero.Game.Level;
 using ArenaHero.InputSystem;
 using ArenaHero.Utils.StateMachine;
 using ArenaHero.Utils.TypedScenes;
-using ArenaHero.Yandex.Saves;
 using Cinemachine;
 using Reflex.Core;
 using UnityEngine;

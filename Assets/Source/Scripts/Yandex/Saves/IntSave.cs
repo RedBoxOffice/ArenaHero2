@@ -4,7 +4,8 @@ using UnityEngine;
 namespace ArenaHero.Yandex.Saves
 {
 	[Serializable]
-	public abstract class IntSave<TData> : SaveData<TData> where TData : IntSave<TData>
+	public abstract class IntSave<TData> : SaveData<TData>
+		where TData : IntSave<TData>
 	{
 		[SerializeField] private int _value;
 

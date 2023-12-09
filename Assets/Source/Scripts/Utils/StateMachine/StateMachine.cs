@@ -3,18 +3,21 @@ using System;
 
 namespace ArenaHero.Utils.StateMachine
 {
-    public abstract class StateMachine<TMachine> : IDisposable where TMachine : StateMachine<TMachine>
+    public abstract class StateMachine<TMachine> : IDisposable 
+        where TMachine : StateMachine<TMachine>
     {       
         private Dictionary<Type, State<TMachine>> _state;
 
         public State<TMachine> CurrentState { get; private set; }
 
-        protected StateMachine(Func<Dictionary<Type, State<TMachine>>> getStates) => _state = getStates();
+        protected StateMachine(Func<Dictionary<Type, State<TMachine>>> getStates) =>
+            _state = getStates();
 
         public void Dispose() =>
             CurrentState?.Exit();
 
-        public void EnterIn<TState>() where TState : State<TMachine>
+        public void EnterIn<TState>()
+            where TState : State<TMachine>
         {
             if (_state.ContainsKey(typeof(TState)) == false)
                 throw new NullReferenceException(nameof(_state));

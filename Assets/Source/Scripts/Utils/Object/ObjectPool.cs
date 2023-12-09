@@ -4,13 +4,13 @@ namespace ArenaHero.Utils.Object
 {
     public class ObjectPool<TInit>
     {
-        private Dictionary<System.Type, Queue<IPoolingObject<TInit>>> _objects = new Dictionary<System.Type, Queue<IPoolingObject<TInit>>>();
+        private readonly Dictionary<System.Type, Queue<IPoolingObject<TInit>>> _objects = new Dictionary<System.Type, Queue<IPoolingObject<TInit>>>();
 
-        public void Return(IPoolingObject<TInit> @object)
+        public void Return(IPoolingObject<TInit> poolingObject)
         {
-            @object.Disabled -= Return;
+            poolingObject.Disabled -= Return;
 
-            Add(@object);
+            Add(poolingObject);
         }
 
         public IPoolingObject<TInit> TryGetObjectByType(System.Type objectType)
@@ -28,21 +28,19 @@ namespace ArenaHero.Utils.Object
             return null;
         }
 
-        private void Add(IPoolingObject<TInit> @object)
+        private void Add(IPoolingObject<TInit> poolingObject)
         {
-            if (!_objects.ContainsKey(@object.SelfType))
-                AddType(@object.SelfType);
+            if (!_objects.ContainsKey(poolingObject.SelfType))
+                AddType(poolingObject.SelfType);
 
-            if (_objects.TryGetValue(@object.SelfType, out Queue<IPoolingObject<TInit>> playersData))
+            if (_objects.TryGetValue(poolingObject.SelfType, out Queue<IPoolingObject<TInit>> playersData))
             {
-                @object.SelfGameObject.SetActive(false);
-                playersData.Enqueue(@object);
+                poolingObject.SelfGameObject.SetActive(false);
+                playersData.Enqueue(poolingObject);
             }
         }
 
-        private void AddType(System.Type type)
-        {
+        private void AddType(System.Type type) =>
             _objects.Add(type, new Queue<IPoolingObject<TInit>>());
-        }
     }
 }

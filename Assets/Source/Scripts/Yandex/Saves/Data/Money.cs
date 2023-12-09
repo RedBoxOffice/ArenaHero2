@@ -6,8 +6,10 @@ namespace ArenaHero.Yandex.Saves.Data
 	[Serializable]
 	public class Money : IntSave<Money>
 	{
+		private const int DefaultValue = 0;
+		
 		public Money() =>
-			Init(10000000);
+			Init(DefaultValue);
 
 		public Money(int value) =>
 			Init(value);

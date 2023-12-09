@@ -1,4 +1,6 @@
 namespace ArenaHero.Utils.StateMachine
 {
-	public class MenuWindowState : WindowState { }
+	public class MenuWindowState : WindowState
+	{
+	}
 }

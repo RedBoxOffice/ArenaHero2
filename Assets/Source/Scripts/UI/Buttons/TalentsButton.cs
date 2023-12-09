@@ -1,4 +1,6 @@
 namespace ArenaHero.UI
 {
-	public class TalentsButton : EventTriggerButton { }
+	public class TalentsButton : EventTriggerButton
+	{
+	}
 }

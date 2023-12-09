@@ -1,4 +1,6 @@
 ﻿namespace ArenaHero.InputSystem
 {
-    public interface IInputHandler : IMovementInputHandler, IActionsInputHandler, IActionsInputHandlerOnlyPlayer { }
+    public interface IInputHandler : IMovementInputHandler, IActionsInputHandler, IActionsInputHandlerOnlyPlayer
+    {
+    }
 }

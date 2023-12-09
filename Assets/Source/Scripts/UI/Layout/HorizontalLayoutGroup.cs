@@ -4,33 +4,23 @@ using UnityEngine.UI;
 
 namespace ArenaHero.UI
 {
-    public class HorizontalLayoutGroup : LayoutGroup
+    public sealed class HorizontalLayoutGroup : LayoutGroup
     {
         [SerializeField] private RectTransform _rect;
         [SerializeField] private float _spacing = 0;
 
-        private bool _childForceExpandHeight = true;
-        private bool _childControlHeight = true;
-
-        public float Spacing 
-        {
-            get => _spacing; 
-            private set => SetProperty(ref _spacing, value); 
-        }
-
         public event Action LayoutUpdated;
 
-        protected enum Axis
-        {
-            Width,
-            Height,
-        };
+        public float Spacing => _spacing;
 
-        protected void CalculationAlongAxis(Axis axis)
+        private void CalculationAlongAxis(Axis axis)
         {
-            float combinedPadding = (axis == 0 ? padding.horizontal : padding.vertical);
-            bool controlSize = (axis != 0 && _childControlHeight);
-            bool childForceExpandSize = (axis != 0 && _childForceExpandHeight);
+            float combinedPadding = axis == Axis.Width 
+                ? padding.horizontal 
+                : padding.vertical;
+            
+            bool controlSize = axis == Axis.Height;
+            bool childForceExpandSize = axis == Axis.Height;
 
             float totalMin = combinedPadding;
             float totalPreferred = combinedPadding;
@@ -41,8 +31,8 @@ namespace ArenaHero.UI
             for (int i = 0; i < rectChildrenCount; i++)
             {
                 RectTransform child = rectChildren[i];
-                float min, preferred, flexible;
-                GetChildSizes(child, (int)axis, controlSize, childForceExpandSize, out min, out preferred, out flexible);
+                
+                GetChildSizes(child, (int)axis, controlSize, childForceExpandSize, out var min, out var preferred, out var flexible);
 
                 if (axis == Axis.Height)
                 {
@@ -69,14 +59,14 @@ namespace ArenaHero.UI
             SetLayoutInputForAxis(totalMin, totalPreferred, totalFlexible, (int)axis);
         }
 
-        protected void SetChildrenAlongAxis(Axis axis)
+        private void SetChildrenAlongAxis(Axis axis)
         {
             float size = rectTransform.rect.size[(int)axis];
-            bool controlSize = (axis != 0 && _childControlHeight);
-            bool childForceExpandSize = (axis != 0 && _childForceExpandHeight);
+            bool controlSize = axis == Axis.Height;
+            bool childForceExpandSize = axis == Axis.Height;
             float alignmentOnAxis = GetAlignmentOnAxis((int)axis);
 
-            float innerSize = size - (axis == 0 ? padding.horizontal : padding.vertical);
+            float innerSize = size - (axis == Axis.Width ? padding.horizontal : padding.vertical);
 
             bool isWidthLessHeight = _rect.rect.width <= _rect.rect.height;
 
@@ -93,12 +83,14 @@ namespace ArenaHero.UI
 
                     if (isWidthLessHeight)
                     {
-                        flexible = preferred = _rect.rect.width / _rect.rect.height;
+                        flexible = _rect.rect.width / _rect.rect.height;
                         requiredSpace = Mathf.Clamp(innerSize, min, flexible * size);
                     }
                     else
                     {
-                        requiredSpace = Mathf.Clamp(innerSize, min, flexible > 0 ? size : preferred);
+                        requiredSpace = Mathf.Clamp(innerSize, min, flexible > 0 
+                            ? size 
+                            : preferred);
                     }
 
                     float startOffset = GetStartOffset((int)Axis.Height, requiredSpace);
@@ -108,32 +100,44 @@ namespace ArenaHero.UI
             }
             else
             {
-                float pos = (axis == 0 ? padding.left : padding.top);
+                float pos = axis == Axis.Width ? padding.left : padding.top;
                 float itemFlexibleMultiplier = 0;
                 float surplusSpace = size - GetTotalPreferredSize((int)Axis.Width);
 
                 if (surplusSpace > 0)
                 {
                     if (GetTotalFlexibleSize((int)Axis.Width) == 0)
-                        pos = GetStartOffset((int)Axis.Width, GetTotalPreferredSize((int)Axis.Width) - (axis == 0 ? padding.horizontal : padding.vertical));
+                    {
+                        var needPadding = axis == Axis.Width 
+                            ? padding.horizontal 
+                            : padding.vertical;
+                        
+                        pos = GetStartOffset((int)Axis.Width, GetTotalPreferredSize((int)Axis.Width) - needPadding);
+                    }
                     else if (GetTotalFlexibleSize((int)Axis.Width) > 0)
+                    {
                         itemFlexibleMultiplier = surplusSpace / GetTotalFlexibleSize((int)Axis.Width);
+                    }
                 }
 
                 float minMaxLerp = 0;
-                if (GetTotalMinSize((int)Axis.Width) != GetTotalPreferredSize((int)Axis.Width))
+                if (GetTotalMinSize((int)Axis.Width).Equals(GetTotalPreferredSize((int)Axis.Width)))
+                {
                     minMaxLerp = Mathf.Clamp01((size - GetTotalMinSize((int)Axis.Width)) / (GetTotalPreferredSize((int)Axis.Width) - GetTotalMinSize((int)Axis.Width)));
+                }
 
                 for (int i = 0; i < rectChildren.Count; i++)
                 {
                     RectTransform child = rectChildren[i];
                     float min, preferred, flexible;
 
-                    if (child.gameObject.TryGetComponent(out EquilateralSize equilateral))
+                    if (child.gameObject.TryGetComponent(out EquilateralSize _))
                     {
                         GetChildSizes(child, (int)Axis.Height, !controlSize, !childForceExpandSize, out min, out preferred, out flexible);
 
-                        float requiredSpace = Mathf.Clamp(innerSize, min, flexible > 0 ? rectTransform.rect.size[(int)Axis.Height] : preferred);
+                        float requiredSpace = Mathf.Clamp(innerSize, min, flexible > 0 
+                            ? rectTransform.rect.size[(int)Axis.Height] 
+                            : preferred);
 
                         GetChildSizes(child, (int)Axis.Width, controlSize, childForceExpandSize, out min, out preferred, out flexible);
 
@@ -148,7 +152,11 @@ namespace ArenaHero.UI
                         child.sizeDelta = sizeDelta;
 
                         Vector2 anchoredPosition = child.anchoredPosition;
-                        anchoredPosition[(int)Axis.Width] = (axis == 0) ? (pos + requiredSpace * child.pivot[(int)Axis.Width] * 1f) : (-pos - requiredSpace * (1f - child.pivot[(int)Axis.Width]) * 1f);
+                        
+                        anchoredPosition[(int)Axis.Width] = axis == Axis.Width 
+                            ? (pos + requiredSpace * child.pivot[(int)Axis.Width] * 1f) 
+                            : (-pos - requiredSpace * (1f - child.pivot[(int)Axis.Width]) * 1f);
+                        
                         child.anchoredPosition = anchoredPosition;
                         pos += childSize + Spacing;
                     }
@@ -159,6 +167,7 @@ namespace ArenaHero.UI
 
                         float childSize = Mathf.Lerp(min, preferred, minMaxLerp);
                         childSize += flexible * itemFlexibleMultiplier;
+                        
                         if (controlSize)
                         {
                             SetChildAlongAxisWithScale(child, (int)Axis.Width, pos, childSize, scaleFactor);
@@ -168,14 +177,21 @@ namespace ArenaHero.UI
                             float offsetInCell = (childSize - child.sizeDelta[(int)Axis.Width]) * alignmentOnAxis;
                             SetChildAlongAxisWithScale(child, (int)Axis.Width, pos + offsetInCell, scaleFactor);
                         }
+                        
                         pos += childSize * scaleFactor + Spacing;
                     }
                 }
             }
         }
 
-        private void GetChildSizes(RectTransform child, int axis, bool controlSize, bool childForceExpand,
-            out float min, out float preferred, out float flexible)
+        private void GetChildSizes(
+            RectTransform child, 
+            int axis, 
+            bool controlSize, 
+            bool childForceExpand,
+            out float min, 
+            out float preferred, 
+            out float flexible)
         {
             if (!controlSize)
             {
@@ -191,7 +207,9 @@ namespace ArenaHero.UI
             }
 
             if (childForceExpand)
+            {
                 flexible = Mathf.Max(flexible, 1);
+            }
         }
 
         public override void CalculateLayoutInputHorizontal()
@@ -217,7 +235,7 @@ namespace ArenaHero.UI
         private int m_Capacity = 10;
         private Vector2[] m_Sizes = new Vector2[10];
 
-        protected virtual void Update()
+        private void Update()
         {
             if (Application.isPlaying)
                 return;
@@ -235,6 +253,7 @@ namespace ArenaHero.UI
             }
 
             bool dirty = false;
+            
             for (int i = 0; i < count; i++)
             {
                 RectTransform t = transform.GetChild(i) as RectTransform;
@@ -246,7 +265,7 @@ namespace ArenaHero.UI
             }
 
             if (dirty)
-                UnityEngine.UI.LayoutRebuilder.MarkLayoutForRebuild(transform as RectTransform);
+                LayoutRebuilder.MarkLayoutForRebuild(transform as RectTransform);
         }
 
 #endif

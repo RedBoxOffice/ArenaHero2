@@ -1,4 +1,6 @@
 ﻿namespace ArenaHero.Utils.StateMachine
 {
-    public class FightWindowState : WindowState { }
+    public class FightWindowState : WindowState
+    {
+    }
 }

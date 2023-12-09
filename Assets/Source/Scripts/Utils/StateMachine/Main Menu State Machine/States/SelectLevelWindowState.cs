@@ -1,4 +1,6 @@
 namespace ArenaHero.Utils.StateMachine.States
 {
-	public class SelectLevelWindowState : WindowState { }
+	public class SelectLevelWindowState : WindowState
+	{
+	}
 }

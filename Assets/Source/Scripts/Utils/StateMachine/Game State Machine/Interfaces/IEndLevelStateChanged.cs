@@ -1,4 +1,6 @@
 ﻿namespace ArenaHero.Utils.StateMachine
 {
-    public interface IEndLevelStateChanged : IStateChanged { }
+    public interface IEndLevelStateChanged : IStateChanged
+    {
+    }
 }

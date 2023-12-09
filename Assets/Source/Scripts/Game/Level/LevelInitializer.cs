@@ -55,11 +55,11 @@ namespace ArenaHero.Game.Level
 			var currentStageIndex = _saver.Get<CurrentLevelStage>().Value;
 			var currentStage = _levelData.GetStageDataByIndex(currentStageIndex);
 			
-			var spawnerHandler = Object.Instantiate(currentStage.SpawnPointsHandler).gameObject.GetComponent<SpawnerHandler>();
+			var spawnerHandler = Instantiate(currentStage.SpawnPointsHandler).gameObject.GetComponent<SpawnerHandler>();
 			
 			spawnerHandler.Init(_waveHandler, _hero);
 			
-			Object.Instantiate(currentStage.EnvironmentParent);
+			Instantiate(currentStage.EnvironmentParent);
 		
 			_instanceNavMesh = NavMesh.AddNavMeshData(currentStage.NavMeshData);
 		}

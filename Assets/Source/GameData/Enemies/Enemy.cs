@@ -1,7 +1,6 @@
-using ArenaHero.Utils.Object;
 using System;
-using System.Collections.Generic;
 using ArenaHero.Battle;
+using ArenaHero.Utils.Object;
 using UnityEngine;
 
 namespace ArenaHero.Data
@@ -15,8 +14,6 @@ namespace ArenaHero.Data
         public event Action<IPoolingObject<EnemyInit>> Disabled;
 
         public GameObject SelfGameObject => gameObject;
-
-        public ICharacter SelfCharacter => _character;
 
         public IDamageable SelfDamageable { get; private set; }
 
@@ -38,14 +35,14 @@ namespace ArenaHero.Data
             Disabled?.Invoke(this);
             _character.Died -= OnDied;
         }
+        
+        public void Init(EnemyInit init) =>
+            Target = init.Target;
 
         private void OnDied()
         {
             Disabling?.Invoke(this);
             gameObject.SetActive(false);
         }
-
-        public void Init(EnemyInit init) =>
-            Target = init.Target;
     }
 }

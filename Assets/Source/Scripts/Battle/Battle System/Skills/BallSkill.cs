@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using ArenaHero.Utils.Other;
 using UnityEngine;
 
 namespace ArenaHero.Battle.Skills
@@ -8,13 +8,13 @@ namespace ArenaHero.Battle.Skills
     public class BallSkill : Skill, IUpdatableSkill 
     {
         [SerializeField] private Transform _centerTransform;
-        [SerializeField] private GameObject _elementPrefab;
-        [SerializeField, Range(1, 20)] private int _countElements;
+        [SerializeField] private Ball _ballPrefab;
+        [SerializeField, Range(1, 20)] private int _countBalls;
         [SerializeField] private float _radius;
         [SerializeField] private float _speedRotation;
         [SerializeField, Range(-1, 1)] private int _directionAllRotation;
 
-        private readonly List<GameObject> _elements = new List<GameObject>();
+        private readonly List<Ball> _balls = new List<Ball>();
         
         private float _currentAngleAllRotation = 0.01f;
         private Coroutine _updateCoroutine;
@@ -34,23 +34,23 @@ namespace ArenaHero.Battle.Skills
         }
 
         private void OnDisable() =>
-            DeleteElements();
+            DeleteBalls();
 
         public void UpdateSkill()
         {
             if (_updateCoroutine != null)
                 StopCoroutine(_updateCoroutine);
 
-            DeleteElements();
+            DeleteBalls();
             
-            CreateElements();
+            CreateBalls();
 
             SetPositions();
 
-            _updateCoroutine = StartCoroutine(UpdateElements());
+            _updateCoroutine = StartCoroutine(UpdateBalls());
         }
         
-        private IEnumerator UpdateElements()
+        private IEnumerator UpdateBalls()
         {
             while (_isAlive)
             {
@@ -61,12 +61,12 @@ namespace ArenaHero.Battle.Skills
             }
         }
 
-        private void CreateElements()
+        private void CreateBalls()
         {
-            for (int i = 0; i < _countElements; i++)
+            for (int i = 0; i < _countBalls; i++)
             {
-                var element = Instantiate(_elementPrefab, _centerTransform);
-                _elements.Add(element);
+                var ball = Instantiate(_ballPrefab, _centerTransform);
+                _balls.Add(ball);
             }
         }
 
@@ -79,24 +79,24 @@ namespace ArenaHero.Battle.Skills
                 x = _radius
             };
 
-            float angle = maxCircleAngle / _countElements;
+            float angle = maxCircleAngle / _countBalls;
 
             float currentAngle = 0;
 
-            foreach (var element in _elements)
+            foreach (var ball in _balls)
             {
-                element.transform.localPosition = (Quaternion.AngleAxis(currentAngle, Vector3.up) * position) + _centerTransform.localPosition;
+                ball.transform.localPosition = (Quaternion.AngleAxis(currentAngle, Vector3.up) * position) + _centerTransform.localPosition;
 
                 currentAngle += angle;
             }
         }
 
-        private void DeleteElements()
+        private void DeleteBalls()
         {
-            foreach (var element in _elements)
+            foreach (var element in _balls)
                 Destroy(element);
             
-            _elements.Clear();
+            _balls.Clear();
         }
     }
 }

@@ -3,24 +3,23 @@ using UnityEngine;
 
 namespace ArenaHero.Battle.Skills
 {
-	public class DefaultAttackSkill : AttackSkill, IAttackable
+	public class DefaultAttackSkill : AttackSkill
 	{
 		private Coroutine _cooldownCoroutine;
 		
-		public void Attack() =>
-			TryAttackEnemy();
-
 		protected override void OnAttack() =>
-			Attack();
+			TryAttackEnemy();
 		
 		private void TryAttackEnemy()
 		{
-			if (CanAttack())
+			if (!CanAttack())
 			{
-				_cooldownCoroutine = StartCoroutine(Cooldown());
-				
-				Target.Damageable.TakeDamage(CharacterData.BaseDamage);
+				return;
 			}
+			
+			_cooldownCoroutine = StartCoroutine(Cooldown());
+				
+			Target.Damageable.TakeDamage(CharacterData.BaseDamage);
 		}
 
 		private bool CanAttack()
