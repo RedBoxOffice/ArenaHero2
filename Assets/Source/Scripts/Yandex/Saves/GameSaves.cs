@@ -17,7 +17,8 @@ namespace ArenaHero.Yandex.Saves
 		[SerializeField] private DurabilityMultiply _durabilityMultiply;
 		[SerializeField] private HealthMultiply _healthMultiply;
 		[SerializeField] private LuckMultiply _luckMultiply;
-
+		[SerializeField] private CurrentUpgradePrice _currentUpgradePrice;
+ 
 		public CurrentLevel CurrentLevel => _currentLevel ??= new CurrentLevel();
 		
 		public CurrentLevelStage CurrentLevelStage => _currentLevelStage ??= new CurrentLevelStage();
@@ -37,5 +38,7 @@ namespace ArenaHero.Yandex.Saves
 		public HealthMultiply HealthMultiply => _healthMultiply ??= new HealthMultiply();
 		
 		public LuckMultiply LuckMultiply => _luckMultiply ??= new LuckMultiply();
+
+		public CurrentUpgradePrice CurrentUpgradePrice => _currentUpgradePrice ??= new CurrentUpgradePrice();
 	}
 }

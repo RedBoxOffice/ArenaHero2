@@ -10,6 +10,7 @@ namespace ArenaHero.UI
 
         public virtual void OnClick()
         {
+            Debug.Log("Click");
             ActionEnded?.Invoke();
         }
     }

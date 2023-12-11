@@ -21,7 +21,7 @@ namespace ArenaHero.Utils.StateMachine
         {
             var transition = new Transition<TMachine, TTargetState>(_stateMachine, reloadScene);
 
-            //subject.ActionEnded += transition.Transit;
+            subject.ActionEnded += transition.Transit;
 
             _subscribtions.Add(new Subscription(subject, transition.Transit));
         }

@@ -28,6 +28,7 @@ namespace ArenaHero.Yandex.Saves
 				[typeof(DurabilityMultiply)] = new Func<DurabilityMultiply>(() => _gameSaves.DurabilityMultiply),
 				[typeof(HealthMultiply)] = new Func<HealthMultiply>(() => _gameSaves.HealthMultiply),
 				[typeof(LuckMultiply)] = new Func<LuckMultiply>(() => _gameSaves.LuckMultiply),
+				[typeof(CurrentUpgradePrice)] = new Func<CurrentUpgradePrice>(() => _gameSaves.CurrentUpgradePrice),
 			};
 		}
 

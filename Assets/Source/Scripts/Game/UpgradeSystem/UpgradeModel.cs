@@ -11,30 +11,29 @@ namespace ArenaHero.Game.UpgradeSystem
 		where TUpgrade : UpgradeSave<TUpgrade>
 	{
 		[SerializeField] private float _multiplyCoefficient;
-		[SerializeField] private float _priceCoefficient;
 		
 		private ISaver _saver;
 
 		public event Action<TUpgrade> Upgraded;
 
 		protected float MultiplyCoefficient => _multiplyCoefficient;
-
-		protected float PriceCoefficient => _priceCoefficient;
-
+		
 		public override void Init(ISaver saver) =>
 			_saver = saver;
 
 		public override void TryUpdate()
 		{
 			var currentMoney = _saver.Get<Money>().Value;
-			var currentPrice = _saver.Get<TUpgrade>().Price;
+			var currentPrice = _saver.Get<CurrentUpgradePrice>();
 			
-			if (currentMoney < currentPrice)
+			if (currentMoney < currentPrice.Value)
 			{
 				return;
 			}
 
-			_saver.Set(new Money(SubtractCost(currentMoney, currentPrice)));
+			_saver.Set(new Money(SubtractCost(currentMoney, (int)currentPrice.Value)));
+			currentPrice.Update();
+			_saver.Set(currentPrice);
 
 			var currentUpgrade = _saver.Get<TUpgrade>();
 			var upgrade = Improve(currentUpgrade);

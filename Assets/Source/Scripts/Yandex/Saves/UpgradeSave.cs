@@ -5,7 +5,8 @@ using UnityEngine;
 namespace ArenaHero.Saves
 {
 	[Serializable]
-	public abstract class UpgradeSave<TData> : SaveData<TData> where TData : UpgradeSave<TData>
+	public abstract class UpgradeSave<TData> : SaveData<TData> 
+		where TData : UpgradeSave<TData>
 	{
 		[SerializeField] private float _multiply;
 		[SerializeField] private int _level;

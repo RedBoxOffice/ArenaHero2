@@ -20,7 +20,7 @@ namespace ArenaHero
 
 		[Header("Upgrade")]
 		[SerializeField] private CharacteristicUpdater _characteristicUpdater;
-
+		
 		private MainMenuWindowStateMachine _windowStateMachine;
 		private Action _onEnableTransitions;
 		private Action _onDisableTransitions;
@@ -49,7 +49,7 @@ namespace ArenaHero
 			transitionInitializer.InitTransition<SelectLevelWindowState>(_selectLevelButton);
 			transitionInitializer.InitTransition<TalentsWindowState>(_talentsButton);
 			transitionInitializer.InitTransition<MagazineWindowState>(_magazineButton);
-
+			
 			descriptor.AddInstance(_characteristicUpdater, typeof(IModelHandler ));
 		}
 

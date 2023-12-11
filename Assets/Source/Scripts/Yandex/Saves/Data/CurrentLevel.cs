@@ -5,10 +5,12 @@ using UnityEngine.Serialization;
 namespace ArenaHero.Yandex.Saves.Data
 {
     [Serializable]
-    public class CurrentLevel : IntSave<CurrentLevel>
+    public class CurrentLevel : SimpleValueSave<int, CurrentLevel>
     {
+        private const int DefaultValue = 0;
+        
         public CurrentLevel() =>
-            Init(0);
+            Init(DefaultValue);
 
         public CurrentLevel(int value) =>
             Init(value);
