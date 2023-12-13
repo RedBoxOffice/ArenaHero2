@@ -1,1 +1,47 @@
-{"_currentLevel":{"_value":0},"_currentLevelStage":{"_value":0},"_money":{"_value":567821},"_crystals":{"_value":20},"_armorMultiply":{"_multiply":14.420999526977539,"_level":20,"_price":0},"_auraMultiply":{"_multiply":8.954305648803711,"_level":20,"_price":0},"_damageMultiply":{"_multiply":13.109999656677246,"_level":20,"_price":0},"_durabilityMultiply":{"_multiply":7.400252819061279,"_level":20,"_price":0},"_healthMultiply":{"_multiply":25.547683715820314,"_level":20,"_price":0},"_luckMultiply":{"_multiply":8.140277862548829,"_level":20,"_price":0},"_currentUpgradePrice":{"_value":941236.5}}
+{
+  "_currentLevel": {
+    "_value": 0
+  },
+  "_currentLevelStage": {
+    "_value": 0
+  },
+  "_money": {
+    "_value": 567821
+  },
+  "_crystals": {
+    "_value": 20
+  },
+  "_armorMultiply": {
+    "_multiply": 14.420999526977539,
+    "_level": 20,
+    "_price": 0
+  },
+  "_auraMultiply": {
+    "_multiply": 8.954305648803711,
+    "_level": 20,
+    "_price": 0
+  },
+  "_damageMultiply": {
+    "_multiply": 13.109999656677246,
+    "_level": 20,
+    "_price": 0
+  },
+  "_durabilityMultiply": {
+    "_multiply": 7.400252819061279,
+    "_level": 20,
+    "_price": 0
+  },
+  "_healthMultiply": {
+    "_multiply": 25.547683715820314,
+    "_level": 20,
+    "_price": 0
+  },
+  "_luckMultiply": {
+    "_multiply": 8.140277862548829,
+    "_level": 20,
+    "_price": 0
+  },
+  "_currentUpgradePrice": {
+    "_value": 941236.5
+  }
+}

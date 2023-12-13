@@ -31,11 +31,10 @@ namespace ArenaHero.UI
         private Func<int> _getCurrentLevel;
         private Action<int> _setCurrentLevel;
 
-        [Inject]
-        private void Inject(ISaver saver)
+        private void Awake()
         {
-            _getCurrentLevel = () => saver.Get<CurrentLevel>().Value;
-            _setCurrentLevel = (index) => saver.Set(new CurrentLevel(index));
+            _getCurrentLevel = () => GameDataSaver.Instance.Get<CurrentLevel>().Value;
+            _setCurrentLevel = (index) => GameDataSaver.Instance.Set(new CurrentLevel(index));
             Init();
 
             UpdateContentPosition();

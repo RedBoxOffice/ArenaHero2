@@ -16,11 +16,11 @@ namespace ArenaHero.Game.UpgradeSystem
 		private IModelHandler _modelHandler;
 		
 		[Inject]
-		protected void Inject(IModelHandler modelHandler, ISaver saver)
+		protected void Inject(IModelHandler modelHandler)
 		{
 			_model = modelHandler.Get<TUpgrade>();
 			
-			_levelOutput.text = saver.Get<TUpgrade>().Level.ToString();
+			_levelOutput.text = GameDataSaver.Instance.Get<TUpgrade>().Level.ToString();
 			
 			_model.Upgraded += (upgrade) =>
 			{

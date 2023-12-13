@@ -14,8 +14,6 @@ namespace ArenaHero.Battle
         public event Action<float> HealthChanged;
         
         public CharacterData Data => _data;
-        
-        public Vector3 Position => transform.position;
 
         private void Awake()
         {

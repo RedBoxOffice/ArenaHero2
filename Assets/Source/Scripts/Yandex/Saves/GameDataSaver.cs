@@ -9,13 +9,17 @@ namespace ArenaHero.Yandex.Saves
 {
 	public class GameDataSaver : ISaver
 	{
+		public static ISaver Instance { get; private set; }
+		
 		private readonly YandexSimulator _yandexSimulator = new YandexSimulator();
 		private readonly Hashtable _saves;
 
 		private GameSaves _gameSaves = new GameSaves();
-
+		
 		public GameDataSaver()
 		{
+			Instance ??= this;
+
 			_saves = new Hashtable
 			{
 				[typeof(CurrentLevel)] = new Func<CurrentLevel>(() => _gameSaves.CurrentLevel),

@@ -10,12 +10,11 @@ namespace ArenaHero.Game.ValueViewers
 	{
 		[SerializeField] private TMP_Text _textOutput;
 
-		[Inject]
-		protected void Inject(ISaver saver)
+		private void Awake()
 		{
-			_textOutput.text = saver.Get<TData>().Value.ToString();
+			_textOutput.text = GameDataSaver.Instance.Get<TData>().Value.ToString();
 
-			saver.SubscribeValueUpdated<TData>((value) =>
+			GameDataSaver.Instance.SubscribeValueUpdated<TData>((value) =>
 			{
 				_textOutput.text = GetOutputFormatted(value);
 			});

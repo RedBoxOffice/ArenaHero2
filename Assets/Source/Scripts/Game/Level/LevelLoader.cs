@@ -20,9 +20,9 @@ namespace ArenaHero.Game.Level
         private SceneLoader _sceneLoader;
 
         [Inject]
-        private void Inject(ISaver saver, SceneLoader sceneLoader)
+        private void Inject(SceneLoader sceneLoader)
         {
-            _getCurrentLevel = () => saver.Get<CurrentLevel>();
+            _getCurrentLevel = () => GameDataSaver.Instance.Get<CurrentLevel>();
             _sceneLoader = sceneLoader;
         }
 

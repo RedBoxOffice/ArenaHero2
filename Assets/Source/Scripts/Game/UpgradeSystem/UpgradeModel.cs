@@ -10,39 +10,34 @@ namespace ArenaHero.Game.UpgradeSystem
 	public abstract class UpgradeModel<TUpgrade> : Improvement
 		where TUpgrade : UpgradeSave<TUpgrade>
 	{
-		private ISaver _saver;
-		
 		public event Action<TUpgrade> Upgraded;
-
-		public override void Init(ISaver saver) =>
-			_saver = saver;
 
 		public override void TryUpdate()
 		{
-			var currentMoney = _saver.Get<Money>().Value;
-			var currentPrice = _saver.Get<CurrentUpgradePrice>();
+			var currentMoney = GameDataSaver.Instance.Get<Money>().Value;
+			var currentPrice = GameDataSaver.Instance.Get<CurrentUpgradePrice>();
 			
 			if (currentMoney < currentPrice.Value)
 			{
 				return;
 			}
 
-			var currentUpgrade = _saver.Get<TUpgrade>();
+			var currentUpgrade = GameDataSaver.Instance.Get<TUpgrade>();
 
 			if (currentUpgrade.CanUpgrade() is false)
 			{
 				return;
 			}
 			
-			_saver.Set(new Money(SubtractCost(currentMoney, (int)currentPrice.Value)));
+			GameDataSaver.Instance.Set(new Money(SubtractCost(currentMoney, (int)currentPrice.Value)));
 			currentPrice.Update();
-			_saver.Set(currentPrice);
+			GameDataSaver.Instance.Set(currentPrice);
 
 			var newLevel = currentUpgrade.Level + 1;
 			
 			var upgrade = Improve(currentUpgrade.CalculateValue(newLevel), newLevel);
 			
-			_saver.Set(upgrade);
+			GameDataSaver.Instance.Set(upgrade);
 			
 			Upgraded?.Invoke(upgrade);
 		}

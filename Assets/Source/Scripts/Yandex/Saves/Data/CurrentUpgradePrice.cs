@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ArenaHero.Yandex.Saves.Data
 {
 	[Serializable]
-	public class CurrentUpgradePrice : SimpleValueSave<float, CurrentUpgradePrice>
+	public sealed class CurrentUpgradePrice : SimpleValueSave<float, CurrentUpgradePrice>
 	{
 		private const float DefaultValue = 100;
 		private const float ValueUpdateMultiplier = 1.1f;

@@ -18,9 +18,9 @@ namespace ArenaHero.Battle.Level
 		private bool _isFight = true;
 
 		[Inject]
-		private void Inject(ISaver saver, LevelData levelData, IEndLevelStateChanged endLevel)
+		private void Inject(LevelData levelData, IEndLevelStateChanged endLevel)
 		{
-			_currentStageData = levelData.GetStageDataByIndex(saver.Get<CurrentLevelStage>().Value);
+			_currentStageData = levelData.GetStageDataByIndex(GameDataSaver.Instance.Get<CurrentLevelStage>().Value);
 			_currentWaveData = _currentStageData.GetWaveDataByIndex(_currentWaveIndex);
 			
 			endLevel.StateChanged += () => _isFight = false;

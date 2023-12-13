@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ArenaHero.Yandex.Saves.Data
 {
 	[Serializable]
-	public class Money : SimpleValueSave<int, Money>
+	public sealed class Money : SimpleValueSave<int, Money>
 	{
 		private const int DefaultValue = 0;
 		

@@ -1,4 +1,6 @@
 using System.Collections;
+using ArenaHero.Yandex.Saves;
+using ArenaHero.Yandex.Saves.Data;
 using UnityEngine;
 
 namespace ArenaHero.Battle.Skills
@@ -19,7 +21,7 @@ namespace ArenaHero.Battle.Skills
 			
 			_cooldownCoroutine = StartCoroutine(Cooldown());
 				
-			Target.Damageable.TakeDamage(CharacterData.BaseDamage);
+			Target.Damageable.TakeDamage(GameDataSaver.Instance.Get<Damage>().Value);
 		}
 
 		private bool CanAttack()

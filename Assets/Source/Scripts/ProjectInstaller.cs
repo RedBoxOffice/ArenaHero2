@@ -80,8 +80,6 @@ namespace ArenaHero
                 lang = YandexGamesSdk.Environment.i18n.lang;
 #endif
             });
-
-            descriptor.AddInstance(saver, typeof(ISaver));
         }
     }
 }

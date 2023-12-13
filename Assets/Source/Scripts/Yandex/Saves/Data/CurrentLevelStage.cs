@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ArenaHero.Yandex.Saves.Data
 {
 	[Serializable]
-	public class CurrentLevelStage : SimpleValueSave<int, CurrentLevelStage>
+	public sealed class CurrentLevelStage : SimpleValueSave<int, CurrentLevelStage>
 	{
 		private const int DefaultValue = 0;
 		

@@ -14,15 +14,6 @@ namespace ArenaHero.Game.UpgradeSystem
 	public class CharacteristicUpdater : MonoBehaviour, IModelHandler
 	{
 		private Dictionary<Type, Improvement> _models;
-
-		[Inject]
-		private void Inject(ISaver saver)
-		{
-			foreach (var improvement in _models.Values)
-			{
-				improvement.Init(saver);
-			}
-		}
 		
 		private void Awake()
 		{
