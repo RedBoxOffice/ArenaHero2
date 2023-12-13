@@ -8,28 +8,54 @@ namespace ArenaHero.Saves
 	public abstract class UpgradeSave<TData> : SaveData<TData> 
 		where TData : UpgradeSave<TData>
 	{
-		[SerializeField] private float _multiply;
+		[SerializeField] private float _value;
 		[SerializeField] private int _level;
-		[SerializeField] private int _price;
-
-		public float Multiply { get => _multiply; protected set => _multiply = value; }
+		
+		public float Value { get => _value; protected set => _value = value; }
 		
 		public int Level { get => _level; protected set => _level = value; }
+
+		protected virtual float MinValue { get; } = 1f;
 		
-		public int Price { get => _price; protected set => _price = value; }
+		protected virtual float MaxValue { get; } = 2f;
+
+		protected virtual int MinLevel { get; } = 1;
+		
+		protected virtual int MaxLevel { get; } = 20;
+
+		protected virtual float DefaultValue { get; } = 1f;
+		
+		protected virtual int DefaultLevel { get; } = 1;
 
 		public override abstract TData Clone();
 
-		protected override void UpdateValue(TData value)
+		public float CalculateValue(int level)
 		{
-			_multiply = value.Multiply;
-			_level = value.Level;
-			_price = value.Price;
+			var deltaLevel = MaxLevel - MinLevel;
+			var deltaValue = MaxValue - MinValue;
+
+			var normalLevel = level / deltaLevel;
+
+			return MinValue + normalLevel * deltaValue;
 		}
 
-		protected override bool Equals(TData value) =>
-			value.Multiply.Equals(_multiply)
-			&& value.Level.Equals(_level)
-			&& value.Price.Equals(_price);
+		public bool CanUpgrade() =>
+			_level < MaxLevel;
+
+		protected override void UpdateValue(TData data)
+		{
+			_value = data.Value;
+			_level = data.Level;
+		}
+
+		protected override bool Equals(TData data) =>
+			data.Value.Equals(_value)
+			&& data.Level.Equals(_level);
+		
+		protected void Init(float value, int level)
+		{
+			Value = Mathf.Clamp(value, MinValue, MaxValue);
+			Level = Mathf.Clamp(level, MinLevel, MaxLevel);
+		}
 	}
 }

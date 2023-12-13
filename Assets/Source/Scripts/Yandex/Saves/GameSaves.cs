@@ -1,6 +1,7 @@
 using System;
 using ArenaHero.Yandex.Saves.Data;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ArenaHero.Yandex.Saves
 {
@@ -11,12 +12,18 @@ namespace ArenaHero.Yandex.Saves
 		[SerializeField] private CurrentLevelStage _currentLevelStage;
 		[SerializeField] private Money _money;
 		[SerializeField] private Crystals _crystals;
-		[SerializeField] private ArmorMultiply _armorMultiply;
-		[SerializeField] private AuraMultiply _auraMultiply;
-		[SerializeField] private DamageMultiply _damageMultiply;
-		[SerializeField] private DurabilityMultiply _durabilityMultiply;
-		[SerializeField] private HealthMultiply _healthMultiply;
-		[SerializeField] private LuckMultiply _luckMultiply;
+		[FormerlySerializedAs("_armorMultiply")]
+		[SerializeField] private Armor _armor;
+		[FormerlySerializedAs("_auraMultiply")]
+		[SerializeField] private Aura _aura;
+		[FormerlySerializedAs("_damageMultiply")]
+		[SerializeField] private Damage _damage;
+		[FormerlySerializedAs("_durabilityMultiply")]
+		[SerializeField] private Durability _durability;
+		[FormerlySerializedAs("_healthMultiply")]
+		[SerializeField] private Health _health;
+		[FormerlySerializedAs("_luckMultiply")]
+		[SerializeField] private Luck _luck;
 		[SerializeField] private CurrentUpgradePrice _currentUpgradePrice;
  
 		public CurrentLevel CurrentLevel => _currentLevel ??= new CurrentLevel();
@@ -27,17 +34,17 @@ namespace ArenaHero.Yandex.Saves
 
 		public Crystals Crystals => _crystals ??= new Crystals();
 		
-		public ArmorMultiply ArmorMultiply => _armorMultiply ??= new ArmorMultiply();
+		public Armor Armor => _armor ??= new Armor();
 		
-		public AuraMultiply AuraMultiply => _auraMultiply ??= new AuraMultiply();
+		public Aura Aura => _aura ??= new Aura();
 		
-		public DamageMultiply DamageMultiply => _damageMultiply ??= new DamageMultiply();
+		public Damage Damage => _damage ??= new Damage();
 		
-		public DurabilityMultiply DurabilityMultiply => _durabilityMultiply ??= new DurabilityMultiply();
+		public Durability Durability => _durability ??= new Durability();
 		
-		public HealthMultiply HealthMultiply => _healthMultiply ??= new HealthMultiply();
+		public Health Health => _health ??= new Health();
 		
-		public LuckMultiply LuckMultiply => _luckMultiply ??= new LuckMultiply();
+		public Luck Luck => _luck ??= new Luck();
 
 		public CurrentUpgradePrice CurrentUpgradePrice => _currentUpgradePrice ??= new CurrentUpgradePrice();
 	}

@@ -10,14 +10,10 @@ namespace ArenaHero.Game.UpgradeSystem
 	public abstract class UpgradeModel<TUpgrade> : Improvement
 		where TUpgrade : UpgradeSave<TUpgrade>
 	{
-		[SerializeField] private float _multiplyCoefficient;
-		
 		private ISaver _saver;
-
+		
 		public event Action<TUpgrade> Upgraded;
 
-		protected float MultiplyCoefficient => _multiplyCoefficient;
-		
 		public override void Init(ISaver saver) =>
 			_saver = saver;
 
@@ -31,18 +27,27 @@ namespace ArenaHero.Game.UpgradeSystem
 				return;
 			}
 
+			var currentUpgrade = _saver.Get<TUpgrade>();
+
+			if (currentUpgrade.CanUpgrade() is false)
+			{
+				return;
+			}
+			
 			_saver.Set(new Money(SubtractCost(currentMoney, (int)currentPrice.Value)));
 			currentPrice.Update();
 			_saver.Set(currentPrice);
 
-			var currentUpgrade = _saver.Get<TUpgrade>();
-			var upgrade = Improve(currentUpgrade);
+			var newLevel = currentUpgrade.Level + 1;
+			
+			var upgrade = Improve(currentUpgrade.CalculateValue(newLevel), newLevel);
+			
 			_saver.Set(upgrade);
 			
 			Upgraded?.Invoke(upgrade);
 		}
 
-		protected abstract TUpgrade Improve(TUpgrade saver);
+		protected abstract TUpgrade Improve(float value, int level);
 		
 		private int SubtractCost(int currentMoney, int currentPrice) =>
 			currentMoney - currentPrice;

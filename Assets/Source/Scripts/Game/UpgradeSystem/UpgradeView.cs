@@ -9,7 +9,8 @@ namespace ArenaHero.Game.UpgradeSystem
 	public abstract class UpgradeView<TUpgrade> : MonoBehaviour 
 		where TUpgrade : UpgradeSave<TUpgrade>
 	{
-		[SerializeField] private TMP_Text _level;
+		[SerializeField] private TMP_Text _levelOutput;
+		[SerializeField] private TMP_Text _valueOutput;
 
 		private UpgradeModel<TUpgrade> _model;
 		private IModelHandler _modelHandler;
@@ -19,9 +20,13 @@ namespace ArenaHero.Game.UpgradeSystem
 		{
 			_model = modelHandler.Get<TUpgrade>();
 			
-			_level.text = saver.Get<TUpgrade>().Level.ToString();
+			_levelOutput.text = saver.Get<TUpgrade>().Level.ToString();
 			
-			_model.Upgraded += (upgrade) => _level.text = upgrade.Level.ToString();
+			_model.Upgraded += (upgrade) =>
+			{
+				_levelOutput.text = upgrade.Level.ToString();
+				_valueOutput.text = upgrade.Value.ToString("0.0");
+			};
 		}
 	}
 }

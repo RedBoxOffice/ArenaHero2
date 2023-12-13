@@ -22,12 +22,12 @@ namespace ArenaHero.Yandex.Saves
 				[typeof(CurrentLevelStage)] = new Func<CurrentLevelStage>(() => _gameSaves.CurrentLevelStage),
 				[typeof(Money)] = new Func<Money>(() => _gameSaves.Money),
 				[typeof(Crystals)] = new Func<Crystals>(() => _gameSaves.Crystals),
-				[typeof(ArmorMultiply)] = new Func<ArmorMultiply>(() => _gameSaves.ArmorMultiply),
-				[typeof(AuraMultiply)] = new Func<AuraMultiply>(() => _gameSaves.AuraMultiply),
-				[typeof(DamageMultiply)] = new Func<DamageMultiply>(() => _gameSaves.DamageMultiply),
-				[typeof(DurabilityMultiply)] = new Func<DurabilityMultiply>(() => _gameSaves.DurabilityMultiply),
-				[typeof(HealthMultiply)] = new Func<HealthMultiply>(() => _gameSaves.HealthMultiply),
-				[typeof(LuckMultiply)] = new Func<LuckMultiply>(() => _gameSaves.LuckMultiply),
+				[typeof(Armor)] = new Func<Armor>(() => _gameSaves.Armor),
+				[typeof(Aura)] = new Func<Aura>(() => _gameSaves.Aura),
+				[typeof(Damage)] = new Func<Damage>(() => _gameSaves.Damage),
+				[typeof(Durability)] = new Func<Durability>(() => _gameSaves.Durability),
+				[typeof(Health)] = new Func<Health>(() => _gameSaves.Health),
+				[typeof(Luck)] = new Func<Luck>(() => _gameSaves.Luck),
 				[typeof(CurrentUpgradePrice)] = new Func<CurrentUpgradePrice>(() => _gameSaves.CurrentUpgradePrice),
 			};
 		}

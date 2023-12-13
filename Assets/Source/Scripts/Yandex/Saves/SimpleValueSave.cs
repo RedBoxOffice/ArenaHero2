@@ -13,10 +13,10 @@ namespace ArenaHero.Yandex.Saves
 
 		public override abstract TData Clone();
 
-		protected override void UpdateValue(TData value) =>
-			_value = value.Value;
+		protected override void UpdateValue(TData data) =>
+			_value = data.Value;
 		
-		protected override bool Equals(TData value) =>
-			value.Value.Equals(_value);
+		protected override bool Equals(TData data) =>
+			data.Value.Equals(_value);
 	}
 }

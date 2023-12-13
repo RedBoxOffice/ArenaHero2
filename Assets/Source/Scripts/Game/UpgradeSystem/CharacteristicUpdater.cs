@@ -13,13 +13,6 @@ namespace ArenaHero.Game.UpgradeSystem
 {
 	public class CharacteristicUpdater : MonoBehaviour, IModelHandler
 	{
-		[SerializeField] private ArmorUpgrade _armorUpgrade;
-		[SerializeField] private AuraUpgrade _auraUpgrade;
-		[SerializeField] private DamageUpgrade _damageUpgrade;
-		[SerializeField] private DurabilityUpgrade _durabilityUpgrade;
-		[SerializeField] private HealthUpgrade _healthUpgrade;
-		[SerializeField] private LuckUpgrade _luckUpgrade;
-
 		private Dictionary<Type, Improvement> _models;
 
 		[Inject]
@@ -35,12 +28,12 @@ namespace ArenaHero.Game.UpgradeSystem
 		{
 			_models = new Dictionary<Type, Improvement>
 			{
-				[typeof(ArmorMultiply)] = _armorUpgrade,
-				[typeof(AuraMultiply)] = _auraUpgrade,
-				[typeof(DamageMultiply)] = _damageUpgrade,
-				[typeof(DurabilityMultiply)] = _durabilityUpgrade,
-				[typeof(HealthMultiply)] = _healthUpgrade,
-				[typeof(LuckMultiply)] = _luckUpgrade,
+				[typeof(Armor)] = new ArmorUpgrade(),
+				[typeof(Aura)] = new AuraUpgrade(),
+				[typeof(Damage)] = new DamageUpgrade(),
+				[typeof(Durability)] = new DurabilityUpgrade(),
+				[typeof(Health)] = new HealthUpgrade(),
+				[typeof(Luck)] = new LuckUpgrade(),
 			};
 		}
 

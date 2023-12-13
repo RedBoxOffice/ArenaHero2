@@ -23,8 +23,8 @@ namespace ArenaHero.Yandex.Saves
 
         public abstract TData Clone();
 
-        protected abstract void UpdateValue(TData value);
+        protected abstract void UpdateValue(TData data);
 
-        protected abstract bool Equals(TData value);
+        protected abstract bool Equals(TData data);
     }
 }

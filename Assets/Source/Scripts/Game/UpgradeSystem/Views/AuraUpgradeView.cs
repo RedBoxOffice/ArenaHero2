@@ -2,7 +2,7 @@ using ArenaHero.Yandex.Saves.Data;
 
 namespace ArenaHero.Game.UpgradeSystem.Views
 {
-	public class AuraUpgradeView : UpgradeView<AuraMultiply>
+	public class AuraUpgradeView : UpgradeView<Aura>
 	{
 	}
 }

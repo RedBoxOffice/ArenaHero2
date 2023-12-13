@@ -4,15 +4,9 @@ using ArenaHero.Yandex.Saves.Data;
 namespace ArenaHero.Game.UpgradeSystem.Models
 {
 	[Serializable]
-	public class DurabilityUpgrade : UpgradeModel<DurabilityMultiply>
+	public class DurabilityUpgrade : UpgradeModel<Durability>
 	{
-		protected override DurabilityMultiply Improve(DurabilityMultiply currentDurabilityMultiply)
-		{
-			var newDurabilityMultiply = new DurabilityMultiply(
-				currentDurabilityMultiply.Multiply * MultiplyCoefficient,
-				currentDurabilityMultiply.Level + 1);
-
-			return newDurabilityMultiply;
-		}
+		protected override Durability Improve(float value, int level) =>
+			new Durability(value, level);
 	}
 }
