@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ArenaHero.Game.UpgradeSystem.Models;
 using ArenaHero.Saves;
-using ArenaHero.Yandex.Saves;
 using ArenaHero.Yandex.Saves.Data;
-using Reflex.Attributes;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -32,7 +30,7 @@ namespace ArenaHero.Game.UpgradeSystem
 		{
 			var index = Random.Range(0, _models.Count);
 			
-			_models.ElementAt(index).Value.TryUpdate();
+			_models.ElementAt(index).Value.TryImprove();
 		}
 
 		public UpgradeModel<TMultiply> Get<TMultiply>()

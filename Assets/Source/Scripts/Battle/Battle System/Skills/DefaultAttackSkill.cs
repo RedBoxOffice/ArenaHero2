@@ -21,22 +21,22 @@ namespace ArenaHero.Battle.Skills
 			
 			_cooldownCoroutine = StartCoroutine(Cooldown());
 				
-			Target.Damageable.TakeDamage(GameDataSaver.Instance.Get<Damage>().Value);
+			TargetHolder.Target.Damageable.TakeDamage(CharacteristicHolder.Damage);
 		}
 
 		private bool CanAttack()
 		{
-			if (Target.Damageable == null || _cooldownCoroutine != null)
+			if (TargetHolder.Target.Damageable == null || _cooldownCoroutine != null)
 			{
 				return false;
 			}
 			
-			return !(CharacterData.AttackDistance < Vector3.Distance(transform.position, Target.Transform.position));
+			return !(AttackDistance < Vector3.Distance(transform.position, TargetHolder.Target.Transform.position));
 		}
 
 		private IEnumerator Cooldown()
 		{
-			yield return new WaitForSeconds(CharacterData.AttackCooldown);
+			yield return new WaitForSeconds(AttackCooldown);
 
 			_cooldownCoroutine = null;
 		}

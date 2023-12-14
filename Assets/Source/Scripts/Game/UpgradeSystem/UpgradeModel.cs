@@ -2,7 +2,6 @@ using System;
 using ArenaHero.Saves;
 using ArenaHero.Yandex.Saves;
 using ArenaHero.Yandex.Saves.Data;
-using UnityEngine;
 
 namespace ArenaHero.Game.UpgradeSystem
 {
@@ -12,7 +11,7 @@ namespace ArenaHero.Game.UpgradeSystem
 	{
 		public event Action<TUpgrade> Upgraded;
 
-		public override void TryUpdate()
+		public override void TryImprove()
 		{
 			var currentMoney = GameDataSaver.Instance.Get<Money>().Value;
 			var currentPrice = GameDataSaver.Instance.Get<CurrentUpgradePrice>();
@@ -28,8 +27,10 @@ namespace ArenaHero.Game.UpgradeSystem
 			{
 				return;
 			}
+
+			var money = currentMoney - (int)currentPrice.Value;
 			
-			GameDataSaver.Instance.Set(new Money(SubtractCost(currentMoney, (int)currentPrice.Value)));
+			GameDataSaver.Instance.Set(new Money(money));
 			currentPrice.Update();
 			GameDataSaver.Instance.Set(currentPrice);
 
@@ -43,8 +44,5 @@ namespace ArenaHero.Game.UpgradeSystem
 		}
 
 		protected abstract TUpgrade Improve(float value, int level);
-		
-		private int SubtractCost(int currentMoney, int currentPrice) =>
-			currentMoney - currentPrice;
 	}
 }

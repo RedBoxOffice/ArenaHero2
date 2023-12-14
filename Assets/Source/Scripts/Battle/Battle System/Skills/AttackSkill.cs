@@ -1,5 +1,4 @@
 using ArenaHero.InputSystem;
-using Source.GameData.Characters;
 using UnityEngine;
 
 namespace ArenaHero.Battle.Skills
@@ -7,19 +6,25 @@ namespace ArenaHero.Battle.Skills
 	public abstract class AttackSkill : Skill
 	{
 		[SerializeField] private Character _character;
+		[SerializeField] private float _attackDistance;
+		[SerializeField] private float _attackCooldown;
 		
 		private IActionsInputHandler _inputHandler;
-		private ITargetHandler _targetHandler;
 		
-		protected Target Target => _targetHandler.Target;
+		public float AttackDistance => _attackDistance;
+
+		protected float AttackCooldown => _attackCooldown;
 
 		protected Character Character => _character;
-		
-		protected CharacterData CharacterData => _character.Data;
+
+		protected ITargetHolder TargetHolder { get; private set; }
+
+		protected ICharacteristicHolder CharacteristicHolder { get; private set; }
 
 		protected virtual void Start()
 		{
-			_targetHandler = _character.GetComponent<ITargetHandler>();
+			TargetHolder = _character.GetComponent<ITargetHolder>();
+			CharacteristicHolder = _character.GetComponent<ICharacteristicHolder>();
 			_inputHandler = _character.GetComponent<IActionsInputHandler>();
 			
 			_inputHandler.Attack += OnAttack;

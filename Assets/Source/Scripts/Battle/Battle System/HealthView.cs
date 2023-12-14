@@ -9,16 +9,16 @@ namespace ArenaHero.Battle
 		private readonly int _fill = Shader.PropertyToID("_Fill");
 		
 		private MaterialPropertyBlock _materialPropertyBlock;
-		private ICharacter _character;
+		private Character _character;
 		private Camera _mainCamera;
 
 		private void Awake()
 		{
 			_materialPropertyBlock = new MaterialPropertyBlock();
 			_mainCamera = Camera.main;
-			_character = GetComponent<ICharacter>();
+			_character = GetComponent<Character>();
 			
-			OnHealthChanged(_character.Data.MaxHealth);
+			OnHealthChanged(_character.CurrentHealth);
 		}
 
 		private void OnEnable() =>
@@ -33,7 +33,7 @@ namespace ArenaHero.Battle
 		private void OnHealthChanged(float currentHealth)
 		{
 			_healthBarMeshRenderer.GetPropertyBlock(_materialPropertyBlock);
-			_materialPropertyBlock.SetFloat(_fill, currentHealth / _character.Data.MaxHealth);
+			_materialPropertyBlock.SetFloat(_fill, currentHealth / _character.CurrentHealth);
 			_healthBarMeshRenderer.SetPropertyBlock(_materialPropertyBlock);
 		}
 

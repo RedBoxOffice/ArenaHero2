@@ -7,6 +7,9 @@ namespace ArenaHero.Battle.Enemies.BehaviorTree
 	public class SharedCharacter : SharedVariable<Character>
 	{
 		public static implicit operator SharedCharacter(Character input) =>
-			new SharedCharacter { Value = input };
+			new SharedCharacter
+			{
+				Value = input
+			};
 	}
 }

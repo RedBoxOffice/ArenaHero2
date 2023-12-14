@@ -16,16 +16,16 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
         protected Coroutine MoveCoroutine;
         protected IMovementInputHandler InputHandler;
         
-        private ITargetHandler _targetHandler;
+        private ITargetHolder _targetHolder;
         private NavMeshWorld _navMeshWorld;
         private NavMeshQuery _navMeshQuery;
         
-        protected Target Target => _targetHandler.Target;
+        protected Target Target => _targetHolder.Target;
         
         protected Rigidbody SelfRigidbody => _selfRigidbody;
         
         private void Awake() =>
-            _targetHandler = GetComponentInParent<ITargetHandler>();
+            _targetHolder = GetComponentInParent<ITargetHolder>();
 
         private void Start()
         {

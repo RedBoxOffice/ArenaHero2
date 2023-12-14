@@ -5,44 +5,41 @@ using UnityEngine;
 
 namespace ArenaHero.Data
 {
-    public abstract class Enemy : MonoBehaviour, IPoolingObject<EnemyInit>, ITargetHandler
-    {
-        private ICharacter _character;
-        
-        public event Action<Enemy> Disabling;
-        
-        public event Action<IPoolingObject<EnemyInit>> Disabled;
+	public abstract class Enemy : MonoBehaviour, IPoolingObject<EnemyInit>, ITargetHolder
+	{
+		private Character _character;
 
-        public GameObject SelfGameObject => gameObject;
+		public event Action<Enemy> Disabling;
 
-        public IDamageable SelfDamageable { get; private set; }
+		public event Action<IPoolingObject<EnemyInit>> Disabled;
 
-        public Target Target { get; private set; }
+		public GameObject SelfGameObject => gameObject;
 
-        public abstract Type SelfType { get; }
+		public IDamageable SelfDamageable => _character;
 
-        private void Awake()
-        {
-            SelfDamageable = GetComponent<IDamageable>();
-            _character = GetComponent<ICharacter>();
-        }
+		public Target Target { get; private set; }
 
-        private void OnEnable() =>
-            _character.Died += OnDied;
+		public abstract Type SelfType { get; }
 
-        private void OnDisable()
-        {
-            Disabled?.Invoke(this);
-            _character.Died -= OnDied;
-        }
-        
-        public void Init(EnemyInit init) =>
-            Target = init.Target;
+		private void Awake() =>
+			_character = GetComponent<Character>();
 
-        private void OnDied()
-        {
-            Disabling?.Invoke(this);
-            gameObject.SetActive(false);
-        }
-    }
+		private void OnEnable() =>
+			_character.Died += OnDied;
+
+		private void OnDisable()
+		{
+			Disabled?.Invoke(this);
+			_character.Died -= OnDied;
+		}
+
+		public void Init(EnemyInit init) =>
+			Target = init.Target;
+
+		private void OnDied()
+		{
+			Disabling?.Invoke(this);
+			gameObject.SetActive(false);
+		}
+	}
 }

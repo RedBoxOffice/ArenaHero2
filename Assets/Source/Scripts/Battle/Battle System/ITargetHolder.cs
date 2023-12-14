@@ -1,6 +1,6 @@
 namespace ArenaHero.Battle
 {
-	public interface ITargetHandler
+	public interface ITargetHolder
 	{
 		public Target Target { get; }
 	}

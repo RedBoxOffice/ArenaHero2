@@ -6,6 +6,6 @@ namespace ArenaHero.Game.UpgradeSystem
 	[Serializable]
 	public abstract class Improvement
 	{
-		public abstract void TryUpdate();
+		public abstract void TryImprove();
 	}
 }
