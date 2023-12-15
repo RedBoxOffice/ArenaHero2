@@ -1,16 +1,18 @@
+using System;
 using ArenaHero.Battle;
 using ArenaHero.Battle.Level;
 using ArenaHero.Data;
 using ArenaHero.Yandex.Saves;
 using ArenaHero.Yandex.Saves.Data;
-using UnityEngine;
 using UnityEngine.AI;
+using Object = UnityEngine.Object;
 
 namespace ArenaHero.Game.Level
 {
 	public class LevelInitializer
 	{
 		private NavMeshDataInstance _instanceNavMesh;
+		private Action _unsubscribe;
 		
 		public void Init(LevelData levelData, WaveHandler waveHandler, Target hero)
 		{
@@ -18,6 +20,10 @@ namespace ArenaHero.Game.Level
 			var currentStage = levelData.GetStageDataByIndex(currentStageIndex);
 			
 			var spawnerHandler = Object.Instantiate(currentStage.SpawnPointsHandler).gameObject.GetComponent<SpawnerHandler>();
+			var rewardHandler = new RewardHandler();
+
+			spawnerHandler.Spawned += rewardHandler.OnSpawned;
+			_unsubscribe = () => spawnerHandler.Spawned -= rewardHandler.OnSpawned;
 			
 			spawnerHandler.Init(waveHandler, hero);
 			
@@ -26,7 +32,10 @@ namespace ArenaHero.Game.Level
 			_instanceNavMesh = NavMesh.AddNavMeshData(currentStage.NavMeshData);
 		}
 
-		public void Dispose() =>
+		public void Dispose()
+		{
+			_unsubscribe?.Invoke();
 			NavMesh.RemoveNavMeshData(_instanceNavMesh);
+		}
 	}
 }

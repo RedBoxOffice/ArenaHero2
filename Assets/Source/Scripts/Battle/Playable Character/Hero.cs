@@ -1,32 +1,38 @@
+using ArenaHero.Battle.CharacteristicHolders;
+using ArenaHero.Saves;
 using ArenaHero.Yandex.Saves;
 using ArenaHero.Yandex.Saves.Data;
 using UnityEngine;
 
 namespace ArenaHero.Battle.PlayableCharacter
 {
-    public class Hero : MonoBehaviour, ITargetHolder, ICharacteristicHolder
+    public class Hero : MonoBehaviour, ITargetHolder, IHealthHolder, IArmorHolder, ILuckHolder, IDamageHolder, IDurabilityHolder, IAuraHolder
     {
         private LookTargetPoint _lookTargetPoint;
-        
+
         public Target Target => _lookTargetPoint.Target;
 
-        public float Health => GameDataSaver.Instance.Get<Health>().Value;
+        public float Health => GetValue<Health>();
 
-        public float Armor => GameDataSaver.Instance.Get<Armor>().Value;
+        public float Armor => GetValue<Armor>();
 
-        public float Damage => GameDataSaver.Instance.Get<Damage>().Value;
+        public float Damage => GetValue<Damage>();
 
-        public float Durability => GameDataSaver.Instance.Get<Durability>().Value;
+        public float Durability => GetValue<Durability>();
 
-        public float Aura => GameDataSaver.Instance.Get<Aura>().Value;
+        public float Aura => GetValue<Aura>();
 
-        public float Luck => GameDataSaver.Instance.Get<Luck>().Value;
+        public float Luck => GetValue<Luck>();
 
         public Hero Init(LookTargetPoint lookTargetPoint)
         {
             _lookTargetPoint = lookTargetPoint;
-            
+
             return this;
         }
+
+        private float GetValue<TData>()
+            where TData : UpgradeSave<TData> =>
+            GameDataSaver.Instance.Get<TData>().Value;
     }
 }

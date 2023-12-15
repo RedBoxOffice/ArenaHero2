@@ -1,3 +1,4 @@
+using ArenaHero.Battle.CharacteristicHolders;
 using ArenaHero.InputSystem;
 using UnityEngine;
 
@@ -19,12 +20,12 @@ namespace ArenaHero.Battle.Skills
 
 		protected ITargetHolder TargetHolder { get; private set; }
 
-		protected ICharacteristicHolder CharacteristicHolder { get; private set; }
+		protected IDamageHolder DamageHolder { get; private set; }
 
 		protected virtual void Start()
 		{
 			TargetHolder = _character.GetComponent<ITargetHolder>();
-			CharacteristicHolder = _character.GetComponent<ICharacteristicHolder>();
+			DamageHolder = _character.GetComponent<IDamageHolder>();
 			_inputHandler = _character.GetComponent<IActionsInputHandler>();
 			
 			_inputHandler.Attack += OnAttack;

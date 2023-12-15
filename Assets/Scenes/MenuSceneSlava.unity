@@ -1351,7 +1351,7 @@ GameObject:
   - component: {fileID: 213388690}
   - component: {fileID: 213388689}
   m_Layer: 5
-  m_Name: PowerText
+  m_Name: DamageText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1375,7 +1375,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.075, y: 0.4302976}
   m_AnchorMax: {x: 0.43800002, y: 0.5697024}
-  m_AnchoredPosition: {x: -4.4398804, y: 0}
+  m_AnchoredPosition: {x: -4.4398956, y: 0}
   m_SizeDelta: {x: 7.1202087, y: 1.6547012}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &213388689
@@ -1539,7 +1539,7 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 1
-  m_CellSize: {x: 147.40417, y: 147.40417}
+  m_CellSize: {x: 144.75824, y: 144.75824}
   m_Spacing: {x: 50, y: 2}
   m_Constraint: 0
   m_ConstraintCount: 2
@@ -1996,7 +1996,7 @@ GameObject:
   - component: {fileID: 278877737}
   - component: {fileID: 278877736}
   m_Layer: 5
-  m_Name: MoneyText
+  m_Name: LuckText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3365,18 +3365,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c9286cf96a46be86615693350005d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _armorUpgrade:
-    _multiplyCoefficient: 1.1
-  _auraUpgrade:
-    _multiplyCoefficient: 1.1
-  _damageUpgrade:
-    _multiplyCoefficient: 1.1
-  _durabilityUpgrade:
-    _multiplyCoefficient: 1.1
-  _healthUpgrade:
-    _multiplyCoefficient: 1.1
-  _luckUpgrade:
-    _multiplyCoefficient: 1.1
 --- !u!4 &508479809
 Transform:
   m_ObjectHideFlags: 0
@@ -3690,7 +3678,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.075, y: 0.10300001}
   m_AnchorMax: {x: 0.43800002, y: 0.24945033}
-  m_AnchoredPosition: {x: -4.4398804, y: 2}
+  m_AnchoredPosition: {x: -4.4398956, y: 2}
   m_SizeDelta: {x: 7.1202087, y: -0.34529877}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &557768478
@@ -4149,7 +4137,7 @@ GameObject:
   - component: {fileID: 626759233}
   - component: {fileID: 626759235}
   m_Layer: 5
-  m_Name: Money
+  m_Name: Luck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4227,7 +4215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b7521aa96b4bd2a2e6a26de92baba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _level: {fileID: 1918093870}
+  _levelOutput: {fileID: 1918093870}
+  _valueOutput: {fileID: 1958560297}
 --- !u!1 &673303392
 GameObject:
   m_ObjectHideFlags: 0
@@ -5677,7 +5666,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2fa308c99b84cb9b0d258479e6da9c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _level: {fileID: 1856793837}
+  _levelOutput: {fileID: 1856793837}
+  _valueOutput: {fileID: 1400039411}
 --- !u!1 &990337057
 GameObject:
   m_ObjectHideFlags: 0
@@ -6126,7 +6116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed2a9ef90e542b684669834dd82cc14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _level: {fileID: 1125337520}
+  _levelOutput: {fileID: 1125337520}
+  _valueOutput: {fileID: 1459299442}
 --- !u!1 &1067018310
 GameObject:
   m_ObjectHideFlags: 0
@@ -6406,7 +6397,7 @@ GameObject:
   - component: {fileID: 1125337521}
   - component: {fileID: 1125337520}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: Level value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6905,7 +6896,7 @@ GameObject:
   - component: {fileID: 1190078545}
   - component: {fileID: 1190078547}
   m_Layer: 5
-  m_Name: Power
+  m_Name: Damage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6983,7 +6974,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16b127462d974a9c99220dfb1f346176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _level: {fileID: 1526916286}
+  _levelOutput: {fileID: 1526916286}
+  _valueOutput: {fileID: 1221192502}
 --- !u!1 &1193202392
 GameObject:
   m_ObjectHideFlags: 0
@@ -9886,7 +9878,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7975c2d7bf114989b8235d7d5eeb9f80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _level: {fileID: 1204943188}
+  _levelOutput: {fileID: 1204943188}
+  _valueOutput: {fileID: 961826447}
 --- !u!1 &1609636266
 GameObject:
   m_ObjectHideFlags: 0
@@ -10751,7 +10744,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.075, y: 0.79600006}
   m_AnchorMax: {x: 0.43800002, y: 0.9316947}
-  m_AnchoredPosition: {x: -4.4398804, y: 0.32733154}
+  m_AnchoredPosition: {x: -4.4398956, y: 0.32733154}
   m_SizeDelta: {x: 7.1202087, y: 2.6547012}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1719424090
@@ -11435,7 +11428,7 @@ GameObject:
   - component: {fileID: 1844676937}
   - component: {fileID: 1844676936}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TextLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12184,7 +12177,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa2dcb54a5144028acdf93696538868b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _level: {fileID: 801535568}
+  _levelOutput: {fileID: 801535568}
+  _valueOutput: {fileID: 1163883346}
 --- !u!1 &1925664165
 GameObject:
   m_ObjectHideFlags: 0

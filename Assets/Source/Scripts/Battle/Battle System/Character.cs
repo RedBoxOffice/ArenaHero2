@@ -1,4 +1,5 @@
 ﻿using System;
+using ArenaHero.Battle.CharacteristicHolders;
 using UnityEngine;
 
 namespace ArenaHero.Battle
@@ -25,7 +26,7 @@ namespace ArenaHero.Battle
 		}
 
 		private void OnEnable() =>
-			_currentHealth = GetComponent<ICharacteristicHolder>().Health;
+			_currentHealth = GetComponent<IHealthHolder>().Health;
 
 		public void TakeDamage(float damage)
 		{

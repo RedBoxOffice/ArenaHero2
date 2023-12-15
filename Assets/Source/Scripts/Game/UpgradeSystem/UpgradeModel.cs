@@ -10,22 +10,22 @@ namespace ArenaHero.Game.UpgradeSystem
 		where TUpgrade : UpgradeSave<TUpgrade>
 	{
 		public event Action<TUpgrade> Upgraded;
-
-		public override void TryImprove()
+		
+		public override bool TryImprove()
 		{
 			var currentMoney = GameDataSaver.Instance.Get<Money>().Value;
 			var currentPrice = GameDataSaver.Instance.Get<CurrentUpgradePrice>();
 			
 			if (currentMoney < currentPrice.Value)
 			{
-				return;
+				return true;
 			}
 
 			var currentUpgrade = GameDataSaver.Instance.Get<TUpgrade>();
 
 			if (currentUpgrade.CanUpgrade() is false)
 			{
-				return;
+				return false;
 			}
 
 			var money = currentMoney - (int)currentPrice.Value;
@@ -41,6 +41,8 @@ namespace ArenaHero.Game.UpgradeSystem
 			GameDataSaver.Instance.Set(upgrade);
 			
 			Upgraded?.Invoke(upgrade);
+
+			return true;
 		}
 
 		protected abstract TUpgrade Improve(float value, int level);

@@ -34,9 +34,11 @@ namespace ArenaHero.Saves
 			var deltaLevel = MaxLevel - MinLevel;
 			var deltaValue = MaxValue - MinValue;
 
-			var normalLevel = level / deltaLevel;
+			var normalLevel = (float)level / deltaLevel;
 
-			return MinValue + normalLevel * deltaValue;
+			var targetValue = MinValue + normalLevel * deltaValue;
+			
+			return targetValue;
 		}
 
 		public bool CanUpgrade() =>

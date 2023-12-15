@@ -21,7 +21,7 @@ namespace ArenaHero.Battle.Skills
 			
 			_cooldownCoroutine = StartCoroutine(Cooldown());
 				
-			TargetHolder.Target.Damageable.TakeDamage(CharacteristicHolder.Damage);
+			TargetHolder.Target.Damageable.TakeDamage(DamageHolder.Damage);
 		}
 
 		private bool CanAttack()

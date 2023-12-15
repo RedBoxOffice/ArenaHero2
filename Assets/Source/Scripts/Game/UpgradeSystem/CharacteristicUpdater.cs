@@ -28,9 +28,18 @@ namespace ArenaHero.Game.UpgradeSystem
 
 		public void OnClick()
 		{
+			if (_models.Count < 1)
+			{
+				return;
+			}
+			
 			var index = Random.Range(0, _models.Count);
 			
-			_models.ElementAt(index).Value.TryImprove();
+			if (_models.ElementAt(index).Value.TryImprove() is false)
+			{
+				_models.Remove(_models.ElementAt(index).Key);
+				OnClick();
+			}
 		}
 
 		public UpgradeModel<TMultiply> Get<TMultiply>()

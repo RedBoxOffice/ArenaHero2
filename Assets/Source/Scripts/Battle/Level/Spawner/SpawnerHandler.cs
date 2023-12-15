@@ -1,4 +1,5 @@
-﻿using ArenaHero.Data;
+﻿using System;
+using ArenaHero.Data;
 using ArenaHero.Utils.Object;
 using UnityEngine;
 
@@ -9,16 +10,16 @@ namespace ArenaHero.Battle.Level
     {
         private WaveHandler _waveHandler;
         private SpawnPointsHandler _spawnPointsHandler;
-        private ObjectSpawner<EnemyInit> _spawner;
+        private ObjectSpawner<Enemy, EnemyInit> _spawner;
         private Target _target;
+
+        public event Action<Enemy> Spawned;
         
         private void Awake()
         {
             _spawnPointsHandler = GetComponent<SpawnPointsHandler>();
 
-            _spawner = new ObjectSpawner<EnemyInit>(
-                new ObjectFactory<EnemyInit>(new GameObject(nameof(EnemyInit)).transform),
-                new ObjectPool<EnemyInit>());
+            _spawner = new ObjectSpawner<Enemy, EnemyInit>(new GameObject(nameof(ObjectPool<Enemy, EnemyInit>)).transform);
         }
 
         private void OnDisable()
@@ -43,7 +44,9 @@ namespace ArenaHero.Battle.Level
                 Target = _target
             };
 
-            _spawner.Spawn(enemy, init, () => _spawnPointsHandler.GetSpawnPosition());
+            var poolingObject = _spawner.Spawn(enemy, init, () => _spawnPointsHandler.GetSpawnPosition());
+            
+            Spawned?.Invoke(poolingObject.Instance);
         }
     }
 }
