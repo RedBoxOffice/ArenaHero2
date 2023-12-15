@@ -16,7 +16,7 @@ namespace ArenaHero.Data
 
 		private Character _character;
 
-		public event Action<Enemy> Disabling;
+		public event Action<Enemy> Died;
 
 		public event Action<IPoolingObject<Enemy, EnemyInit>> Disabled;
 
@@ -55,7 +55,7 @@ namespace ArenaHero.Data
 
 		private void OnDied()
 		{
-			Disabling?.Invoke(this);
+			Died?.Invoke(this);
 			gameObject.SetActive(false);
 		}
 	}

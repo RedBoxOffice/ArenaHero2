@@ -7,12 +7,12 @@ namespace ArenaHero.Battle
 	{
 		public void OnSpawned(Enemy enemy)
 		{
-			
+			enemy.Died += OnDied;
 		}
 
-		public void OnDied(Enemy enemy)
+		private void OnDied(Enemy enemy)
 		{
-			
+			enemy.Died -= OnDied;
 		}
 	}
 }
