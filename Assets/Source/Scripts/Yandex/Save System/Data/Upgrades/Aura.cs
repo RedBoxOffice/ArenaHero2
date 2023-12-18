@@ -1,13 +1,12 @@
 using System;
-using ArenaHero.Saves;
 
-namespace ArenaHero.Yandex.Saves.Data
+namespace ArenaHero.Yandex.SaveSystem.Data
 {
 	[Serializable]
 	public sealed class Aura : UpgradeSave<Aura>
 	{
 		protected override float MaxValue { get; } = 200f;
-        
+
 		public Aura() =>
 			Init(DefaultValue, DefaultLevel);
 

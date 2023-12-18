@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArenaHero.Game.UpgradeSystem.Models;
-using ArenaHero.Saves;
-using ArenaHero.Yandex.Saves.Data;
+using ArenaHero.Yandex.SaveSystem;
+using ArenaHero.Yandex.SaveSystem.Data;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,7 +12,7 @@ namespace ArenaHero.Game.UpgradeSystem
 	public class CharacteristicUpdater : MonoBehaviour, IModelHandler
 	{
 		private Dictionary<Type, Improvement> _models;
-		
+
 		private void Awake()
 		{
 			_models = new Dictionary<Type, Improvement>
@@ -32,9 +32,9 @@ namespace ArenaHero.Game.UpgradeSystem
 			{
 				return;
 			}
-			
+
 			var index = Random.Range(0, _models.Count);
-			
+
 			if (_models.ElementAt(index).Value.TryImprove() is false)
 			{
 				_models.Remove(_models.ElementAt(index).Key);
@@ -49,7 +49,7 @@ namespace ArenaHero.Game.UpgradeSystem
 			{
 				return (UpgradeModel<TMultiply>)_models[typeof(TMultiply)];
 			}
-			
+
 			throw new ArgumentException();
 		}
 	}

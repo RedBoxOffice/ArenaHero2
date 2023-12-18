@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ArenaHero.Yandex.Saves
+namespace ArenaHero.Yandex.SaveSystem
 {
     [Serializable]
     public abstract class SaveData<TData>

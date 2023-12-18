@@ -1,9 +1,9 @@
 using System;
 using System.Reflection;
-using ArenaHero.Yandex.Saves.Data;
+using ArenaHero.Yandex.SaveSystem.Data;
 using UnityEngine;
 
-namespace ArenaHero.Yandex.Saves
+namespace ArenaHero.Yandex.SaveSystem
 {
 	[Serializable]
 	public class GameSaves
@@ -19,7 +19,7 @@ namespace ArenaHero.Yandex.Saves
 		[SerializeField] private Health _health;
 		[SerializeField] private Luck _luck;
 		[SerializeField] private CurrentUpgradePrice _currentUpgradePrice;
-
+		
 		public TData Get<TData>()
 			where TData : SaveData<TData>, new()
 		{

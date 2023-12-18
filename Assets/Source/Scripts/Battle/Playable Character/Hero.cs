@@ -1,7 +1,6 @@
 using ArenaHero.Battle.CharacteristicHolders;
-using ArenaHero.Saves;
-using ArenaHero.Yandex.Saves;
-using ArenaHero.Yandex.Saves.Data;
+using ArenaHero.Yandex.SaveSystem;
+using ArenaHero.Yandex.SaveSystem.Data;
 using UnityEngine;
 
 namespace ArenaHero.Battle.PlayableCharacter

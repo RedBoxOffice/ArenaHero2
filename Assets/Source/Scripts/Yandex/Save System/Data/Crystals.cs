@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace ArenaHero.Yandex.Saves.Data
+namespace ArenaHero.Yandex.SaveSystem.Data
 {
 	[Serializable]
 	public sealed class Crystals : SimpleValueSave<int, Crystals>

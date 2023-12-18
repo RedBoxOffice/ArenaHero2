@@ -1,8 +1,7 @@
 using System;
-using ArenaHero.Yandex.Saves;
 using UnityEngine;
 
-namespace ArenaHero.Saves
+namespace ArenaHero.Yandex.SaveSystem
 {
 	[Serializable]
 	public abstract class UpgradeSave<TData> : SaveData<TData> 

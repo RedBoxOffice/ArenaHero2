@@ -3,7 +3,7 @@ using Agava.YandexGames;
 using ArenaHero.Yandex.Simulator;
 using UnityEngine;
 
-namespace ArenaHero.Yandex.Saves
+namespace ArenaHero.Yandex.SaveSystem
 {
 	public class GameDataSaver : ISaver
 	{

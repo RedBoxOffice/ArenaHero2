@@ -1,4 +1,4 @@
-using ArenaHero.Saves;
+using ArenaHero.Yandex.SaveSystem;
 
 namespace ArenaHero.Game.UpgradeSystem
 {

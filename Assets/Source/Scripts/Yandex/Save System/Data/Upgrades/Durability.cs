@@ -1,24 +1,23 @@
 using System;
-using ArenaHero.Saves;
 
-namespace ArenaHero.Yandex.Saves.Data
+namespace ArenaHero.Yandex.SaveSystem.Data
 {
 	[Serializable]
-	public sealed class Armor : UpgradeSave<Armor>
+	public sealed class Durability : UpgradeSave<Durability>
 	{
 		protected override float MinValue { get; } = 0.01f;
-		
+
 		protected override float MaxValue { get; } = 0.45f;
 
 		protected override float DefaultValue { get; } = 0.01f;
 
-		public Armor() =>
+		public Durability() =>
 			Init(DefaultValue, DefaultLevel);
 
-		public Armor(float value, int level) =>
+		public Durability(float value, int level) =>
 			Init(value, level);
 
-		public override Armor Clone() =>
-			new Armor(Value, Level);
+		public override Durability Clone() =>
+			new Durability(Value, Level);
 	}
 }

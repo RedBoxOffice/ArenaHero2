@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace ArenaHero.Yandex.Saves
+namespace ArenaHero.Yandex.SaveSystem
 {
 	[Serializable]
 	public abstract class SimpleValueSave<TValue, TData> : SaveData<TData>

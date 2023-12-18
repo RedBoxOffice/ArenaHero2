@@ -4,8 +4,8 @@ using ArenaHero.Battle.Level;
 using ArenaHero.Data;
 using ArenaHero.Utils.StateMachine;
 using ArenaHero.Utils.TypedScenes;
-using ArenaHero.Yandex.Saves;
-using ArenaHero.Yandex.Saves.Data;
+using ArenaHero.Yandex.SaveSystem;
+using ArenaHero.Yandex.SaveSystem.Data;
 using UnityEngine;
 using UnityEngine.AI;
 
