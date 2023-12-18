@@ -8,6 +8,8 @@ namespace ArenaHero.Data
 {
 	public abstract class Enemy : MonoBehaviour, IPoolingObject<Enemy, EnemyInit>, ITargetHolder, IHealthHolder, IArmorHolder, IDurabilityHolder, IAuraHolder, IDamageHolder
 	{
+		[SerializeField] private int _rewardMoney;
+		
 		[SerializeField] private float _health;
 		[SerializeField] private float _armor;
 		[SerializeField] private float _durability;
@@ -20,6 +22,8 @@ namespace ArenaHero.Data
 
 		public event Action<IPoolingObject<Enemy, EnemyInit>> Disabled;
 
+		public int RewardMoney => _rewardMoney;
+		
 		public float Health => _health;
 
 		public float Armor => _armor;

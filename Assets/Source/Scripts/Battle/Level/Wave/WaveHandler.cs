@@ -18,12 +18,20 @@ namespace ArenaHero.Battle.Level
 		private bool _isFight = true;
 
 		[Inject]
-		private void Inject(LevelData levelData, IEndLevelStateChanged endLevel)
+		private void Inject(LevelData levelData, IStateChangeable stateChangeable)
 		{
 			_currentStageData = levelData.GetStageDataByIndex(GameDataSaver.Instance.Get<CurrentLevelStage>().Value);
 			_currentWaveData = _currentStageData.GetWaveDataByIndex(_currentWaveIndex);
 			
-			endLevel.StateChanged += () => _isFight = false;
+			stateChangeable.StateChanged += (stateType) =>
+			{
+				if ((stateType is EndLevelState) is false)
+				{
+					return;
+				}
+				
+				_isFight = false;
+			};
 		}
 
 		public event Action<Enemy> Spawning;
@@ -40,17 +48,19 @@ namespace ArenaHero.Battle.Level
 			
 			while (_isFight)
 			{
-				yield return waitBetweenWave;
-				
 				for (var i = 0; i < _currentWaveData.CountSpawns; i++)
 				{
 					Spawning?.Invoke(_currentWaveData.GetEnemyForSpawn);
 
 					yield return waitNextSpawn;
 				}
+				
+				yield return waitBetweenWave;
 
 				if (!TryChangeWave())
-					_isFight = false;
+				{
+					yield break;
+				}
 			}
 		}
 

@@ -1418,7 +1418,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c81b5e29f371d64dbdf02bfc209f923, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isInteractable: 1
 --- !u!114 &775218260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1528,6 +1527,7 @@ GameObject:
   - component: {fileID: 824417731}
   - component: {fileID: 824417732}
   - component: {fileID: 824417733}
+  - component: {fileID: 824417734}
   m_Layer: 0
   m_Name: Scene Scope
   m_TagString: Untagged
@@ -1587,11 +1587,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _virtualCamera: {fileID: 243112770}
-  _lookTargetPoint: {fileID: 1142116025}
-  _waveHandler: {fileID: 170266345}
-  _playerPrefab: {fileID: 24557769438604130, guid: d34a671df0c4b1040af46898a8b77401, type: 3}
-  _playerSpawnPoint: {fileID: 1026898032}
-  _levelInitializer: {fileID: 824417733}
 --- !u!114 &824417731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1632,9 +1627,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 824417726}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5ac033ce0d24a4f934299f715bcca20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lookTargetPoint: {fileID: 1142116025}
+  _playerPrefab: {fileID: 24557769438604130, guid: d34a671df0c4b1040af46898a8b77401, type: 3}
+  _playerSpawnPoint: {fileID: 1026898032}
+--- !u!114 &824417734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824417726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90b987bd34c3439ab311e6f2cf6a1fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _waveHandler: {fileID: 170266345}
 --- !u!1 &837636950
 GameObject:
   m_ObjectHideFlags: 0
@@ -3473,7 +3484,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2cc299029885d94592f40df067b1048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isInteractable: 1
 --- !u!114 &1640796771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4000,7 +4010,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28fd89488b1a56c42b36e27a42adb471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isInteractable: 1
 --- !u!114 &1975719633
 MonoBehaviour:
   m_ObjectHideFlags: 0

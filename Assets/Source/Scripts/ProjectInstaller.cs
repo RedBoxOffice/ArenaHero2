@@ -22,7 +22,7 @@ namespace ArenaHero
 
             var gameStateMachine = GameStateMachineInit();
 
-            descriptor.AddInstance(gameStateMachine.TryGetState<EndLevelState>(), typeof(IEndLevelStateChanged));
+            descriptor.AddInstance(gameStateMachine, typeof(IStateChangeable));
 
             YandexInit(descriptor, context, gameStateMachine);
 

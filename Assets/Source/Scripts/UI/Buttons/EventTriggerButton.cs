@@ -8,10 +8,7 @@ namespace ArenaHero.UI
     {
         public virtual event Action ActionEnded;
 
-        public virtual void OnClick()
-        {
-            Debug.Log("Click");
+        public virtual void OnClick() =>
             ActionEnded?.Invoke();
-        }
     }
 }

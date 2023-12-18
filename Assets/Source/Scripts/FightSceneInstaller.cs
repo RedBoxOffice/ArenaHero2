@@ -1,76 +1,43 @@
-﻿using ArenaHero.Battle;
-using ArenaHero.Battle.Level;
-using ArenaHero.Battle.PlayableCharacter;
-using ArenaHero.Battle.PlayableCharacter.EnemyDetection;
-using ArenaHero.Data;
+﻿using ArenaHero.Battle.PlayableCharacter.EnemyDetection;
 using ArenaHero.Game.Level;
 using ArenaHero.InputSystem;
-using ArenaHero.Utils.StateMachine;
-using ArenaHero.Utils.TypedScenes;
 using Cinemachine;
 using Reflex.Core;
 using UnityEngine;
 
 namespace ArenaHero
 {
-    public class FightSceneInstaller : MonoBehaviour, IInstaller, ISceneLoadHandlerOnState<GameStateMachine, LevelData>
-    {
-        [SerializeField] private CinemachineVirtualCamera _virtualCamera;
-        [SerializeField] private LookTargetPoint _lookTargetPoint;
-        [SerializeField] private WaveHandler _waveHandler;
-        [SerializeField] private Player _playerPrefab;
-        [SerializeField] private PlayerSpawnPoint _playerSpawnPoint;
-        [SerializeField] private LevelInitializer _levelInitializer;
+	[RequireComponent(typeof(HeroInitializer))]
+	[RequireComponent(typeof(LevelInitializer))]
+	public class FightSceneInstaller : MonoBehaviour, IInstaller
+	{
+		[SerializeField] private CinemachineVirtualCamera _virtualCamera;
 
-        private Hero _hero;
-        private LevelData _levelData;
-        
-        private Hero Hero => GetHeroInitialized();
+		public void InstallBindings(ContainerDescriptor descriptor)
+		{
+			var heroInitializer = GetComponent<HeroInitializer>();
+			var hero = heroInitializer.Hero;
+			descriptor.AddInstance(hero);
 
-        private void OnDisable() =>
-            _levelInitializer.Dispose();
+			var inputInstaller = GetComponent<InputHandlerInstaller>();
+			var inputHandler = inputInstaller.InstallBindings(hero);
+			descriptor.AddInstance(inputHandler, typeof(IMovementInputHandler), typeof(IActionsInputHandler));
 
-        public void InstallBindings(ContainerDescriptor descriptor)
-        {
-            var inputInstaller = GetComponent<InputHandlerInstaller>();
-            
-            _virtualCamera.Follow = Hero.gameObject.transform;
+			_virtualCamera.Follow = hero.gameObject.transform;
 
-            var detectedZone = Hero.gameObject.GetComponentInChildren<DetectedZone>();
-            
-            var inputHandler = inputInstaller.InstallBindings(Hero);
-            descriptor.AddInstance(inputHandler, typeof(IMovementInputHandler), typeof(IActionsInputHandler));
+			var detectedZone = hero.gameObject.GetComponentInChildren<DetectedZone>();
+			descriptor.AddInstance(detectedZone);
 
-            var targetChangerInject = new TargetChangerInject(() => (detectedZone, _lookTargetPoint, inputHandler));
-            var targetChanger = new TargetChanger(targetChangerInject);
-            descriptor.AddInstance(targetChanger);
+			var targetChangerInject = new TargetChangerInject(() => (detectedZone, heroInitializer.LookTargetPoint, inputHandler));
+			var targetChanger = new TargetChanger(targetChangerInject);
+			descriptor.AddInstance(targetChanger);
 
-            descriptor.AddInstance(detectedZone);
-            
-            descriptor.AddInstance(_lookTargetPoint);
-            descriptor.AddInstance(_levelData);
-            descriptor.AddInstance(_waveHandler);
-            descriptor.AddInstance(Hero);
-        }
+			descriptor.AddInstance(heroInitializer.LookTargetPoint);
 
-        public void OnSceneLoaded<TState>(GameStateMachine machine, LevelData argument = default)
-            where TState : State<GameStateMachine>
-        {
-            GetComponent<WindowInitializer>().WindowsInit(machine.Window);
-            _levelData = argument;
-            GetComponent<UIFightSceneInitializer>().Init(machine);
-            _levelInitializer.Init(_levelData, _waveHandler, new Target(Hero.transform, Hero.gameObject.GetComponent<IDamageable>()));
-        }
-
-        private Hero SpawnPlayer() =>
-            Instantiate(_playerPrefab, _playerSpawnPoint.gameObject.transform.position, Quaternion.identity).GetComponentInChildren<Hero>();
-
-        private Hero GetHeroInitialized()
-        {
-            if (_hero == null)
-                _hero = SpawnPlayer().Init(_lookTargetPoint);
-
-            return _hero;
-        }
-    }
+			var levelInitializer = GetComponent<LevelInitializer>();
+			descriptor.AddInstance(levelInitializer.LevelData);
+			descriptor.AddInstance(levelInitializer.WaveHandler);
+			descriptor.AddInstance(levelInitializer.RewardHandler);
+		}
+	}
 }
