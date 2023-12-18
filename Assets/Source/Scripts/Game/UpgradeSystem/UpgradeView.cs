@@ -7,7 +7,7 @@ using UnityEngine;
 namespace ArenaHero.Game.UpgradeSystem
 {
 	public abstract class UpgradeView<TUpgrade> : MonoBehaviour
-		where TUpgrade : UpgradeSave<TUpgrade>
+		where TUpgrade : UpgradeSave<TUpgrade>, new()
 	{
 		[SerializeField] private TMP_Text _levelOutput;
 		[SerializeField] private TMP_Text _valueOutput;

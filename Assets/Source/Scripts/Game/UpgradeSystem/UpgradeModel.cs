@@ -7,7 +7,7 @@ namespace ArenaHero.Game.UpgradeSystem
 {
 	[Serializable]
 	public abstract class UpgradeModel<TUpgrade> : Improvement
-		where TUpgrade : UpgradeSave<TUpgrade>
+		where TUpgrade : UpgradeSave<TUpgrade>, new()
 	{
 		public event Action<TUpgrade> Upgraded;
 		

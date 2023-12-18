@@ -43,7 +43,7 @@ namespace ArenaHero.Game.UpgradeSystem
 		}
 
 		public UpgradeModel<TMultiply> Get<TMultiply>()
-			where TMultiply : UpgradeSave<TMultiply>
+			where TMultiply : UpgradeSave<TMultiply>, new()
 		{
 			if (_models.ContainsKey(typeof(TMultiply)))
 			{

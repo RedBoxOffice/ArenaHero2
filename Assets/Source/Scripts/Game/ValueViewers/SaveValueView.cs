@@ -6,7 +6,7 @@ using UnityEngine;
 namespace ArenaHero.Game.ValueViewers
 {
 	public abstract class SaveValueView<TValue, TData> : MonoBehaviour
-		where TData : SimpleValueSave<TValue, TData>
+		where TData : SimpleValueSave<TValue, TData>, new()
 	{
 		[SerializeField] private TMP_Text _textOutput;
 

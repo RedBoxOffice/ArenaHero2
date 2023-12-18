@@ -17,11 +17,5 @@ namespace ArenaHero.Yandex.Saves.Data
 
 		public override Luck Clone() =>
 			new Luck(Value, Level);
-
-		private void Init(float value, int level)
-		{
-			Value = Mathf.Clamp(value, MinValue, MaxValue);
-			Level = Mathf.Clamp(level, MinLevel, MaxLevel);
-		}
 	}
 }

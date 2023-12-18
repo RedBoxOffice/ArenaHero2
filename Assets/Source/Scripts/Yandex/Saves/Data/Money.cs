@@ -16,7 +16,7 @@ namespace ArenaHero.Yandex.Saves.Data
 		
 		public override Money Clone() =>
 			new Money(Value);
-
+		
 		private void Init(int value) =>
 			Value = Mathf.Clamp(value, 0, int.MaxValue);
 	}

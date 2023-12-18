@@ -17,7 +17,7 @@ namespace ArenaHero.Yandex.Saves.Data
         
 		public override CurrentUpgradePrice Clone() =>
 			new CurrentUpgradePrice(Value);
-
+		
 		public void Update() =>
 			Value *= ValueUpdateMultiplier;
 		

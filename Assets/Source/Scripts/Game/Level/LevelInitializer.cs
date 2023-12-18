@@ -25,8 +25,6 @@ namespace ArenaHero.Game.Level
 
 		public LevelData LevelData => _levelData;
 
-		public WaveHandler WaveHandler => _waveHandler;
-
 		public RewardHandler RewardHandler => _rewardHandler;
 		
 		private void OnDisable()

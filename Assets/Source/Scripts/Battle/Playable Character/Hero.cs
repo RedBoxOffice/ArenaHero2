@@ -32,7 +32,7 @@ namespace ArenaHero.Battle.PlayableCharacter
         }
 
         private float GetValue<TData>()
-            where TData : UpgradeSave<TData> =>
+            where TData : UpgradeSave<TData>, new() =>
             GameDataSaver.Instance.Get<TData>().Value;
     }
 }

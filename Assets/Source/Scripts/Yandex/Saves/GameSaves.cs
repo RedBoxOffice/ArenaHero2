@@ -1,7 +1,7 @@
 using System;
+using System.Reflection;
 using ArenaHero.Yandex.Saves.Data;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ArenaHero.Yandex.Saves
 {
@@ -12,40 +12,46 @@ namespace ArenaHero.Yandex.Saves
 		[SerializeField] private CurrentLevelStage _currentLevelStage;
 		[SerializeField] private Money _money;
 		[SerializeField] private Crystals _crystals;
-		[FormerlySerializedAs("_armorMultiply")]
 		[SerializeField] private Armor _armor;
-		[FormerlySerializedAs("_auraMultiply")]
 		[SerializeField] private Aura _aura;
-		[FormerlySerializedAs("_damageMultiply")]
 		[SerializeField] private Damage _damage;
-		[FormerlySerializedAs("_durabilityMultiply")]
 		[SerializeField] private Durability _durability;
-		[FormerlySerializedAs("_healthMultiply")]
 		[SerializeField] private Health _health;
-		[FormerlySerializedAs("_luckMultiply")]
 		[SerializeField] private Luck _luck;
 		[SerializeField] private CurrentUpgradePrice _currentUpgradePrice;
- 
-		public CurrentLevel CurrentLevel => _currentLevel ??= new CurrentLevel();
-		
-		public CurrentLevelStage CurrentLevelStage => _currentLevelStage ??= new CurrentLevelStage();
 
-		public Money Money => _money ??= new Money();
+		public TData Get<TData>()
+			where TData : SaveData<TData>, new()
+		{
+			var type = GetType();
+			
+			var fields = type.GetFields(
+				BindingFlags.NonPublic
+				| BindingFlags.Instance
+				| BindingFlags.DeclaredOnly
+				| BindingFlags.GetField
+				| BindingFlags.Instance
+				| BindingFlags.NonPublic
+				| BindingFlags.Public
+				| BindingFlags.Static);
+			
+			foreach (var field in fields)
+			{
+				if (field.FieldType == typeof(TData))
+				{
+					var value = field.GetValue(this);
+					
+					if (value == null)
+					{
+						field.SetValue(this, new TData());
+						value = field.GetValue(this);
+					}
 
-		public Crystals Crystals => _crystals ??= new Crystals();
-		
-		public Armor Armor => _armor ??= new Armor();
-		
-		public Aura Aura => _aura ??= new Aura();
-		
-		public Damage Damage => _damage ??= new Damage();
-		
-		public Durability Durability => _durability ??= new Durability();
-		
-		public Health Health => _health ??= new Health();
-		
-		public Luck Luck => _luck ??= new Luck();
+					return (TData)value;
+				}
+			}
 
-		public CurrentUpgradePrice CurrentUpgradePrice => _currentUpgradePrice ??= new CurrentUpgradePrice();
+			throw new ArgumentNullException($"{typeof(TData)} Not contains");
+		}
 	}
 }

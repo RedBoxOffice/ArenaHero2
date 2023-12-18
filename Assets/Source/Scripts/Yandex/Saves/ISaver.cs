@@ -4,16 +4,16 @@ namespace ArenaHero.Yandex.Saves
 {
     public interface ISaver
     {
-        public TData Get<TData>(TData value = default)
-            where TData : SaveData<TData>;
+        public TData Get<TData>()
+            where TData : SaveData<TData>, new();
 
-        public void Set<TData>(TData value = default) 
-            where TData : SaveData<TData>;
+        public void Set<TData>(TData value) 
+            where TData : SaveData<TData>, new();
 
         public void SubscribeValueUpdated<TData>(Action<TData> subAction)
-            where TData : SaveData<TData>;
+            where TData : SaveData<TData>, new();
         
         public void UnsubscribeValueUpdated<TData>(Action<TData> unsubAction)
-            where TData : SaveData<TData>;
+            where TData : SaveData<TData>, new();
     }
 }

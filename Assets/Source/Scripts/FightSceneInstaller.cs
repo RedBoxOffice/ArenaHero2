@@ -17,7 +17,6 @@ namespace ArenaHero
 		{
 			var heroInitializer = GetComponent<HeroInitializer>();
 			var hero = heroInitializer.Hero;
-			descriptor.AddInstance(hero);
 
 			var inputInstaller = GetComponent<InputHandlerInstaller>();
 			var inputHandler = inputInstaller.InstallBindings(hero);
@@ -26,17 +25,12 @@ namespace ArenaHero
 			_virtualCamera.Follow = hero.gameObject.transform;
 
 			var detectedZone = hero.gameObject.GetComponentInChildren<DetectedZone>();
-			descriptor.AddInstance(detectedZone);
 
 			var targetChangerInject = new TargetChangerInject(() => (detectedZone, heroInitializer.LookTargetPoint, inputHandler));
-			var targetChanger = new TargetChanger(targetChangerInject);
-			descriptor.AddInstance(targetChanger);
-
-			descriptor.AddInstance(heroInitializer.LookTargetPoint);
+			_ = new TargetChanger(targetChangerInject);
 
 			var levelInitializer = GetComponent<LevelInitializer>();
 			descriptor.AddInstance(levelInitializer.LevelData);
-			descriptor.AddInstance(levelInitializer.WaveHandler);
 			descriptor.AddInstance(levelInitializer.RewardHandler);
 		}
 	}
