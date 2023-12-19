@@ -1,10 +1,10 @@
-using ArenaHero.Data;
-using ArenaHero.Utils.StateMachine;
-using Reflex.Attributes;
 using System;
 using System.Collections;
-using ArenaHero.Yandex.Saves;
-using ArenaHero.Yandex.Saves.Data;
+using ArenaHero.Data;
+using ArenaHero.Utils.StateMachine;
+using ArenaHero.Yandex.SaveSystem;
+using ArenaHero.Yandex.SaveSystem.Data;
+using Reflex.Attributes;
 using UnityEngine;
 
 namespace ArenaHero.Battle.Level
@@ -15,20 +15,28 @@ namespace ArenaHero.Battle.Level
 		private WaveData _currentWaveData;
 
 		private int _currentWaveIndex;
-		private bool _isFight = true;
+		private bool _isWaveWorking = true;
 
-		[Inject]
-		private void Inject(ISaver saver, LevelData levelData, IEndLevelStateChanged endLevel)
-		{
-			_currentStageData = levelData.GetStageDataByIndex(saver.Get<CurrentLevelStage>().Value);
-			_currentWaveData = _currentStageData.GetWaveDataByIndex(_currentWaveIndex);
-			
-			endLevel.StateChanged += () => _isFight = false;
-		}
-
+		public event Action WavesEnded;
+		
 		public event Action<Enemy> Spawning;
 
-		public void Start() =>
+		[Inject]
+		private void Inject(LevelData levelData, IStateChangeable stateChangeable)
+		{
+			_currentStageData = levelData.GetStageDataByIndex(GameDataSaver.Instance.Get<CurrentLevelStage>().Value);
+			_currentWaveData = _currentStageData.GetWaveDataByIndex(_currentWaveIndex);
+
+			stateChangeable.StateChanged += (stateType) =>
+			{
+				if (stateType == typeof(EndLevelState))
+				{
+					_isWaveWorking = false;
+				}
+			};
+		}
+
+		private void Start() =>
 			StartCoroutine(Fight());
 
 		private IEnumerator Fight()
@@ -37,11 +45,9 @@ namespace ArenaHero.Battle.Level
 			var waitNextSpawn = new WaitForSeconds(_currentWaveData.DelayBetweenSpawns);
 
 			yield return new WaitForSeconds(_currentStageData.StartDelay);
-			
-			while (_isFight)
+
+			while (_isWaveWorking)
 			{
-				yield return waitBetweenWave;
-				
 				for (var i = 0; i < _currentWaveData.CountSpawns; i++)
 				{
 					Spawning?.Invoke(_currentWaveData.GetEnemyForSpawn);
@@ -49,9 +55,15 @@ namespace ArenaHero.Battle.Level
 					yield return waitNextSpawn;
 				}
 
+				yield return waitBetweenWave;
+
 				if (!TryChangeWave())
-					_isFight = false;
+				{
+					_isWaveWorking = false;
+				}
 			}
+			
+			WavesEnded?.Invoke();
 		}
 
 		private bool TryChangeWave()
@@ -60,9 +72,9 @@ namespace ArenaHero.Battle.Level
 
 			if (_currentWaveIndex >= _currentStageData.WaveCount)
 				return false;
-			
+
 			_currentWaveData = _currentStageData.GetWaveDataByIndex(_currentWaveIndex);
-			
+
 			return true;
 		}
 	}

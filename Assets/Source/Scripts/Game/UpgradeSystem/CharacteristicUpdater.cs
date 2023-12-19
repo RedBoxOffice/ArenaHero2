@@ -2,10 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArenaHero.Game.UpgradeSystem.Models;
-using ArenaHero.Saves;
-using ArenaHero.Yandex.Saves;
-using ArenaHero.Yandex.Saves.Data;
-using Reflex.Attributes;
+using ArenaHero.Yandex.SaveSystem;
+using ArenaHero.Yandex.SaveSystem.Data;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -13,52 +11,45 @@ namespace ArenaHero.Game.UpgradeSystem
 {
 	public class CharacteristicUpdater : MonoBehaviour, IModelHandler
 	{
-		[SerializeField] private ArmorUpgrade _armorUpgrade;
-		[SerializeField] private AuraUpgrade _auraUpgrade;
-		[SerializeField] private DamageUpgrade _damageUpgrade;
-		[SerializeField] private DurabilityUpgrade _durabilityUpgrade;
-		[SerializeField] private HealthUpgrade _healthUpgrade;
-		[SerializeField] private LuckUpgrade _luckUpgrade;
-
 		private Dictionary<Type, Improvement> _models;
 
-		[Inject]
-		private void Inject(ISaver saver)
-		{
-			foreach (var improvement in _models.Values)
-			{
-				improvement.Init(saver);
-			}
-		}
-		
 		private void Awake()
 		{
 			_models = new Dictionary<Type, Improvement>
 			{
-				[typeof(ArmorMultiply)] = _armorUpgrade,
-				[typeof(AuraMultiply)] = _auraUpgrade,
-				[typeof(DamageMultiply)] = _damageUpgrade,
-				[typeof(DurabilityMultiply)] = _durabilityUpgrade,
-				[typeof(HealthMultiply)] = _healthUpgrade,
-				[typeof(LuckMultiply)] = _luckUpgrade,
+				[typeof(Armor)] = new ArmorUpgrade(),
+				[typeof(Aura)] = new AuraUpgrade(),
+				[typeof(Damage)] = new DamageUpgrade(),
+				[typeof(Durability)] = new DurabilityUpgrade(),
+				[typeof(Health)] = new HealthUpgrade(),
+				[typeof(Luck)] = new LuckUpgrade(),
 			};
 		}
 
 		public void OnClick()
 		{
+			if (_models.Count < 1)
+			{
+				return;
+			}
+
 			var index = Random.Range(0, _models.Count);
-			
-			_models.ElementAt(index).Value.TryUpdate();
+
+			if (_models.ElementAt(index).Value.TryImprove() is false)
+			{
+				_models.Remove(_models.ElementAt(index).Key);
+				OnClick();
+			}
 		}
 
 		public UpgradeModel<TMultiply> Get<TMultiply>()
-			where TMultiply : UpgradeSave<TMultiply>
+			where TMultiply : UpgradeSave<TMultiply>, new()
 		{
 			if (_models.ContainsKey(typeof(TMultiply)))
 			{
 				return (UpgradeModel<TMultiply>)_models[typeof(TMultiply)];
 			}
-			
+
 			throw new ArgumentException();
 		}
 	}

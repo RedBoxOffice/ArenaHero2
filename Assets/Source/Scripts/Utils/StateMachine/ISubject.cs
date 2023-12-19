@@ -1,7 +1,9 @@
-﻿namespace ArenaHero.Utils.StateMachine
+﻿using System;
+
+namespace ArenaHero.Utils.StateMachine
 {
     public interface ISubject
     {
-        public event System.Action ActionEnded;
+        public event Action ActionEnded;
     }
 }

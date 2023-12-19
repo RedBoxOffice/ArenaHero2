@@ -1,18 +1,12 @@
 using System;
-using ArenaHero.Yandex.Saves.Data;
+using ArenaHero.Yandex.SaveSystem.Data;
 
 namespace ArenaHero.Game.UpgradeSystem.Models
 {
 	[Serializable]
-	public class LuckUpgrade : UpgradeModel<LuckMultiply>
+	public class LuckUpgrade : UpgradeModel<Luck>
 	{
-		protected override LuckMultiply Improve(LuckMultiply currentLuckMultiply)
-		{
-			var newLuckMultiply = new LuckMultiply(
-				currentLuckMultiply.Multiply * MultiplyCoefficient,
-				currentLuckMultiply.Level + 1);
-
-			return newLuckMultiply;
-		}
+		protected override Luck Improve(float value, int level) =>
+			new Luck(value, level);
 	}
 }

@@ -1,51 +1,49 @@
 using System;
-using ArenaHero.Saves;
-using ArenaHero.Yandex.Saves;
-using ArenaHero.Yandex.Saves.Data;
-using UnityEngine;
+using ArenaHero.Yandex.SaveSystem;
+using ArenaHero.Yandex.SaveSystem.Data;
 
 namespace ArenaHero.Game.UpgradeSystem
 {
 	[Serializable]
 	public abstract class UpgradeModel<TUpgrade> : Improvement
-		where TUpgrade : UpgradeSave<TUpgrade>
+		where TUpgrade : UpgradeSave<TUpgrade>, new()
 	{
-		[SerializeField] private float _multiplyCoefficient;
-		[SerializeField] private float _priceCoefficient;
-		
-		private ISaver _saver;
-
 		public event Action<TUpgrade> Upgraded;
-
-		protected float MultiplyCoefficient => _multiplyCoefficient;
-
-		protected float PriceCoefficient => _priceCoefficient;
-
-		public override void Init(ISaver saver) =>
-			_saver = saver;
-
-		public override void TryUpdate()
+		
+		public override bool TryImprove()
 		{
-			var currentMoney = _saver.Get<Money>().Value;
-			var currentPrice = _saver.Get<TUpgrade>().Price;
+			var currentMoney = GameDataSaver.Instance.Get<Money>().Value;
+			var currentPrice = GameDataSaver.Instance.Get<CurrentUpgradePrice>();
 			
-			if (currentMoney < currentPrice)
+			if (currentMoney < currentPrice.Value)
 			{
-				return;
+				return true;
 			}
 
-			_saver.Set(new Money(SubtractCost(currentMoney, currentPrice)));
+			var currentUpgrade = GameDataSaver.Instance.Get<TUpgrade>();
 
-			var currentUpgrade = _saver.Get<TUpgrade>();
-			var upgrade = Improve(currentUpgrade);
-			_saver.Set(upgrade);
+			if (currentUpgrade.CanUpgrade() is false)
+			{
+				return false;
+			}
+
+			var money = currentMoney - (int)currentPrice.Value;
+			
+			GameDataSaver.Instance.Set(new Money(money));
+			currentPrice.Update();
+			GameDataSaver.Instance.Set(currentPrice);
+
+			var newLevel = currentUpgrade.Level + 1;
+			
+			var upgrade = Improve(currentUpgrade.CalculateValue(newLevel), newLevel);
+			
+			GameDataSaver.Instance.Set(upgrade);
 			
 			Upgraded?.Invoke(upgrade);
+
+			return true;
 		}
 
-		protected abstract TUpgrade Improve(TUpgrade saver);
-		
-		private int SubtractCost(int currentMoney, int currentPrice) =>
-			currentMoney - currentPrice;
+		protected abstract TUpgrade Improve(float value, int level);
 	}
 }

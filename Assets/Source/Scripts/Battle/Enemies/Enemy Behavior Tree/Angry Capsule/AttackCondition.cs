@@ -5,18 +5,19 @@ namespace ArenaHero.Battle.Enemies.BehaviorTree.Angry_Capsule
 {
 	public class AttackCondition : Conditional
 	{
+		[SerializeField] private SharedAttackSkill _attack;
 		[SerializeField] private SharedCharacter _character;
 		
-		private ITargetHandler _targetHandler;
+		private ITargetHolder _targetHolder;
 		
 		public override void OnAwake()
 		{
-			_targetHandler = _character.Value.GetComponent<ITargetHandler>();
+			_targetHolder = _character.Value.GetComponent<ITargetHolder>();
 		}
 		
 		public override TaskStatus OnUpdate()
 		{
-			if ((Vector3.Distance(_targetHandler.Target.Transform.position, transform.position)) <= _character.Value.Data.AttackDistance)
+			if (Vector3.Distance(_targetHolder.Target.Transform.position, transform.position) <= _attack.Value.AttackDistance)
 			{
 				return TaskStatus.Success;
 			}

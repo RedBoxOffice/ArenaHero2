@@ -485,7 +485,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 1
-  m_Constraints: 36
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &7915565262897778439
 MonoBehaviour:
@@ -512,7 +512,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentHealth: 0
-  _data: {fileID: 11400000, guid: 56360b96bf108d54fa9fa21325d69324, type: 2}
 --- !u!114 &8010945521786428525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -537,6 +536,14 @@ PrefabInstance:
       propertyPath: _character
       value: 
       objectReference: {fileID: 8045060415528865476}
+    - target: {fileID: 487559510378216570, guid: 1e04e416d552bfd4d80d2229899238f1, type: 3}
+      propertyPath: _attackCooldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 487559510378216570, guid: 1e04e416d552bfd4d80d2229899238f1, type: 3}
+      propertyPath: _attackDistance
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2692132101788605525, guid: 1e04e416d552bfd4d80d2229899238f1, type: 3}
       propertyPath: m_Name
       value: Jerk
@@ -748,6 +755,10 @@ PrefabInstance:
       propertyPath: _character
       value: 
       objectReference: {fileID: 8045060415528865476}
+    - target: {fileID: 1059433424810718803, guid: a4ed59fd6b822e64fa521eaf947a85e9, type: 3}
+      propertyPath: _attackCooldown
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4169230864685259746, guid: a4ed59fd6b822e64fa521eaf947a85e9, type: 3}
       propertyPath: m_RootOrder
       value: 1

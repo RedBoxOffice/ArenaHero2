@@ -14,11 +14,11 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
         private Enemy _currentEnemy;
         private Enemy _previousEnemy;
 
-        public TargetChanger(TargetChangerInject inject)
+        public TargetChanger(DetectedZone detectedZone, LookTargetPoint lookTargetPoint, IActionsInputHandlerOnlyPlayer actionsInputHandler)
         {
-            _triggerZone = inject.DetectedZone;
-            _lookTargetPoint = inject.LookTargetPoint;
-            _actionsInputHandler = inject.ActionsInputHandler;
+            _triggerZone = detectedZone;
+            _lookTargetPoint = lookTargetPoint;
+            _actionsInputHandler = actionsInputHandler;
 
             _triggerZone.EnemyDetected += OnEnemyDetected;
             _triggerZone.EnemyLost += OnEnemyLost;
@@ -46,7 +46,7 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
 
         private void UpdateCurrentEnemy(int countRepeat = 0)
         {
-            const int MaxCountRepeat = 10;
+            const int maxCountRepeat = 10;
             
             _previousEnemy = _currentEnemy;
             _currentEnemy = _triggerZone.TryGetEnemy();
@@ -56,7 +56,7 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
                 return;
             }
 
-            if (countRepeat > MaxCountRepeat)
+            if (countRepeat > maxCountRepeat)
             {
                 return;
             }

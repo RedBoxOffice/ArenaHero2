@@ -16,25 +16,25 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
         protected Coroutine MoveCoroutine;
         protected IMovementInputHandler InputHandler;
         
-        private ITargetHandler _targetHandler;
+        private ITargetHolder _targetHolder;
         private NavMeshWorld _navMeshWorld;
         private NavMeshQuery _navMeshQuery;
         
-        protected Target Target => _targetHandler.Target;
+        protected Target Target => _targetHolder.Target;
         
         protected Rigidbody SelfRigidbody => _selfRigidbody;
         
         private void Awake() =>
-            _targetHandler = GetComponentInParent<ITargetHandler>();
+            _targetHolder = GetComponentInParent<ITargetHolder>();
+        
+        protected virtual void OnDisable() =>
+            _navMeshQuery.Dispose();
 
-        private void Start()
+        private void OnEnable()
         {
             _navMeshWorld = NavMeshWorld.GetDefaultWorld();
             _navMeshQuery = new NavMeshQuery(_navMeshWorld, Allocator.None);
         }
-
-        protected virtual void OnDisable() =>
-            _navMeshQuery.Dispose();
 
         public abstract void TryMoveToDirectionOnDistance(Vector3 direction, float distance, float timeToTarget);
         

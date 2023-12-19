@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using ArenaHero.Yandex.Saves;
-using ArenaHero.Yandex.Saves.Data;
+using ArenaHero.Yandex.SaveSystem;
+using ArenaHero.Yandex.SaveSystem.Data;
 using DG.Tweening;
 using Reflex.Attributes;
 using Unity.VisualScripting;
@@ -31,11 +31,10 @@ namespace ArenaHero.UI
         private Func<int> _getCurrentLevel;
         private Action<int> _setCurrentLevel;
 
-        [Inject]
-        private void Inject(ISaver saver)
+        private void Awake()
         {
-            _getCurrentLevel = () => saver.Get<CurrentLevel>().Value;
-            _setCurrentLevel = (index) => saver.Set(new CurrentLevel(index));
+            _getCurrentLevel = () => GameDataSaver.Instance.Get<CurrentLevel>().Value;
+            _setCurrentLevel = (index) => GameDataSaver.Instance.Set(new CurrentLevel(index));
             Init();
 
             UpdateContentPosition();

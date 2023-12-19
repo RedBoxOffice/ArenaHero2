@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 namespace ArenaHero.Battle.Enemies.BehaviorTree
 {
-	public class Bot : MonoBehaviour, IMover
+	public class Bot : MonoBehaviour
 	{
 		private IBotInputHandler _inputSource;
 		private NavMeshAgent _agent;
@@ -19,13 +19,6 @@ namespace ArenaHero.Battle.Enemies.BehaviorTree
 
 		private void OnDisable() =>
 			_inputSource.Move -= OnMove;
-
-		public void TryMoveToDirectionOnDistance(Vector3 direction, float distance, float timeToTarget)
-		{
-			Vector3 position = transform.position + (transform.forward * distance);
-				
-			UpdateDestination(position);
-		}
 
 		private void OnMove(Vector3 position) =>
 			UpdateDestination(position);

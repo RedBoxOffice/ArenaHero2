@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace ArenaHero
 {
-	public class MainMenuSceneInstaller : MonoBehaviour, IInstaller, ISceneLoadHandlerOnState<GameStateMachine, object>
+	public class MainMenuSceneInstaller : MonoBehaviour, IInstaller, ISceneLoadHandlerOnState<GameStateMachine>
     {
 		[Header("Navigation Zone Windows Buttons")]
 		[SerializeField] private EventTriggerButton _equipmentButton;
@@ -20,16 +20,12 @@ namespace ArenaHero
 
 		[Header("Upgrade")]
 		[SerializeField] private CharacteristicUpdater _characteristicUpdater;
-
+		
 		private MainMenuWindowStateMachine _windowStateMachine;
-		private Action _onEnableTransitions;
-		private Action _onDisableTransitions;
-
-		private void OnEnable() =>
-			_onEnableTransitions?.Invoke();
+		private Action _unsubscribe;
 
 		private void OnDisable() =>
-			_onDisableTransitions?.Invoke();
+			_unsubscribe?.Invoke();
 
 		public void InstallBindings(ContainerDescriptor descriptor)
 		{
@@ -43,17 +39,19 @@ namespace ArenaHero
 
 			descriptor.AddInstance(_windowStateMachine);
 
-			var transitionInitializer = new TransitionInitializer<WindowStateMachine>(_windowStateMachine, out _onEnableTransitions, out _onDisableTransitions);
+			var transitionInitializer = new TransitionInitializer<WindowStateMachine>(_windowStateMachine, out var subscribe, out _unsubscribe);
 			
 			transitionInitializer.InitTransition<EquipmentWindowState>(_equipmentButton);
 			transitionInitializer.InitTransition<SelectLevelWindowState>(_selectLevelButton);
 			transitionInitializer.InitTransition<TalentsWindowState>(_talentsButton);
 			transitionInitializer.InitTransition<MagazineWindowState>(_magazineButton);
-
+			
+			subscribe?.Invoke();
+			
 			descriptor.AddInstance(_characteristicUpdater, typeof(IModelHandler ));
 		}
 
-        public void OnSceneLoaded<TState>(GameStateMachine machine, object argument = default)
+        public void OnSceneLoaded<TState>(GameStateMachine machine)
 			where TState : State<GameStateMachine>
         {			
             GetComponent<WindowInitializer>().WindowsInit(machine.Window);

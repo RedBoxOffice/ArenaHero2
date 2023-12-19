@@ -1,8 +1,8 @@
-using ArenaHero.Yandex.Saves.Data;
+using ArenaHero.Yandex.SaveSystem.Data;
 
 namespace ArenaHero.Game.UpgradeSystem.Views
 {
-	public class DurabilityUpgradeView : UpgradeView<DurabilityMultiply>
+	public class DurabilityUpgradeView : UpgradeView<Durability>
 	{
 	}
 }

@@ -20,7 +20,7 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
             {
                 _enemies.Add(enemy);
 
-                enemy.Disabling += Lost;
+                enemy.Died += Lost;
                 
                 EnemyDetected?.Invoke(enemy);
             }
@@ -41,7 +41,7 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
         
         private void Lost(Enemy enemy)
         {
-            enemy.Disabling -= Lost;
+            enemy.Died -= Lost;
             _enemies.Remove(enemy);
             EnemyLost?.Invoke(enemy);
         }

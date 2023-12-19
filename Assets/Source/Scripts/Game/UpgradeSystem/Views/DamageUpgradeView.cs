@@ -1,8 +1,8 @@
-using ArenaHero.Yandex.Saves.Data;
+using ArenaHero.Yandex.SaveSystem.Data;
 
 namespace ArenaHero.Game.UpgradeSystem.Views
 {
-	public class DamageUpgradeView : UpgradeView<DamageMultiply>
+	public class DamageUpgradeView : UpgradeView<Damage>
 	{
 	}
 }

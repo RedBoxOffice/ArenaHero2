@@ -3,13 +3,14 @@ using UnityEngine;
 
 namespace ArenaHero.Utils.Object
 {
-    public interface IPoolingObject<TInit>
+    public interface IPoolingObject<TInstance, TInit>
+        where TInstance : MonoBehaviour
     {
-        public event Action<IPoolingObject<TInit>> Disabled;
+        public event Action<IPoolingObject<TInstance, TInit>> Disabled;
         
         public Type SelfType { get; }
 
-        public GameObject SelfGameObject { get; }
+        public TInstance Instance { get; }
 
         public void Init(TInit init);
     }

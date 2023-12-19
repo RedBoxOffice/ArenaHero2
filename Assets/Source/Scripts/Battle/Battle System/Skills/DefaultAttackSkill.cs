@@ -1,4 +1,6 @@
 using System.Collections;
+using ArenaHero.Yandex.SaveSystem;
+using ArenaHero.Yandex.SaveSystem.Data;
 using UnityEngine;
 
 namespace ArenaHero.Battle.Skills
@@ -19,22 +21,22 @@ namespace ArenaHero.Battle.Skills
 			
 			_cooldownCoroutine = StartCoroutine(Cooldown());
 				
-			Target.Damageable.TakeDamage(CharacterData.BaseDamage);
+			TargetHolder.Target.Damageable.TakeDamage(DamageHolder.Damage);
 		}
 
 		private bool CanAttack()
 		{
-			if (Target.Damageable == null || _cooldownCoroutine != null)
+			if (TargetHolder.Target.Damageable == null || _cooldownCoroutine != null)
 			{
 				return false;
 			}
 			
-			return !(CharacterData.AttackDistance < Vector3.Distance(transform.position, Target.Transform.position));
+			return !(AttackDistance < Vector3.Distance(transform.position, TargetHolder.Target.Transform.position));
 		}
 
 		private IEnumerator Cooldown()
 		{
-			yield return new WaitForSeconds(CharacterData.AttackCooldown);
+			yield return new WaitForSeconds(AttackCooldown);
 
 			_cooldownCoroutine = null;
 		}

@@ -2,10 +2,10 @@ using ArenaHero.Utils.StateMachine;
 
 namespace ArenaHero.Utils.TypedScenes
 {
-    public interface ISceneLoadHandlerOnState<TMachine, in TArgument> 
+    public interface ISceneLoadHandlerOnState<TMachine> 
         where TMachine : StateMachine<TMachine>
     {
-        public void OnSceneLoaded<TState>(TMachine machine, TArgument argument = default) 
+        public void OnSceneLoaded<TState>(TMachine machine) 
             where TState : State<TMachine>;
     }
 }

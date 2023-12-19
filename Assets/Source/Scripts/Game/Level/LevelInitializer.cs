@@ -1,67 +1,51 @@
 using ArenaHero.Battle;
 using ArenaHero.Battle.Level;
 using ArenaHero.Data;
-using ArenaHero.Yandex.Saves;
-using ArenaHero.Yandex.Saves.Data;
-using Reflex.Attributes;
+using ArenaHero.Utils.StateMachine;
+using ArenaHero.Utils.TypedScenes;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace ArenaHero.Game.Level
 {
-	public class LevelInitializer : MonoBehaviour
+	[RequireComponent(typeof(WindowInitializer))]
+	[RequireComponent(typeof(FightSceneTransitionInitializer))]
+	[RequireComponent(typeof(PlayerInitializer))]
+	public class LevelInitializer : MonoBehaviour, ISceneLoadHandlerOnStateAndArgument<GameStateMachine, LevelData>
 	{
-		private const int NeedProgressValue = 2;
+		[SerializeField] private WaveHandler _waveHandler;
 		
-		private int _selfInitProgress = 0;
-		private NavMeshDataInstance _instanceNavMesh;
 		private LevelData _levelData;
-		private WaveHandler _waveHandler;
-		private Target _hero;
-		private ISaver _saver;
+		private LevelStageChanger _levelStageChanger;
 
-		[Inject]
-		private void Inject(ISaver saver)
-		{
-			_saver = saver;
-			
-			TryInitialize();
-		}
+		public LevelData LevelData => _levelData;
+
+		public RewardHandler RewardHandler => _levelStageChanger.RewardHandler;
+
+		private EndLevelHandler EndLevelHandler => _levelStageChanger.EndLevelHandler;
 		
-		public void Init(LevelData levelData, WaveHandler waveHandler, Target hero)
+		private void OnDisable() =>
+			_levelStageChanger.Dispose();
+
+		public void OnSceneLoaded<TState>(GameStateMachine machine, LevelData levelData)
+			where TState : State<GameStateMachine>
 		{
+			GetComponent<WindowInitializer>().WindowsInit(machine.Window);
+			
+			var playerInitializer = GetComponent<PlayerInitializer>();
+			
 			_levelData = levelData;
-			_waveHandler = waveHandler;
-			_hero = hero;
-			
-			TryInitialize();
-		}
 
-		public void Dispose() =>
-			NavMesh.RemoveNavMeshData(_instanceNavMesh);
-
-		private void TryInitialize()
-		{
-			_selfInitProgress++;
-
-			if (_selfInitProgress.Equals(NeedProgressValue))
-			{
-				InitializeLevel();
-			}
-		}
-		
-		private void InitializeLevel()
-		{
-			var currentStageIndex = _saver.Get<CurrentLevelStage>().Value;
-			var currentStage = _levelData.GetStageDataByIndex(currentStageIndex);
+			_levelStageChanger = new LevelStageChanger(
+				_waveHandler,
+				levelData,
+				new Target(playerInitializer.GetHero().transform, playerInitializer.GetHero().gameObject.GetComponent<IDamageable>()),
+				this);
 			
-			var spawnerHandler = Instantiate(currentStage.SpawnPointsHandler).gameObject.GetComponent<SpawnerHandler>();
+			_levelStageChanger.ChangeStage();
 			
-			spawnerHandler.Init(_waveHandler, _hero);
+			GetComponent<FightSceneTransitionInitializer>().Init(machine, playerInitializer.GetHero(), EndLevelHandler, _levelStageChanger);
 			
-			Instantiate(currentStage.EnvironmentParent);
-		
-			_instanceNavMesh = NavMesh.AddNavMeshData(currentStage.NavMeshData);
+			machine.EnterIn<TState>();
 		}
 	}
 }

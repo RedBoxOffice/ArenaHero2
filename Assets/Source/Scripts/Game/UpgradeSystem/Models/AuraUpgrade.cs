@@ -1,18 +1,12 @@
 using System;
-using ArenaHero.Yandex.Saves.Data;
+using ArenaHero.Yandex.SaveSystem.Data;
 
 namespace ArenaHero.Game.UpgradeSystem.Models
 {
 	[Serializable]
-	public class AuraUpgrade : UpgradeModel<AuraMultiply>
+	public class AuraUpgrade : UpgradeModel<Aura>
 	{
-		protected override AuraMultiply Improve(AuraMultiply currentAuraMultiply)
-		{
-			var newAuraMultiply = new AuraMultiply(
-				currentAuraMultiply.Multiply * MultiplyCoefficient,
-				currentAuraMultiply.Level + 1);
-
-			return newAuraMultiply;
-		}
+		protected override Aura Improve(float value, int level) =>
+			new Aura(value, level);
 	}
 }

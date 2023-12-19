@@ -1052,18 +1052,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 116486370}
-  m_LocalRotation: {x: -0, y: -0, z: 0.03742529, w: -0.99929947}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1065137348}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -4.29}
-  m_AnchorMin: {x: 0.24200001, y: 0.33176953}
-  m_AnchorMax: {x: 0.74, y: 0.8751105}
-  m_AnchoredPosition: {x: 1.500042, y: 1.0000191}
-  m_SizeDelta: {x: -2.3916016, y: -3.3916016}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.2622802, y: 0.351}
+  m_AnchorMax: {x: 0.74, y: 0.86835045}
+  m_AnchoredPosition: {x: 0.000049591064, y: -0.000011444092}
+  m_SizeDelta: {x: 0.60839844, y: 0.60839844}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &116486372
 MonoBehaviour:
@@ -1295,7 +1295,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 179364330}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 437.85803, y: 220.48965, z: 0.6606852}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1351,7 +1351,7 @@ GameObject:
   - component: {fileID: 213388690}
   - component: {fileID: 213388689}
   m_Layer: 5
-  m_Name: PowerText
+  m_Name: DamageText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1375,7 +1375,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.075, y: 0.4302976}
   m_AnchorMax: {x: 0.43800002, y: 0.5697024}
-  m_AnchoredPosition: {x: -4.4398804, y: 0}
+  m_AnchoredPosition: {x: -4.4398956, y: 0}
   m_SizeDelta: {x: 7.1202087, y: 1.6547012}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &213388689
@@ -1516,7 +1516,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.7187169}
-  m_AnchoredPosition: {x: 0.000061035156, y: -0.22764587}
+  m_AnchoredPosition: {x: 0.00012207031, y: -0.22766113}
   m_SizeDelta: {x: 0.00012207, y: -0.54652405}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &225247567
@@ -1534,13 +1534,13 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 80
+    m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 4
   m_StartCorner: 0
-  m_StartAxis: 0
-  m_CellSize: {x: 170.92912, y: 170.92912}
-  m_Spacing: {x: 0, y: 0}
+  m_StartAxis: 1
+  m_CellSize: {x: 144.75824, y: 144.75824}
+  m_Spacing: {x: 50, y: 2}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!114 &225247568
@@ -1555,7 +1555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28782f2221e60c9408e24728d22f7ed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _aspectType: 0
+  _aspectType: 1
   _rowCount: 2
   _columnCount: 6
   _parent: {fileID: 225247566}
@@ -1671,7 +1671,7 @@ MonoBehaviour:
   _selectLevelButton: {fileID: 1637428572}
   _talentsButton: {fileID: 335615769}
   _magazineButton: {fileID: 1438643535}
-  _characteristicUpdater: {fileID: 0}
+  _characteristicUpdater: {fileID: 508479808}
 --- !u!4 &249775713
 Transform:
   m_ObjectHideFlags: 0
@@ -1996,7 +1996,7 @@ GameObject:
   - component: {fileID: 278877737}
   - component: {fileID: 278877736}
   m_Layer: 5
-  m_Name: MoneyText
+  m_Name: LuckText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3122,6 +3122,7 @@ GameObject:
   - component: {fileID: 491457385}
   - component: {fileID: 491457387}
   - component: {fileID: 491457386}
+  - component: {fileID: 491457388}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -3246,6 +3247,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 491457384}
   m_CullTransparentMesh: 1
+--- !u!114 &491457388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491457384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22de0f5bbee44161bc64534b937ceaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _textOutput: {fileID: 491457386}
 --- !u!1 &506225536
 GameObject:
   m_ObjectHideFlags: 0
@@ -3322,6 +3336,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 506225536}
   m_CullTransparentMesh: 1
+--- !u!1 &508479807
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 508479809}
+  - component: {fileID: 508479808}
+  m_Layer: 0
+  m_Name: CharacteristicUpdater
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &508479808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508479807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c9286cf96a46be86615693350005d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &508479809
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508479807}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 74.6223, y: -42.30545, z: 13.175067}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &532434339
 GameObject:
   m_ObjectHideFlags: 0
@@ -3333,6 +3391,7 @@ GameObject:
   - component: {fileID: 532434340}
   - component: {fileID: 532434342}
   - component: {fileID: 532434341}
+  - component: {fileID: 532434343}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -3457,6 +3516,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 532434339}
   m_CullTransparentMesh: 1
+--- !u!114 &532434343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532434339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25ae3e0ed0044365a67bae4e2bf0fcf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _textOutput: {fileID: 532434341}
 --- !u!1 &544705611
 GameObject:
   m_ObjectHideFlags: 0
@@ -3606,7 +3678,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.075, y: 0.10300001}
   m_AnchorMax: {x: 0.43800002, y: 0.24945033}
-  m_AnchoredPosition: {x: -4.4398804, y: 2}
+  m_AnchoredPosition: {x: -4.4398956, y: 2}
   m_SizeDelta: {x: 7.1202087, y: -0.34529877}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &557768478
@@ -4064,9 +4136,8 @@ GameObject:
   - component: {fileID: 626759234}
   - component: {fileID: 626759233}
   - component: {fileID: 626759235}
-  - component: {fileID: 626759236}
   m_Layer: 5
-  m_Name: Money
+  m_Name: Luck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4141,65 +4212,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 626759231}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 211ecaa6818b9274cbd4429b797913ef, type: 3}
+  m_Script: {fileID: 11500000, guid: a6b7521aa96b4bd2a2e6a26de92baba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &626759236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 626759231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 626759233}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 626759235}
-        m_TargetAssemblyTypeName: ArenaHero.UI.MenuStatsButton, Assembly-CSharp
-        m_MethodName: OnClickUpLevel
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1918093870}
-          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  _levelOutput: {fileID: 1918093870}
+  _valueOutput: {fileID: 1958560297}
 --- !u!1 &673303392
 GameObject:
   m_ObjectHideFlags: 0
@@ -5569,7 +5586,6 @@ GameObject:
   - component: {fileID: 985787721}
   - component: {fileID: 985787723}
   - component: {fileID: 985787722}
-  - component: {fileID: 985787725}
   - component: {fileID: 985787724}
   m_Layer: 5
   m_Name: Armor
@@ -5647,65 +5663,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 985787720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: a2fa308c99b84cb9b0d258479e6da9c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 985787722}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 985787725}
-        m_TargetAssemblyTypeName: ArenaHero.UI.MenuStatsButton, Assembly-CSharp
-        m_MethodName: OnClickUpLevel
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1856793837}
-          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &985787725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 985787720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84d17c620f5b7ac419002e74ce81e290, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _levelOutput: {fileID: 1856793837}
+  _valueOutput: {fileID: 1400039411}
 --- !u!1 &990337057
 GameObject:
   m_ObjectHideFlags: 0
@@ -6073,7 +6035,6 @@ GameObject:
   - component: {fileID: 1065137348}
   - component: {fileID: 1065137350}
   - component: {fileID: 1065137349}
-  - component: {fileID: 1065137352}
   - component: {fileID: 1065137351}
   m_Layer: 5
   m_Name: Health
@@ -6096,6 +6057,7 @@ RectTransform:
   m_Children:
   - {fileID: 116486371}
   - {fileID: 1844676935}
+  - {fileID: 1125337519}
   m_Father: {fileID: 225247566}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6151,65 +6113,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1065137347}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f858722b2e711e45b1d07ac48b92e3c, type: 3}
+  m_Script: {fileID: 11500000, guid: eed2a9ef90e542b684669834dd82cc14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1065137352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1065137347}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1065137349}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1065137351}
-        m_TargetAssemblyTypeName: ArenaHero.UI.MenuStatsButton, Assembly-CSharp
-        m_MethodName: OnClickUpLevel
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1844676936}
-          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  _levelOutput: {fileID: 1125337520}
+  _valueOutput: {fileID: 1459299442}
 --- !u!1 &1067018310
 GameObject:
   m_ObjectHideFlags: 0
@@ -6477,6 +6385,141 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1108690626}
   m_CullTransparentMesh: 1
+--- !u!1 &1125337518
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1125337519}
+  - component: {fileID: 1125337521}
+  - component: {fileID: 1125337520}
+  m_Layer: 5
+  m_Name: Level value
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1125337519
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125337518}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1065137348}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5607601, y: 0.19600001}
+  m_AnchorMax: {x: 0.80600005, y: 0.351}
+  m_AnchoredPosition: {x: 0.25300217, y: -0.46343994}
+  m_SizeDelta: {x: -0.5060005, y: 0.3183999}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1125337520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125337518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 1
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 18
+  m_fontSizeBase: 18
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1125337521
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125337518}
+  m_CullTransparentMesh: 1
 --- !u!1 &1157221023
 GameObject:
   m_ObjectHideFlags: 0
@@ -6740,7 +6783,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.33000183, y: -0.6423397}
+  m_AnchoredPosition: {x: -0.33000183, y: -0.6423378}
   m_SizeDelta: {x: -0.66000366, y: 0.71500015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1163883346
@@ -6851,10 +6894,9 @@ GameObject:
   - component: {fileID: 1190078544}
   - component: {fileID: 1190078546}
   - component: {fileID: 1190078545}
-  - component: {fileID: 1190078548}
   - component: {fileID: 1190078547}
   m_Layer: 5
-  m_Name: Power
+  m_Name: Damage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6929,65 +6971,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1190078543}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 16b127462d974a9c99220dfb1f346176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1190078545}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1190078548}
-        m_TargetAssemblyTypeName: ArenaHero.UI.MenuStatsButton, Assembly-CSharp
-        m_MethodName: OnClickUpLevel
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1526916286}
-          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1190078548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1190078543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2729e1e268a30554f845c3856771609e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _levelOutput: {fileID: 1526916286}
+  _valueOutput: {fileID: 1221192502}
 --- !u!1 &1193202392
 GameObject:
   m_ObjectHideFlags: 0
@@ -7369,7 +7357,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.16899872, y: -0.58617973}
+  m_AnchoredPosition: {x: 0.16900635, y: -0.5861778}
   m_SizeDelta: {x: 0.33999634, y: 0.82699966}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1221192502
@@ -7667,7 +7655,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0010986328, y: -0.49832153}
+  m_AnchoredPosition: {x: 0.0010986328, y: -0.49829102}
   m_SizeDelta: {x: 1.5, y: 0.11999512}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1284171065
@@ -7986,7 +7974,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.53800005, y: 0.04952036}
   m_AnchorMax: {x: 0.9754521, y: 0.5}
-  m_AnchoredPosition: {x: 0.000030517578, y: 0.038002014}
+  m_AnchoredPosition: {x: 0.000061035156, y: 0.038002014}
   m_SizeDelta: {x: -0.82629395, y: -0.07590103}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1358112229
@@ -8032,7 +8020,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1358112230}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 508479808}
+        m_TargetAssemblyTypeName: ArenaHero.Game.UpgradeSystem.CharacteristicUpdater,
+          Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1358112230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8273,7 +8274,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.16899872, y: -0.5051098}
+  m_AnchoredPosition: {x: 0.16900635, y: -0.5051079}
   m_SizeDelta: {x: 0.33999634, y: 0.9900017}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1400039411
@@ -8739,7 +8740,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.16899872, y: -0.6423397}
+  m_AnchoredPosition: {x: 0.16900635, y: -0.6423378}
   m_SizeDelta: {x: 0.33999634, y: 0.71500015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1459299442
@@ -9745,7 +9746,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.43443474}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.27000427}
+  m_AnchoredPosition: {x: 0, y: 0.27001953}
   m_SizeDelta: {x: 0, y: -0.5299988}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1557059326
@@ -9797,7 +9798,6 @@ GameObject:
   - component: {fileID: 1603565792}
   - component: {fileID: 1603565794}
   - component: {fileID: 1603565793}
-  - component: {fileID: 1603565796}
   - component: {fileID: 1603565795}
   m_Layer: 5
   m_Name: Aura
@@ -9875,65 +9875,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1603565791}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 7975c2d7bf114989b8235d7d5eeb9f80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1603565793}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1603565796}
-        m_TargetAssemblyTypeName: ArenaHero.UI.MenuStatsButton, Assembly-CSharp
-        m_MethodName: OnClickUpLevel
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1204943188}
-          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1603565796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1603565791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceaed4caedd3e2c43a9c0effc8ae80bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _levelOutput: {fileID: 1204943188}
+  _valueOutput: {fileID: 961826447}
 --- !u!1 &1609636266
 GameObject:
   m_ObjectHideFlags: 0
@@ -10798,7 +10744,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.075, y: 0.79600006}
   m_AnchorMax: {x: 0.43800002, y: 0.9316947}
-  m_AnchoredPosition: {x: -4.4398804, y: 0.32733154}
+  m_AnchoredPosition: {x: -4.4398956, y: 0.32733154}
   m_SizeDelta: {x: 7.1202087, y: 2.6547012}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1719424090
@@ -11482,7 +11428,7 @@ GameObject:
   - component: {fileID: 1844676937}
   - component: {fileID: 1844676936}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TextLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11504,9 +11450,9 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.23, y: 0.19600001}
-  m_AnchorMax: {x: 0.80600005, y: 0.351}
-  m_AnchoredPosition: {x: -0.099998474, y: -0.4356079}
-  m_SizeDelta: {x: -0.83999634, y: 0.31839943}
+  m_AnchorMax: {x: 0.56752014, y: 0.351}
+  m_AnchoredPosition: {x: 0.11400223, y: -0.4356079}
+  m_SizeDelta: {x: 0.22800064, y: 0.3183999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1844676936
 MonoBehaviour:
@@ -11528,7 +11474,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level 1
+  m_text: Level
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -12151,7 +12097,6 @@ GameObject:
   - component: {fileID: 1923613025}
   - component: {fileID: 1923613027}
   - component: {fileID: 1923613026}
-  - component: {fileID: 1923613029}
   - component: {fileID: 1923613028}
   m_Layer: 5
   m_Name: Durability
@@ -12229,65 +12174,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1923613024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6eb1d3958432f848a0c1c8425666d9a, type: 3}
+  m_Script: {fileID: 11500000, guid: aa2dcb54a5144028acdf93696538868b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1923613029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1923613024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1923613026}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1923613028}
-        m_TargetAssemblyTypeName: ArenaHero.UI.MenuStatsButton, Assembly-CSharp
-        m_MethodName: OnClickUpLevel
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 801535568}
-          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  _levelOutput: {fileID: 801535568}
+  _valueOutput: {fileID: 1163883346}
 --- !u!1 &1925664165
 GameObject:
   m_ObjectHideFlags: 0

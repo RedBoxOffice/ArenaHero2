@@ -1,48 +1,66 @@
 using System;
 using ArenaHero.Battle;
+using ArenaHero.Battle.CharacteristicHolders;
 using ArenaHero.Utils.Object;
 using UnityEngine;
 
 namespace ArenaHero.Data
 {
-    public abstract class Enemy : MonoBehaviour, IPoolingObject<EnemyInit>, ITargetHandler
-    {
-        private ICharacter _character;
-        
-        public event Action<Enemy> Disabling;
-        
-        public event Action<IPoolingObject<EnemyInit>> Disabled;
+	public abstract class Enemy : MonoBehaviour, IPoolingObject<Enemy, EnemyInit>, ITargetHolder, IHealthHolder, IArmorHolder, IDurabilityHolder, IAuraHolder, IDamageHolder
+	{
+		[SerializeField] private int _rewardMoney;
+		
+		[SerializeField] private float _health;
+		[SerializeField] private float _armor;
+		[SerializeField] private float _durability;
+		[SerializeField] private float _aura;
+		[SerializeField] private float _damage;
 
-        public GameObject SelfGameObject => gameObject;
+		private Character _character;
 
-        public IDamageable SelfDamageable { get; private set; }
+		public event Action<Enemy> Died;
 
-        public Target Target { get; private set; }
+		public event Action<IPoolingObject<Enemy, EnemyInit>> Disabled;
 
-        public abstract Type SelfType { get; }
+		public int RewardMoney => _rewardMoney;
+		
+		public float Health => _health;
 
-        private void Awake()
-        {
-            SelfDamageable = GetComponent<IDamageable>();
-            _character = GetComponent<ICharacter>();
-        }
+		public float Armor => _armor;
 
-        private void OnEnable() =>
-            _character.Died += OnDied;
+		public float Durability => _durability;
 
-        private void OnDisable()
-        {
-            Disabled?.Invoke(this);
-            _character.Died -= OnDied;
-        }
-        
-        public void Init(EnemyInit init) =>
-            Target = init.Target;
+		public float Aura => _aura;
 
-        private void OnDied()
-        {
-            Disabling?.Invoke(this);
-            gameObject.SetActive(false);
-        }
-    }
+		public float Damage => _damage;
+
+		public Enemy Instance => this;
+
+		public IDamageable SelfDamageable => _character;
+
+		public Target Target { get; private set; }
+
+		public abstract Type SelfType { get; }
+
+		private void Awake() =>
+			_character = GetComponent<Character>();
+
+		private void OnEnable() =>
+			_character.Died += OnDied;
+
+		private void OnDisable()
+		{
+			Disabled?.Invoke(this);
+			_character.Died -= OnDied;
+		}
+
+		public void Init(EnemyInit init) =>
+			Target = init.Target;
+
+		private void OnDied()
+		{
+			Died?.Invoke(this);
+			gameObject.SetActive(false);
+		}
+	}
 }
