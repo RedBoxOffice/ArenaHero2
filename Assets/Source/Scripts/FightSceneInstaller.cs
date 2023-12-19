@@ -30,9 +30,6 @@ namespace ArenaHero
 
 			var levelInitializer = GetComponent<LevelInitializer>();
 			
-			Debug.Log($"levelInstaller = {levelInitializer != null}");
-			Debug.Log($"levelData = {levelInitializer.LevelData != null}");
-			
 			descriptor.AddInstance(levelInitializer.LevelData);
 			descriptor.AddInstance(levelInitializer.RewardHandler);
 		}

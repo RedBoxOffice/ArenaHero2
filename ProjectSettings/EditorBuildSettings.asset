@@ -8,54 +8,27 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/InitializeScene.unity
     guid: 66a5be384e8a57a408e2bea4692e9a34
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/Source/Art/Weapons Mega Pack/Example_Scene.unity
-    guid: 0c87a4e34d2c7074c9ccf244c60c8b86
   - enabled: 1
     path: Assets/Scenes/MenuScene.unity
-    guid: c7d4c6b4dc9cd994ebf65d811fed4d58
-  - enabled: 1
-    path: Assets/Scenes/FightSceneDima.unity
-    guid: bf03c864d90e5be4899f2a6654229056
-  - enabled: 1
-    path: Assets/Scenes/FightSceneSlava.unity
-    guid: fa0c63128d8e5b44dbd5343cf4249a81
-  - enabled: 1
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/Scenes/MenuSceneSlava.unity
-    guid: 538a1e5e81081704d8389beda76e975a
+    guid: 5b98ef77667daf5458d5491e0b98884e
   - enabled: 1
     path: Assets/Scenes/MenuSceneDima.unity
-    guid: a6f1bc7648ffa4b4abf463db0f93bf26
-  - enabled: 1
-    path: Assets/Scenes/FightScene.unity
-    guid: 20829fc44eab6654ab7f65fa2d48ab0b
+    guid: 771c4d88676a3cb458e37b40687ca683
   - enabled: 1
     path: Assets/Scenes/MenuSceneSoslan.unity
-    guid: fe265b06df321bd4280e9b60daa14c55
+    guid: 85859faf31b3e4449ad057e00a9c3f8c
+  - enabled: 1
+    path: Assets/Scenes/FightScene.unity
+    guid: f34b89cde443b4e44a58586690bb4385
+  - enabled: 1
+    path: Assets/Scenes/FightSceneSlava.unity
+    guid: b5c49ed264734324fac3cf75a58d926f
+  - enabled: 1
+    path: Assets/Scenes/FightSceneDima.unity
+    guid: 4460fff28860ba849ba4f89e4014cd7e
   - enabled: 1
     path: Assets/Scenes/FightSceneSoslan.unity
-    guid: e8ea402f58176674a82a0d3943c7f2ee
-  - enabled: 1
-    path: Assets/CastlePack/DemoScene.unity
-    guid: 17afd5bd6952d3246a40c0e5acae2f92
+    guid: 95d4ecd1de1817a468498ad853c111f9
   - enabled: 1
     path: Assets/Scenes/LevelStageHolderScene.unity
     guid: 40bfe01a7a016874b9661be36674cb21

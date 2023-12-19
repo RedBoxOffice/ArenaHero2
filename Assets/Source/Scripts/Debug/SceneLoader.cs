@@ -1,9 +1,7 @@
 using System;
-using ArenaHero.Data;
 using ArenaHero.Utils.StateMachine;
 using ArenaHero.Utils.TypedScenes;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace ArenaHero.Debugs
 {
@@ -17,7 +15,24 @@ namespace ArenaHero.Debugs
 
 		public SceneLoader() =>
 			Instance ??= this;
-		
+
+		public string GetDebugFightSceneName()
+		{
+			switch (_debugger)
+			{
+				case Debugger.Main:
+					return nameof(FightScene);
+				case Debugger.Slava:
+					return nameof(FightSceneSlava);
+				case Debugger.Dima:
+					return nameof(FightSceneDima);
+				case Debugger.Soslan:
+					return nameof(FightSceneSoslan);
+			}
+
+			return string.Empty;
+		}
+
 		public void LoadMenu<TState>(GameStateMachine machine)
 			where TState : State<GameStateMachine>
 		{
@@ -25,26 +40,30 @@ namespace ArenaHero.Debugs
 			{
 				switch (_debugger)
 				{
-					// case Debugger.Main:
-					// 	MenuScene.Load<TState>(machine);
-					// 	break;
-					// case Debugger.Slava:
-					// 	MenuSceneSlava.Load<TState>(machine);
-					// 	break;
-					// case Debugger.Dima:
-					// 	MenuSceneDima.Load<TState, T>(machine, argument, loadSceneMode);
-					// 	break;
-					// case Debugger.Soslan:
-					// 	MenuSceneSoslan.Load<TState, T>(machine, argument, loadSceneMode);
-					// 	break;
+					case Debugger.Main:
+						MenuScene.Load<TState>(machine);
+
+						break;
+					case Debugger.Slava:
+						MenuSceneSlava.Load<TState>(machine);
+
+						break;
+					case Debugger.Dima:
+						MenuSceneDima.Load<TState>(machine);
+
+						break;
+					case Debugger.Soslan:
+						MenuSceneSoslan.Load<TState>(machine);
+
+						break;
 				}
 			}
 			else
 			{
-				//MenuScene.Load<TState>(machine);
+				MenuScene.Load<TState>(machine);
 			}
 		}
-		
+
 		public void LoadFight<TState, T>(GameStateMachine machine, T argument)
 			where TState : State<GameStateMachine>
 		{
@@ -52,35 +71,27 @@ namespace ArenaHero.Debugs
 			{
 				switch (_debugger)
 				{
-					// case Debugger.Main:
-					// 	FightScene.Load<TState, T>(machine, argument, loadSceneMode);
-					// 	break;
-					// case Debugger.Slava:
-					// 	FightSceneSlava.Load<TState>(machine);
-					// 	break;
-					// case Debugger.Dima:
-					// 	FightSceneDima.Load<TState, T>(machine, argument, loadSceneMode);
-					// 	break;
-					// case Debugger.Soslan:
-					// 	FightSceneSoslan.Load<TState, T>(machine, argument, loadSceneMode);
-					// 	break;
+					case Debugger.Main:
+						FightScene.Load<TState, T>(machine, argument);
+
+						break;
+					case Debugger.Slava:
+						FightSceneSlava.Load<TState, T>(machine, argument);
+
+						break;
+					case Debugger.Dima:
+						FightSceneDima.Load<TState, T>(machine, argument);
+
+						break;
+					case Debugger.Soslan:
+						FightSceneSoslan.Load<TState, T>(machine, argument);
+
+						break;
 				}
 			}
 			else
 			{
-				//FightScene.Load<TState, T>(machine, argument, loadSceneMode);
-			}
-		}
-
-		public void LoadLevelStage(LevelData levelData)
-		{
-			if (_isDebugMode)
-			{
-				switch (_debugger)
-				{
-					// case Debugger.Slava:
-					// 	LevelStageHolderScene.Load(levelData, LoadSceneMode.Additive);
-				}
+				FightScene.Load<TState, T>(machine, argument);
 			}
 		}
 	}

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using ArenaHero.Data;
 using ArenaHero.Debugs;
@@ -16,18 +15,14 @@ namespace ArenaHero.Game.Level
 
 		private GameStateMachine _gameStateMachine;
 
-		public void OnFightButtonClick()
-		{
-			Debug.Log($"Fight scene loading - StateMachine = {_gameStateMachine != null}"); // On recall, return FALSE
+		public void OnFightButtonClick() =>
 			SceneLoader.Instance.LoadFight<FightState, LevelData>(_gameStateMachine, _levels[GameDataSaver.Instance.Get<CurrentLevel>().Value]);
-		}
 
 		public void OnSceneLoaded<TState>(GameStateMachine machine)
 			where TState : State<GameStateMachine>
 		{
 			_gameStateMachine = machine;
-			
-			Debug.Log($"Main menu scene loaded - StateMachine = {_gameStateMachine != null}"); // always return TRUE
+
 			GameDataSaver.Instance.Set(new CurrentLevelStage());
 		}
 	}

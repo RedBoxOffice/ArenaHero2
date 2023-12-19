@@ -1,13 +1,9 @@
-using System;
 using ArenaHero.Battle;
 using ArenaHero.Battle.Level;
 using ArenaHero.Data;
 using ArenaHero.Utils.StateMachine;
 using ArenaHero.Utils.TypedScenes;
-using ArenaHero.Yandex.SaveSystem;
-using ArenaHero.Yandex.SaveSystem.Data;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace ArenaHero.Game.Level
 {
@@ -18,22 +14,18 @@ namespace ArenaHero.Game.Level
 	{
 		[SerializeField] private WaveHandler _waveHandler;
 		
-		private NavMeshDataInstance _instanceNavMesh;
-		private Action _unsubscribe;
 		private LevelData _levelData;
-		private RewardHandler _rewardHandler;
-		private EndLevelHandler _endLevelHandler;
+		private LevelStageChanger _levelStageChanger;
 
 		public LevelData LevelData => _levelData;
 
-		public RewardHandler RewardHandler => _rewardHandler;
+		public RewardHandler RewardHandler => _levelStageChanger.RewardHandler;
+
+		private EndLevelHandler EndLevelHandler => _levelStageChanger.EndLevelHandler;
 		
-		private void OnDisable()
-		{
-			_unsubscribe?.Invoke();
-			NavMesh.RemoveNavMeshData(_instanceNavMesh);
-		}
-		
+		private void OnDisable() =>
+			_levelStageChanger.Dispose();
+
 		public void OnSceneLoaded<TState>(GameStateMachine machine, LevelData levelData)
 			where TState : State<GameStateMachine>
 		{
@@ -42,40 +34,18 @@ namespace ArenaHero.Game.Level
 			var playerInitializer = GetComponent<PlayerInitializer>();
 			
 			_levelData = levelData;
-            
-			Init(new Target(playerInitializer.GetHero().transform, playerInitializer.GetHero().gameObject.GetComponent<IDamageable>()));
+
+			_levelStageChanger = new LevelStageChanger(
+				_waveHandler,
+				levelData,
+				new Target(playerInitializer.GetHero().transform, playerInitializer.GetHero().gameObject.GetComponent<IDamageable>()),
+				this);
 			
-			GetComponent<FightSceneTransitionInitializer>().Init(machine, _levelData, playerInitializer.GetHero(), _endLevelHandler);
+			_levelStageChanger.ChangeStage();
+			
+			GetComponent<FightSceneTransitionInitializer>().Init(machine, playerInitializer.GetHero(), EndLevelHandler, _levelStageChanger);
 			
 			machine.EnterIn<TState>();
-		}
-		
-		private void Init(Target hero)
-		{
-			var currentStageIndex = GameDataSaver.Instance.Get<CurrentLevelStage>().Value;
-			var currentStage = _levelData.GetStageDataByIndex(currentStageIndex);
-			
-			var spawnerHandler = Instantiate(currentStage.SpawnPointsHandler).gameObject.GetComponent<SpawnerHandler>(); 
-			
-			_rewardHandler = new RewardHandler();
-			_endLevelHandler = new EndLevelHandler();
-			
-			spawnerHandler.Spawned += _rewardHandler.OnSpawned;
-			spawnerHandler.Spawned += _endLevelHandler.OnSpawned;
-			_waveHandler.WavesEnded += _endLevelHandler.OnWavesEnded;
-			
-			_unsubscribe = () =>
-			{
-				spawnerHandler.Spawned -= _rewardHandler.OnSpawned;
-				spawnerHandler.Spawned -= _endLevelHandler.OnSpawned;
-				_waveHandler.WavesEnded -= _endLevelHandler.OnWavesEnded;
-			};
-			
-			spawnerHandler.Init(_waveHandler, hero);
-			
-			Instantiate(currentStage.EnvironmentParent);
-		
-			_instanceNavMesh = NavMesh.AddNavMeshData(currentStage.NavMeshData);
 		}
 	}
 }

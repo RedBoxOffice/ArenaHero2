@@ -12,8 +12,6 @@ namespace ArenaHero.Game.Level
 {
 	public class PlayerInitializer : MonoBehaviour
 	{
-		private static Player _playerInstance;
-		
 		[SerializeField] private LookTargetPoint _lookTargetPoint;
 		[SerializeField] private Player _playerPrefab;
 		[SerializeField] private PlayerSpawnPoint _playerSpawnPoint;
@@ -29,50 +27,29 @@ namespace ArenaHero.Game.Level
 
 		public Hero GetHero()
 		{
-			if (_hero == null)
-			{
-				Init();
-			}
-
+			Init();
+			
 			return _hero;
 		}
 
 		private void OnStateChanged(Type stateType)
 		{
-			if (stateType == typeof(EndLevelState))
-			{
-				DontDestroyOnLoad(_playerInstance.gameObject);
-				_playerInstance.gameObject.SetActive(false);
-			}
+			// if (stateType == typeof(EndLevelState))
+			// {
+			// 	DontDestroyOnLoad(_playerInstance.gameObject);
+			// 	_playerInstance.gameObject.SetActive(false);
+			// }
 		}
 		
 		private void Init()
 		{
-			if (GameDataSaver.Instance.Get<CurrentLevelStage>().Value == 0 && _playerInstance != null)
-			{
-				Destroy(_playerInstance);
-				_playerInstance = null;
-			}
-
-			if (_playerInstance == null)
-			{
-				_playerInstance = CreatePlayer();
-			}
-			else
-			{
-				_playerInstance.gameObject.DestroyOnLoad();
-				_playerInstance.gameObject.SetActive(true);
-			}
-			
 			if (_hero == null)
 			{
-				_hero = _playerInstance.GetComponentInChildren<Hero>().Init(_lookTargetPoint);
-				_hero.transform.localPosition = Vector3.zero;
-				_playerInstance.transform.position = _playerSpawnPoint.gameObject.transform.position;
+				_hero = CreatePlayer().GetComponentInChildren<Hero>().Init(_lookTargetPoint);
 			}
 		}
 		
 		private Player CreatePlayer() =>
-			Instantiate(_playerPrefab);
+			Instantiate(_playerPrefab, _playerSpawnPoint.gameObject.transform.position, Quaternion.identity);
 	}
 }
