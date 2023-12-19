@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using UnityEngine;
 
 namespace ArenaHero.Utils.StateMachine
 {
@@ -8,12 +9,12 @@ namespace ArenaHero.Utils.StateMachine
     {       
         private Dictionary<Type, State<TMachine>> _states;
 
-        public State<TMachine> CurrentState { get; private set; }
-
         protected StateMachine(Func<Dictionary<Type, State<TMachine>>> getStates) =>
             _states = getStates();
 
         public event Action<Type> StateChanged;
+
+        public State<TMachine> CurrentState { get; private set; }
         
         public void Dispose() =>
             CurrentState?.Exit();

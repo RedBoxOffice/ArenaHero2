@@ -26,15 +26,15 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
         
         private void Awake() =>
             _targetHolder = GetComponentInParent<ITargetHolder>();
+        
+        protected virtual void OnDisable() =>
+            _navMeshQuery.Dispose();
 
-        private void Start()
+        private void OnEnable()
         {
             _navMeshWorld = NavMeshWorld.GetDefaultWorld();
             _navMeshQuery = new NavMeshQuery(_navMeshWorld, Allocator.None);
         }
-
-        protected virtual void OnDisable() =>
-            _navMeshQuery.Dispose();
 
         public abstract void TryMoveToDirectionOnDistance(Vector3 direction, float distance, float timeToTarget);
         

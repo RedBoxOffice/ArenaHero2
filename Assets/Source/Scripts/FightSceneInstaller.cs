@@ -29,6 +29,10 @@ namespace ArenaHero
 			_ = new TargetChanger(detectedZone, playerInitializer.LookTargetPoint, inputHandler);
 
 			var levelInitializer = GetComponent<LevelInitializer>();
+			
+			Debug.Log($"levelInstaller = {levelInitializer != null}");
+			Debug.Log($"levelData = {levelInitializer.LevelData != null}");
+			
 			descriptor.AddInstance(levelInitializer.LevelData);
 			descriptor.AddInstance(levelInitializer.RewardHandler);
 		}

@@ -10,9 +10,5 @@ namespace ArenaHero.Utils.StateMachine
             Window = machine;
 
         public WindowStateMachine Window { get; }
-
-        public TState TryGetState<TState>()
-            where TState : State<GameStateMachine> =>
-            (TState)TryGetState(typeof(TState));
     }
 }

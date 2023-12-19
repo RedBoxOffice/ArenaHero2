@@ -11,8 +11,6 @@ namespace ArenaHero.Utils.StateMachine
 		{
 			Subject = subject;
 			Observer = observer;
-
-			subject.ActionEnded += observer;
 		}
 	}
 }

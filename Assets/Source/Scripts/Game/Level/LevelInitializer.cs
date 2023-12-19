@@ -14,7 +14,7 @@ namespace ArenaHero.Game.Level
 	[RequireComponent(typeof(WindowInitializer))]
 	[RequireComponent(typeof(FightSceneTransitionInitializer))]
 	[RequireComponent(typeof(PlayerInitializer))]
-	public class LevelInitializer : MonoBehaviour, ISceneLoadHandlerOnState<GameStateMachine, LevelData>
+	public class LevelInitializer : MonoBehaviour, ISceneLoadHandlerOnStateAndArgument<GameStateMachine, LevelData>
 	{
 		[SerializeField] private WaveHandler _waveHandler;
 		
@@ -34,14 +34,14 @@ namespace ArenaHero.Game.Level
 			NavMesh.RemoveNavMeshData(_instanceNavMesh);
 		}
 		
-		public void OnSceneLoaded<TState>(GameStateMachine machine, LevelData argument = default)
+		public void OnSceneLoaded<TState>(GameStateMachine machine, LevelData levelData)
 			where TState : State<GameStateMachine>
 		{
 			GetComponent<WindowInitializer>().WindowsInit(machine.Window);
 			
 			var playerInitializer = GetComponent<PlayerInitializer>();
 			
-			_levelData = argument;
+			_levelData = levelData;
             
 			Init(new Target(playerInitializer.GetHero().transform, playerInitializer.GetHero().gameObject.GetComponent<IDamageable>()));
 			

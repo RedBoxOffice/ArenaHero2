@@ -14,10 +14,10 @@ namespace ArenaHero.Utils.TypedScenes
     using ArenaHero.Utils.StateMachine;
     
     
-    public class FightSceneSlava : TypedScene<ArenaHero.Utils.StateMachine.GameStateMachine>
+    public class LevelStageHolderScene : TypedScene<ArenaHero.Utils.StateMachine.GameStateMachine>
     {
         
-        private const string _sceneName = "FightSceneSlava";
+        private const string _sceneName = "LevelStageHolderScene";
         
         public static void Load<T>(T argument, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         

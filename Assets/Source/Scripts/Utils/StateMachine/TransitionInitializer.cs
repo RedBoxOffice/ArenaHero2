@@ -6,12 +6,12 @@ namespace ArenaHero.Utils.StateMachine
     public class TransitionInitializer<TMachine> where TMachine : StateMachine<TMachine>
     {
         private readonly TMachine _stateMachine;
-        private readonly List<Subscription> _subscribtions = new List<Subscription>();
+        private readonly List<Subscription> _subscriptions = new List<Subscription>();
 
-        public TransitionInitializer(TMachine stateMachine, out Action onEnable, out Action onDisable)
+        public TransitionInitializer(TMachine stateMachine, out Action subscribe, out Action unsubscribe)
         {
-            onEnable = OnEnable;
-            onDisable = OnDisable;
+            subscribe = Subscribe;
+            unsubscribe = Unsubscribe;
             
             _stateMachine = stateMachine;
         }
@@ -20,36 +20,36 @@ namespace ArenaHero.Utils.StateMachine
             where TTargetState : State<TMachine>
         {
             var transition = new Transition<TMachine, TTargetState>(_stateMachine);
-
+            
             InitTransition(subject, transition.Transit);
         }
 
         public void InitTransition(ISubject subject, Action observer) =>
-            _subscribtions.Add(new Subscription(subject, observer));
+            _subscriptions.Add(new Subscription(subject, observer));
 
-        private void OnEnable()
+        private void Subscribe()
         {
-            if (_subscribtions == null)
+            if (_subscriptions == null)
             {
                 return;
             }
 
-            foreach (var action in _subscribtions)
+            foreach (var action in _subscriptions)
             {
                 action.Subject.ActionEnded += action.Observer;
             }
         }
 
-        private void OnDisable()
+        private void Unsubscribe()
         {
-            if (_subscribtions == null)
+            if (_subscriptions == null)
             {
                 return;
             }
 
-            foreach (var action in _subscribtions)
+            foreach (var subscription in _subscriptions)
             {
-                action.Subject.ActionEnded -= action.Observer;
+                subscription.Subject.ActionEnded -= subscription.Observer;
             }
         }
     }

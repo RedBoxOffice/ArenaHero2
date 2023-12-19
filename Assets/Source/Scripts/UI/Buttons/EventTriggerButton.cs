@@ -6,7 +6,7 @@ namespace ArenaHero.UI
 {
     public abstract class EventTriggerButton : MonoBehaviour, ISubject
     {
-        public virtual event Action ActionEnded;
+        public event Action ActionEnded;
 
         public virtual void OnClick() =>
             ActionEnded?.Invoke();

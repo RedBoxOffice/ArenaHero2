@@ -32,7 +32,7 @@ namespace ArenaHero.Yandex
             _callBack();
 #endif
 
-            SceneLoader.Instance.LoadMenu<MenuState, object>(_gameStateMachine);
+            SceneLoader.Instance.LoadMenu<MenuState>(_gameStateMachine);
 
             yield return null;
         }
