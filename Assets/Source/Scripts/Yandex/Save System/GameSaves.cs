@@ -29,11 +29,7 @@ namespace ArenaHero.Yandex.SaveSystem
 				BindingFlags.NonPublic
 				| BindingFlags.Instance
 				| BindingFlags.DeclaredOnly
-				| BindingFlags.GetField
-				| BindingFlags.Instance
-				| BindingFlags.NonPublic
-				| BindingFlags.Public
-				| BindingFlags.Static);
+				| BindingFlags.GetField);
 			
 			foreach (var field in fields)
 			{

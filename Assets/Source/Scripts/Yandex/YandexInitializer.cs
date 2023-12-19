@@ -11,15 +11,13 @@ namespace ArenaHero.Yandex
     {
         private Action _callBack;
         private GameStateMachine _gameStateMachine;
-        private SceneLoader _sceneLoader;
 
         private void Start() =>
             StartCoroutine(InitSDK());
 
-        public void Init(GameStateMachine gameStateMachine, SceneLoader loader, Action sdkInitSuccessCallBack)
+        public void Init(GameStateMachine gameStateMachine, Action sdkInitSuccessCallBack)
         {
             _gameStateMachine = gameStateMachine;
-            _sceneLoader = loader;
             _callBack = sdkInitSuccessCallBack;
         }
 
@@ -34,7 +32,7 @@ namespace ArenaHero.Yandex
             _callBack();
 #endif
 
-            _sceneLoader.LoadMenu<MenuState, object>(_gameStateMachine);
+            SceneLoader.Instance.LoadMenu<MenuState, object>(_gameStateMachine);
 
             yield return null;
         }

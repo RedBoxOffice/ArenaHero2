@@ -1,7 +1,6 @@
 using System;
+using System.Collections;
 using ArenaHero.Battle.CharacteristicHolders;
-using ArenaHero.Yandex.SaveSystem;
-using ArenaHero.Yandex.SaveSystem.Data;
 using UnityEngine;
 
 namespace ArenaHero.Battle
@@ -17,11 +16,12 @@ namespace ArenaHero.Battle
 		private Character _character;
 		private IHealthHolder _healthHolder;
 		private Camera _mainCamera;
+		private Coroutine _alignCameraCoroutine;
 
 		private void Awake()
 		{
 			_materialPropertyBlock = new MaterialPropertyBlock();
-			_mainCamera = Camera.main;
+			
 			_character = GetComponent<Character>();
 			_healthHolder = GetComponent<IHealthHolder>();
 
@@ -29,18 +29,22 @@ namespace ArenaHero.Battle
 			{
 				throw new NullReferenceException(nameof(_healthHolder));
 			}
-
-			OnHealthChanged(_character.CurrentHealth);
 		}
 
-		private void OnEnable() =>
+		private void OnEnable()
+		{
 			_character.HealthChanged += OnHealthChanged;
+			OnHealthChanged(_healthHolder.Health);
 
-		private void OnDisable() =>
+			_alignCameraCoroutine = StartCoroutine(AlignCamera());
+		}
+
+		private void OnDisable()
+		{
 			_character.HealthChanged -= OnHealthChanged;
-
-		private void FixedUpdate() =>
-			AlignCamera();
+			StopCoroutine(_alignCameraCoroutine);
+			_mainCamera = null;
+		}
 
 		private void OnHealthChanged(float currentHealth)
 		{
@@ -49,13 +53,20 @@ namespace ArenaHero.Battle
 			_healthBarMeshRenderer.SetPropertyBlock(_materialPropertyBlock);
 		}
 
-		private void AlignCamera()
+		private IEnumerator AlignCamera()
 		{
-			var mainCameraTransform = _mainCamera.transform;
-			var forward = _healthBarMeshRenderer.transform.position - mainCameraTransform.position;
-			forward.Normalize();
-			var up = Vector3.Cross(forward, mainCameraTransform.right);
-			_healthBarMeshRenderer.transform.rotation = Quaternion.LookRotation(forward, up);
+			_mainCamera ??= Camera.main;
+			
+			while (enabled)
+			{
+				var mainCameraTransform = _mainCamera.transform;
+				var forward = _healthBarMeshRenderer.transform.position - mainCameraTransform.position;
+				forward.Normalize();
+				var up = Vector3.Cross(forward, mainCameraTransform.right);
+				_healthBarMeshRenderer.transform.rotation = Quaternion.LookRotation(forward, up);
+
+				yield return new WaitForFixedUpdate();
+			}
 		}
 	}
 }

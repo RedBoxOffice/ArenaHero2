@@ -12,8 +12,8 @@ using UnityEngine.AI;
 namespace ArenaHero.Game.Level
 {
 	[RequireComponent(typeof(WindowInitializer))]
-	[RequireComponent(typeof(UIFightSceneInitializer))]
-	[RequireComponent(typeof(HeroInitializer))]
+	[RequireComponent(typeof(FightSceneTransitionInitializer))]
+	[RequireComponent(typeof(PlayerInitializer))]
 	public class LevelInitializer : MonoBehaviour, ISceneLoadHandlerOnState<GameStateMachine, LevelData>
 	{
 		[SerializeField] private WaveHandler _waveHandler;
@@ -22,6 +22,7 @@ namespace ArenaHero.Game.Level
 		private Action _unsubscribe;
 		private LevelData _levelData;
 		private RewardHandler _rewardHandler;
+		private EndLevelHandler _endLevelHandler;
 
 		public LevelData LevelData => _levelData;
 
@@ -37,11 +38,16 @@ namespace ArenaHero.Game.Level
 			where TState : State<GameStateMachine>
 		{
 			GetComponent<WindowInitializer>().WindowsInit(machine.Window);
-			GetComponent<UIFightSceneInitializer>().Init(machine);
-			var heroInitializer = GetComponent<HeroInitializer>();
+			
+			var playerInitializer = GetComponent<PlayerInitializer>();
+			
 			_levelData = argument;
             
-			Init(new Target(heroInitializer.Hero.transform, heroInitializer.Hero.gameObject.GetComponent<IDamageable>()));
+			Init(new Target(playerInitializer.GetHero().transform, playerInitializer.GetHero().gameObject.GetComponent<IDamageable>()));
+			
+			GetComponent<FightSceneTransitionInitializer>().Init(machine, _levelData, playerInitializer.GetHero(), _endLevelHandler);
+			
+			machine.EnterIn<TState>();
 		}
 		
 		private void Init(Target hero)
@@ -52,8 +58,18 @@ namespace ArenaHero.Game.Level
 			var spawnerHandler = Instantiate(currentStage.SpawnPointsHandler).gameObject.GetComponent<SpawnerHandler>(); 
 			
 			_rewardHandler = new RewardHandler();
+			_endLevelHandler = new EndLevelHandler();
+			
 			spawnerHandler.Spawned += _rewardHandler.OnSpawned;
-			_unsubscribe = () => spawnerHandler.Spawned -= _rewardHandler.OnSpawned;
+			spawnerHandler.Spawned += _endLevelHandler.OnSpawned;
+			_waveHandler.WavesEnded += _endLevelHandler.OnWavesEnded;
+			
+			_unsubscribe = () =>
+			{
+				spawnerHandler.Spawned -= _rewardHandler.OnSpawned;
+				spawnerHandler.Spawned -= _endLevelHandler.OnSpawned;
+				_waveHandler.WavesEnded -= _endLevelHandler.OnWavesEnded;
+			};
 			
 			spawnerHandler.Init(_waveHandler, hero);
 			

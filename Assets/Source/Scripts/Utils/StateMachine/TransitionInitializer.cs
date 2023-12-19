@@ -16,38 +16,41 @@ namespace ArenaHero.Utils.StateMachine
             _stateMachine = stateMachine;
         }
 
-        public void InitTransition<TTargetState>(ISubject subject, Action reloadScene = null)
+        public void InitTransition<TTargetState>(ISubject subject)
             where TTargetState : State<TMachine>
         {
-            var transition = new Transition<TMachine, TTargetState>(_stateMachine, reloadScene);
+            var transition = new Transition<TMachine, TTargetState>(_stateMachine);
 
-            subject.ActionEnded += transition.Transit;
-
-            _subscribtions.Add(new Subscription(subject, transition.Transit));
+            InitTransition(subject, transition.Transit);
         }
-        
+
+        public void InitTransition(ISubject subject, Action observer) =>
+            _subscribtions.Add(new Subscription(subject, observer));
+
         private void OnEnable()
         {
-            if (_subscribtions != null)
-                Subscribe();
+            if (_subscribtions == null)
+            {
+                return;
+            }
+
+            foreach (var action in _subscribtions)
+            {
+                action.Subject.ActionEnded += action.Observer;
+            }
         }
 
         private void OnDisable()
         {
-            if (_subscribtions != null)
-                UnSubscribe();
-        }
+            if (_subscribtions == null)
+            {
+                return;
+            }
 
-        private void Subscribe()
-        {
             foreach (var action in _subscribtions)
-                action.Subject.ActionEnded += action.Observer;
-        }
-
-        private void UnSubscribe()
-        {
-            foreach (var action in _subscribtions)
+            {
                 action.Subject.ActionEnded -= action.Observer;
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ArenaHero
 {
-	[RequireComponent(typeof(HeroInitializer))]
+	[RequireComponent(typeof(PlayerInitializer))]
 	[RequireComponent(typeof(LevelInitializer))]
 	public class FightSceneInstaller : MonoBehaviour, IInstaller
 	{
@@ -15,8 +15,8 @@ namespace ArenaHero
 
 		public void InstallBindings(ContainerDescriptor descriptor)
 		{
-			var heroInitializer = GetComponent<HeroInitializer>();
-			var hero = heroInitializer.Hero;
+			var playerInitializer = GetComponent<PlayerInitializer>();
+			var hero = playerInitializer.GetHero();
 
 			var inputInstaller = GetComponent<InputHandlerInstaller>();
 			var inputHandler = inputInstaller.InstallBindings(hero);
@@ -26,8 +26,7 @@ namespace ArenaHero
 
 			var detectedZone = hero.gameObject.GetComponentInChildren<DetectedZone>();
 
-			var targetChangerInject = new TargetChangerInject(() => (detectedZone, heroInitializer.LookTargetPoint, inputHandler));
-			_ = new TargetChanger(targetChangerInject);
+			_ = new TargetChanger(detectedZone, playerInitializer.LookTargetPoint, inputHandler);
 
 			var levelInitializer = GetComponent<LevelInitializer>();
 			descriptor.AddInstance(levelInitializer.LevelData);

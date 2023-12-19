@@ -9,9 +9,14 @@ namespace ArenaHero.Debugs
 	[Serializable]
 	public class SceneLoader
 	{
+		public static SceneLoader Instance { get; private set; }
+
 		[SerializeField] private bool _isDebugMode;
 		[SerializeField] private Debugger _debugger = Debugger.Main;
 
+		public SceneLoader() =>
+			Instance ??= this;
+		
 		public void LoadMenu<TState, T>(GameStateMachine machine, T argument = default, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
 			where TState : State<GameStateMachine>
 		{

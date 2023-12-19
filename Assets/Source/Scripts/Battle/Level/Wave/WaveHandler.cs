@@ -15,8 +15,10 @@ namespace ArenaHero.Battle.Level
 		private WaveData _currentWaveData;
 
 		private int _currentWaveIndex;
-		private bool _isFight = true;
+		private bool _isWaveWorking = true;
 
+		public event Action WavesEnded;
+		
 		public event Action<Enemy> Spawning;
 
 		[Inject]
@@ -27,16 +29,14 @@ namespace ArenaHero.Battle.Level
 
 			stateChangeable.StateChanged += (stateType) =>
 			{
-				if ((stateType is EndLevelState) is false)
+				if (stateType == typeof(EndLevelState))
 				{
-					return;
+					_isWaveWorking = false;
 				}
-
-				_isFight = false;
 			};
 		}
 
-		public void Start() =>
+		private void Start() =>
 			StartCoroutine(Fight());
 
 		private IEnumerator Fight()
@@ -46,7 +46,7 @@ namespace ArenaHero.Battle.Level
 
 			yield return new WaitForSeconds(_currentStageData.StartDelay);
 
-			while (_isFight)
+			while (_isWaveWorking)
 			{
 				for (var i = 0; i < _currentWaveData.CountSpawns; i++)
 				{
@@ -59,9 +59,11 @@ namespace ArenaHero.Battle.Level
 
 				if (!TryChangeWave())
 				{
-					yield break;
+					_isWaveWorking = false;
 				}
 			}
+			
+			WavesEnded?.Invoke();
 		}
 
 		private bool TryChangeWave()
