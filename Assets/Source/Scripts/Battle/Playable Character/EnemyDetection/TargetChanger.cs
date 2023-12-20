@@ -1,7 +1,9 @@
 using ArenaHero.Data;
 using ArenaHero.InputSystem;
 using System;
+using ArenaHero.Utils.Other;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
 {
@@ -39,7 +41,7 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
             _previousEnemy = null;
             UpdateCurrentEnemy();
             
-            _lookTargetPoint.transform.SetParent(GetParentForLookTargetPoint());
+            SetParentForLookTargetPoint();
             _lookTargetPoint.UpdateTarget(GetTarget());
             _lookTargetPoint.transform.localPosition = GetTargetPointPosition();
         }
@@ -67,11 +69,19 @@ namespace ArenaHero.Battle.PlayableCharacter.EnemyDetection
             }
         }
 
-        private Transform GetParentForLookTargetPoint() =>
-            _currentEnemy is null 
-                ? null 
-                : _currentEnemy.transform;
+        private void SetParentForLookTargetPoint()
+        {
+            if (_currentEnemy is not null)
+            {
+                _lookTargetPoint.transform.SetParent(_currentEnemy.transform);
 
+                return;
+            }
+            
+            _lookTargetPoint.transform.SetParent(null);
+            _lookTargetPoint.gameObject.MoveGameObjectToActiveFightScene();
+        }
+        
         private Vector3 GetTargetPointPosition() =>
             _currentEnemy is null 
                 ? _lookTargetPoint.transform.localPosition 

@@ -41,9 +41,12 @@ namespace ArenaHero.Game.Level
 				new Target(playerInitializer.GetHero().transform, playerInitializer.GetHero().gameObject.GetComponent<IDamageable>()),
 				this);
 			
+			_levelStageChanger.StageChanged += playerInitializer.OnStageChanged;
+			
 			_levelStageChanger.ChangeStage();
 			
 			GetComponent<FightSceneTransitionInitializer>().Init(machine, playerInitializer.GetHero(), EndLevelHandler, _levelStageChanger);
+
 			
 			machine.EnterIn<TState>();
 		}

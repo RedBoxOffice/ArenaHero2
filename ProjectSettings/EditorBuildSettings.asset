@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MenuScene.unity
     guid: 5b98ef77667daf5458d5491e0b98884e
   - enabled: 1
+    path: Assets/Scenes/MenuSceneSlava.unity
+    guid: 3ea0937c968067148ac524924a688970
+  - enabled: 1
     path: Assets/Scenes/MenuSceneDima.unity
     guid: 771c4d88676a3cb458e37b40687ca683
   - enabled: 1

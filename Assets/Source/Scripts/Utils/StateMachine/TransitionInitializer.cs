@@ -16,12 +16,16 @@ namespace ArenaHero.Utils.StateMachine
             _stateMachine = stateMachine;
         }
 
-        public void InitTransition<TTargetState>(ISubject subject)
+        public void InitTransition<TTargetState>(ISubject subject, Action observer = null)
             where TTargetState : State<TMachine>
         {
             var transition = new Transition<TMachine, TTargetState>(_stateMachine);
             
-            InitTransition(subject, transition.Transit);
+            InitTransition(subject, () =>
+            {
+                transition.Transit();
+                observer?.Invoke();
+            });
         }
 
         public void InitTransition(ISubject subject, Action observer) =>

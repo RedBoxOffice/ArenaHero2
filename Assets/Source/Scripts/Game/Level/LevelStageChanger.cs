@@ -25,12 +25,7 @@ namespace ArenaHero.Game.Level
 
 		private Action _unsubscribe;
 		private NavMeshDataInstance _instanceNavMesh;
-
-		public EndLevelHandler EndLevelHandler { get; } = new EndLevelHandler();
-
-		public RewardHandler RewardHandler { get; } = new RewardHandler();
-
-		private Scene StageScene => SceneManager.GetSceneByName(StageSceneName);
+		private PlayerSpawnPoint _playerSpawnPoint;
 
 		public LevelStageChanger(WaveHandler waveHandler, LevelData levelData, Target hero, MonoBehaviour context)
 		{
@@ -40,10 +35,18 @@ namespace ArenaHero.Game.Level
 			_context = context;
 		}
 
+		public event Action<LevelStageObjectsHolder> StageChanged;
+		
+		public EndLevelHandler EndLevelHandler { get; } = new EndLevelHandler();
+
+		public RewardHandler RewardHandler { get; } = new RewardHandler();
+
+		private Scene StageScene => SceneManager.GetSceneByName(StageSceneName);
+
 		public void Dispose()
 		{
 			_unsubscribe?.Invoke();
-			NavMesh.RemoveNavMeshData(_instanceNavMesh);
+			TryRemoveNavMeshData();
 
 			if (StageScene.isLoaded)
 			{
@@ -71,9 +74,44 @@ namespace ArenaHero.Game.Level
 		{
 			SceneManager.SetActiveScene(StageScene);
 
-			var currentStageIndex = GameDataSaver.Instance.Get<CurrentLevelStage>().Value;
-			var currentStage = _levelData.GetStageDataByIndex(currentStageIndex);
+			var currentStage = GetStageData();
 
+			SetSpawnConfiguration(currentStage);
+
+			SetEnvironment(currentStage);
+			
+			SetNavMeshData(currentStage.NavMeshData);
+			
+			var baseSceneName = SceneLoader.Instance.GetDebugFightSceneName();
+			SceneManager.SetActiveScene(SceneManager.GetSceneByName(baseSceneName));
+			
+			StageChanged?.Invoke(new LevelStageObjectsHolder(_playerSpawnPoint));
+		}
+
+		private IEnumerator WaitAsyncOperation(AsyncOperation operation, Action endCallback)
+		{
+			while (operation.isDone is false)
+			{
+				yield return null;
+			}
+
+			endCallback();
+		}
+
+		private StageData GetStageData()
+		{
+			var currentStageIndex = GameDataSaver.Instance.Get<CurrentLevelStage>().Value;
+			return _levelData.GetStageDataByIndex(currentStageIndex);
+		}
+
+		private void SetPlayerSpawnPoint(StageData currentStage) =>
+			_playerSpawnPoint = Object.Instantiate(currentStage.PlayerSpawnPoint);
+
+		private void SetEnvironment(StageData currentStage) =>
+			Object.Instantiate(currentStage.EnvironmentParent);
+
+		private void SetSpawnConfiguration(StageData currentStage)
+		{
 			var spawnerHandler = Object.Instantiate(currentStage.SpawnPointsHandler).gameObject.GetComponent<SpawnerHandler>();
 
 			spawnerHandler.Spawned += RewardHandler.OnSpawned;
@@ -88,23 +126,20 @@ namespace ArenaHero.Game.Level
 			};
 
 			spawnerHandler.Init(_waveHandler, _hero);
-
-			Object.Instantiate(currentStage.EnvironmentParent);
-
-			_instanceNavMesh = NavMesh.AddNavMeshData(currentStage.NavMeshData);
-
-			var baseSceneName = SceneLoader.Instance.GetDebugFightSceneName();
-			SceneManager.SetActiveScene(SceneManager.GetSceneByName(baseSceneName));
 		}
-
-		private IEnumerator WaitAsyncOperation(AsyncOperation operation, Action endCallback)
+		
+		private void SetNavMeshData(NavMeshData navMeshData)
 		{
-			while (operation.isDone is false)
+			TryRemoveNavMeshData();
+			_instanceNavMesh = NavMesh.AddNavMeshData(navMeshData);
+		}
+		
+		private void TryRemoveNavMeshData()
+		{
+			if (_instanceNavMesh.valid)
 			{
-				yield return null;
+				NavMesh.RemoveNavMeshData(_instanceNavMesh);
 			}
-
-			endCallback();
 		}
 	}
 }

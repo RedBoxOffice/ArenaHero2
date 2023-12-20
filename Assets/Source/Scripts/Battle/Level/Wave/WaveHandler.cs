@@ -13,6 +13,7 @@ namespace ArenaHero.Battle.Level
 	{
 		private StageData _currentStageData;
 		private WaveData _currentWaveData;
+		private Coroutine _fightCoroutine;
 
 		private int _currentWaveIndex;
 		private bool _isWaveWorking = true;
@@ -27,20 +28,36 @@ namespace ArenaHero.Battle.Level
 			_currentStageData = levelData.GetStageDataByIndex(GameDataSaver.Instance.Get<CurrentLevelStage>().Value);
 			_currentWaveData = _currentStageData.GetWaveDataByIndex(_currentWaveIndex);
 
+			StartFight();
+
 			stateChangeable.StateChanged += (stateType) =>
 			{
 				if (stateType == typeof(EndLevelState))
 				{
 					_isWaveWorking = false;
 				}
+
+				if (stateType == typeof(FightState))
+				{
+					StartFight();
+				}
 			};
 		}
 
-		private void Start() =>
-			StartCoroutine(Fight());
+		private void StartFight()
+		{
+			if (_fightCoroutine != null)
+			{
+				StopCoroutine(_fightCoroutine);
+			}
+			
+			_fightCoroutine = StartCoroutine(Fight());
+		}
 
 		private IEnumerator Fight()
 		{
+			_isWaveWorking = true;
+			
 			var waitBetweenWave = new WaitForSeconds(_currentStageData.DelayBetweenWave);
 			var waitNextSpawn = new WaitForSeconds(_currentWaveData.DelayBetweenSpawns);
 

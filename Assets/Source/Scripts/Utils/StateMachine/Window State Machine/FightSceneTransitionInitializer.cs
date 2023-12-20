@@ -32,7 +32,7 @@ namespace ArenaHero.Utils.StateMachine
 			transitionInitializer.InitTransition<EndLevelState>(heroDied);
 			transitionInitializer.InitTransition<EndLevelState>(endLevelHandler);
 			transitionInitializer.InitTransition(_mainMenuButton, () => SceneLoader.Instance.LoadMenu<MenuState>(gameStateMachine));
-			transitionInitializer.InitTransition(_nextStageButton, levelStageChanger.ChangeStage);
+			transitionInitializer.InitTransition<FightState>(_nextStageButton, levelStageChanger.ChangeStage);
 		}
 	}
 }

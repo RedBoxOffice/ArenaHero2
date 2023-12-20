@@ -198,7 +198,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.44000003, y: 0.23700002}
-  m_AnchoredPosition: {x: -2.5000305, y: 0}
+  m_AnchoredPosition: {x: -2.5, y: 0}
   m_SizeDelta: {x: 5, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &60468167
@@ -1556,7 +1556,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lookTargetPoint: {fileID: 1142116025}
   _playerPrefab: {fileID: 24557769438604130, guid: d34a671df0c4b1040af46898a8b77401, type: 3}
-  _playerSpawnPoint: {fileID: 1026898032}
 --- !u!114 &824417734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2523,50 +2522,6 @@ MonoBehaviour:
   _delayTime: 0.1
   _waitTime: 0.1
   _window: {fileID: 961027022}
---- !u!1 &1026898031
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1026898033}
-  - component: {fileID: 1026898032}
-  m_Layer: 0
-  m_Name: Player Spawn Point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1026898032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1026898031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcd059b1ddcb4633917396070bdc5a39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1026898033
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1026898031}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.12, y: 1.68, z: -1.6728035}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1034128853
 GameObject:
   m_ObjectHideFlags: 0
@@ -2837,6 +2792,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6054bae2e0e7dc45afffd5da75e0893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _offsetDefaultPosition: {x: 0, y: 0, z: 10}
 --- !u!1 &1208251913
 GameObject:
   m_ObjectHideFlags: 0
