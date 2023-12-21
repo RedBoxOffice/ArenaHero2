@@ -54,12 +54,13 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
                     break;
                 }
 
+                var targetPosition = GetTargetPosition(calculatePosition, currentTime, timeToTarget);
+                
                 bool isChecked = CheckPossibleMove(
-                    calculatePosition,
-                    currentTime,
-                    timeToTarget,
-                    () => MoveAssistedAttempts(calculatePosition, currentTime, timeToTarget),
-                    out Vector3 targetPosition);
+                    targetPosition,
+                    () => MoveAssistedAttempts(
+                        time => GetTargetPosition(calculatePosition, time, timeToTarget), 
+                        currentTime));
                 
                 if (isChecked is false)
                 {
@@ -72,7 +73,7 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
                 
                 yield return new WaitForFixedUpdate();
             }
-
+    
             endMoveCallBack?.Invoke();
 
             MoveCoroutine = null;
@@ -94,10 +95,11 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
             return currentTime;
         }
 
-        private bool CheckPossibleMove(Func<float, Vector3> calculatePosition, float currentTime, float timeToTarget, Func<bool> notCanMoveCallback, out Vector3 targetPosition)
-        {
-            targetPosition = calculatePosition(currentTime / timeToTarget);
+        private Vector3 GetTargetPosition(Func<float, Vector3> calculatePosition, float currentTime, float timeToTarget) =>
+            calculatePosition(currentTime / timeToTarget);
 
+        private bool CheckPossibleMove(Vector3 targetPosition, Func<bool> notCanMoveCallback)
+        {
             if (CanMoveOnNavMesh(targetPosition) is false)
             {
                 return notCanMoveCallback();
@@ -106,31 +108,21 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
             return true;
         }
         
-        private bool MoveAssistedAttempts(Func<float, Vector3> calculatePosition, float currentTime, float timeToTarget, int currentAttempt = 0)
+        private bool MoveAssistedAttempts(Func<float, Vector3> getTargetPosition, float currentTime, int currentAttempt = 0)
         {
             currentTime = AddTime(currentTime);
             
-            Vector3 targetPosition = calculatePosition(currentTime / timeToTarget);
-            
-            if (CanMoveOnNavMesh(targetPosition) is false)
-            {
-                if (currentAttempt >= _countAssistedAttempts)
-                {
-                    return false;
-                }
-
-                return MoveAssistedAttempts(calculatePosition, currentTime, timeToTarget, ++currentAttempt);
-            }
-            
             return CheckPossibleMove(
-                calculatePosition, 
-                currentTime, 
-                timeToTarget, () =>
-            {
-                
-            })
+                getTargetPosition(currentTime),
+                () =>
+                {
+                    if (currentAttempt >= _countAssistedAttempts)
+                    {
+                        return false;
+                    }
 
-            return true;
+                    return MoveAssistedAttempts(getTargetPosition, currentTime, ++currentAttempt);
+                });
         }
         
         private bool CanMoveOnNavMesh(Vector3 targetPosition)
