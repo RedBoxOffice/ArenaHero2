@@ -12,6 +12,7 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
     {
         [SerializeField] private float _timeToTarget;
         [SerializeField] private Rigidbody _selfRigidbody;
+        [SerializeField] private int _countAssistedAttempts = 5;
         
         protected Coroutine MoveCoroutine;
         protected IMovementInputHandler InputHandler;
@@ -40,13 +41,6 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
         
         protected abstract void OnMove(float direction);
 
-        protected void LookTarget()
-        {
-            var offset = Target.Transform.position - SelfRigidbody.position;
-            offset.Set(offset.x, 0, offset.z);
-            SelfRigidbody.MoveRotation(Quaternion.Euler(0f, Vector3.SignedAngle(Vector3.forward, offset, Vector3.up), 0f));
-        }
-
         protected IEnumerator Move(Func<bool> canMove, Func<float, Vector3> calculatePosition, Action endMoveCallBack = null, float timeToTarget = 0)
         {
             float currentTime = 0;
@@ -56,13 +50,25 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
             while (currentTime <= timeToTarget)
             {
                 if (!canMove())
+                {
                     break;
+                }
 
-                Vector3 targetPosition = GetWorldPositionFromNavMesh(calculatePosition(currentTime / timeToTarget));
+                bool isChecked = CheckPossibleMove(
+                    calculatePosition,
+                    currentTime,
+                    timeToTarget,
+                    () => MoveAssistedAttempts(calculatePosition, currentTime, timeToTarget),
+                    out Vector3 targetPosition);
+                
+                if (isChecked is false)
+                {
+                    break;
+                }
                 
                 SelfRigidbody.MovePosition(targetPosition);
 
-                currentTime += Time.fixedDeltaTime;
+                currentTime = AddTime(currentTime);
                 
                 yield return new WaitForFixedUpdate();
             }
@@ -81,7 +87,59 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
             }
         }
 
-        private Vector3 GetWorldPositionFromNavMesh(Vector3 targetPosition) =>
-            _navMeshQuery.MapLocation(targetPosition, Vector3.positiveInfinity, 0).position;
+        private float AddTime(float currentTime)
+        {
+            currentTime += Time.fixedDeltaTime;
+
+            return currentTime;
+        }
+
+        private bool CheckPossibleMove(Func<float, Vector3> calculatePosition, float currentTime, float timeToTarget, Func<bool> notCanMoveCallback, out Vector3 targetPosition)
+        {
+            targetPosition = calculatePosition(currentTime / timeToTarget);
+
+            if (CanMoveOnNavMesh(targetPosition) is false)
+            {
+                return notCanMoveCallback();
+            }
+
+            return true;
+        }
+        
+        private bool MoveAssistedAttempts(Func<float, Vector3> calculatePosition, float currentTime, float timeToTarget, int currentAttempt = 0)
+        {
+            currentTime = AddTime(currentTime);
+            
+            Vector3 targetPosition = calculatePosition(currentTime / timeToTarget);
+            
+            if (CanMoveOnNavMesh(targetPosition) is false)
+            {
+                if (currentAttempt >= _countAssistedAttempts)
+                {
+                    return false;
+                }
+
+                return MoveAssistedAttempts(calculatePosition, currentTime, timeToTarget, ++currentAttempt);
+            }
+            
+            return CheckPossibleMove(
+                calculatePosition, 
+                currentTime, 
+                timeToTarget, () =>
+            {
+                
+            })
+
+            return true;
+        }
+        
+        private bool CanMoveOnNavMesh(Vector3 targetPosition)
+        {
+            var navMeshPosition = _navMeshQuery.MapLocation(targetPosition, Vector3.positiveInfinity, 0).position;
+
+            navMeshPosition.y = targetPosition.y;
+            
+            return navMeshPosition == targetPosition;
+        }
     }
 }

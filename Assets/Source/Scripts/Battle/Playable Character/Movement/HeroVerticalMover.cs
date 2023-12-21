@@ -47,12 +47,9 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
 
             var targetPosition = startPosition + (direction.z * distance * transform.forward);
 
-            LookTarget();
-
             MoveCoroutine = StartCoroutine(Move(
                 canMove:() => DistanceToTarget > 5 || direction == Vector3.back,
                 calculatePosition: normalTime => Vector3.Lerp(startPosition, targetPosition, normalTime),
-                endMoveCallBack: LookTarget,
                 timeToTarget: timeToTarget));
         }
     }

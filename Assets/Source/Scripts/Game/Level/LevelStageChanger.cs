@@ -36,7 +36,7 @@ namespace ArenaHero.Game.Level
 		}
 
 		public event Action<LevelStageObjectsHolder> StageChanged;
-		
+
 		public EndLevelHandler EndLevelHandler { get; } = new EndLevelHandler();
 
 		public RewardHandler RewardHandler { get; } = new RewardHandler();
@@ -58,17 +58,27 @@ namespace ArenaHero.Game.Level
 		{
 			if (StageScene.isLoaded)
 			{
-				_context.StartCoroutine(WaitAsyncOperation(SceneManager.UnloadSceneAsync(StageScene),
-					() => _context.StartCoroutine(WaitAsyncOperation(LoadScene(), InitScene))));
-
-				return;
+				ReloadScene();
 			}
-
-			_context.StartCoroutine(WaitAsyncOperation(LoadScene(), InitScene));
+			else
+			{
+				LoadScene();
+			}
 		}
 
-		private AsyncOperation LoadScene() =>
-			SceneManager.LoadSceneAsync(StageSceneName, LoadSceneMode.Additive);
+		private void ReloadScene()
+		{
+			_context.StartCoroutine(WaitAsyncOperation(
+				SceneManager.UnloadSceneAsync(StageScene),
+				LoadScene));
+		}
+
+		private void LoadScene()
+		{
+			_context.StartCoroutine(WaitAsyncOperation(
+				SceneManager.LoadSceneAsync(StageSceneName, LoadSceneMode.Additive),
+				InitScene));
+		}
 
 		private void InitScene()
 		{
@@ -79,28 +89,31 @@ namespace ArenaHero.Game.Level
 			SetSpawnConfiguration(currentStage);
 
 			SetEnvironment(currentStage);
-			
+
 			SetNavMeshData(currentStage.NavMeshData);
-			
+
+			SetPlayerSpawnPoint(currentStage);
+
 			var baseSceneName = SceneLoader.Instance.GetDebugFightSceneName();
 			SceneManager.SetActiveScene(SceneManager.GetSceneByName(baseSceneName));
-			
+
 			StageChanged?.Invoke(new LevelStageObjectsHolder(_playerSpawnPoint));
 		}
 
-		private IEnumerator WaitAsyncOperation(AsyncOperation operation, Action endCallback)
+		private IEnumerator WaitAsyncOperation(AsyncOperation operation, Action endCallback = null)
 		{
 			while (operation.isDone is false)
 			{
 				yield return null;
 			}
 
-			endCallback();
+			endCallback?.Invoke();
 		}
 
 		private StageData GetStageData()
 		{
 			var currentStageIndex = GameDataSaver.Instance.Get<CurrentLevelStage>().Value;
+
 			return _levelData.GetStageDataByIndex(currentStageIndex);
 		}
 
@@ -127,13 +140,13 @@ namespace ArenaHero.Game.Level
 
 			spawnerHandler.Init(_waveHandler, _hero);
 		}
-		
+
 		private void SetNavMeshData(NavMeshData navMeshData)
 		{
 			TryRemoveNavMeshData();
 			_instanceNavMesh = NavMesh.AddNavMeshData(navMeshData);
 		}
-		
+
 		private void TryRemoveNavMeshData()
 		{
 			if (_instanceNavMesh.valid)

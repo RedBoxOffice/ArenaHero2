@@ -16,8 +16,10 @@ namespace ArenaHero
 		public void InstallBindings(ContainerDescriptor descriptor)
 		{
 			var playerInitializer = GetComponent<PlayerInitializer>();
+			descriptor.AddInstance(playerInitializer.LookTargetPoint);
 			var hero = playerInitializer.GetHero();
-
+			descriptor.AddInstance(hero);
+			
 			var inputInstaller = GetComponent<InputHandlerInstaller>();
 			var inputHandler = inputInstaller.InstallBindings(hero);
 			descriptor.AddInstance(inputHandler, typeof(IMovementInputHandler), typeof(IActionsInputHandler));

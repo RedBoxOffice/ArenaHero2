@@ -9,6 +9,8 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
 		[SerializeField] private HorizontalMoveSettings _radius;
 		[SerializeField] private HorizontalMoveSettings _distance;
 
+		public bool IsMoving { get; private set; }
+
 		[Inject]
 		private void Inject(IMovementInputHandler handler)
 		{
@@ -40,6 +42,8 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
 			if (MoveCoroutine != null)
 				return;
 
+			IsMoving = true;
+			
 			var targetPosition = Target.Transform.position;
 
 			var radius = Vector3.Distance(SelfRigidbody.position, targetPosition);
@@ -67,10 +71,9 @@ namespace ArenaHero.Battle.PlayableCharacter.Movement
 
 					newPosition.y = selfStartPosition.y;
 
-					LookTarget();
-
 					return newPosition;
 				},
+				endMoveCallBack: () => IsMoving = false,
 				timeToTarget: timeToTarget
 			));
 		}

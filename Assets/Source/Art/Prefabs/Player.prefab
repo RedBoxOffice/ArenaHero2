@@ -283,6 +283,7 @@ GameObject:
   - component: {fileID: 7915565262897778439}
   - component: {fileID: 8045060415528865476}
   - component: {fileID: 8010945521786428525}
+  - component: {fileID: 5471177777317054492}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -385,6 +386,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _timeToTarget: 0.3
   _selfRigidbody: {fileID: 9053175294299589168}
+  _countAssistedAttempts: 2
   _radius:
     _distanceRange:
       _min: 2
@@ -470,6 +472,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _timeToTarget: 0.3
   _selfRigidbody: {fileID: 9053175294299589168}
+  _countAssistedAttempts: 2
   _distanceMove: 10
 --- !u!54 &9053175294299589168
 Rigidbody:
@@ -525,6 +528,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthBarMeshRenderer: {fileID: 7041338669046626892}
+--- !u!114 &5471177777317054492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9042490550725263412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f37aaa0d66046cfa68f510b84954997, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2162882382545958912
 PrefabInstance:
   m_ObjectHideFlags: 0

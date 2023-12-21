@@ -13,7 +13,7 @@ namespace ArenaHero.Game.Level
 	public class LevelInitializer : MonoBehaviour, ISceneLoadHandlerOnStateAndArgument<GameStateMachine, LevelData>
 	{
 		[SerializeField] private WaveHandler _waveHandler;
-		
+
 		private LevelData _levelData;
 		private LevelStageChanger _levelStageChanger;
 
@@ -22,7 +22,7 @@ namespace ArenaHero.Game.Level
 		public RewardHandler RewardHandler => _levelStageChanger.RewardHandler;
 
 		private EndLevelHandler EndLevelHandler => _levelStageChanger.EndLevelHandler;
-		
+
 		private void OnDisable() =>
 			_levelStageChanger.Dispose();
 
@@ -30,9 +30,9 @@ namespace ArenaHero.Game.Level
 			where TState : State<GameStateMachine>
 		{
 			GetComponent<WindowInitializer>().WindowsInit(machine.Window);
-			
+
 			var playerInitializer = GetComponent<PlayerInitializer>();
-			
+
 			_levelData = levelData;
 
 			_levelStageChanger = new LevelStageChanger(
@@ -40,14 +40,13 @@ namespace ArenaHero.Game.Level
 				levelData,
 				new Target(playerInitializer.GetHero().transform, playerInitializer.GetHero().gameObject.GetComponent<IDamageable>()),
 				this);
-			
+
 			_levelStageChanger.StageChanged += playerInitializer.OnStageChanged;
-			
+
 			_levelStageChanger.ChangeStage();
-			
+
 			GetComponent<FightSceneTransitionInitializer>().Init(machine, playerInitializer.GetHero(), EndLevelHandler, _levelStageChanger);
 
-			
 			machine.EnterIn<TState>();
 		}
 	}

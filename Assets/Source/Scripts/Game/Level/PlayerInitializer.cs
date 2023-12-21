@@ -13,12 +13,8 @@ namespace ArenaHero.Game.Level
 
 		public LookTargetPoint LookTargetPoint => _lookTargetPoint;
 
-		public void OnStageChanged(LevelStageObjectsHolder holder)
-		{
-			GetHero().transform.localPosition = holder.PlayerSpawnPoint.transform.position;
-			
-			_lookTargetPoint.SetDefaultPosition(GetHero().transform);
-		}
+		public void OnStageChanged(LevelStageObjectsHolder holder) =>
+			GetHero().transform.position = holder.PlayerSpawnPoint.transform.position;
 
 		public Hero GetHero()
 		{
