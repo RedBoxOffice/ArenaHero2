@@ -1,3 +1,4 @@
+using System;
 using ArenaHero.Utils.Other;
 using ArenaHero.Utils.StateMachine;
 using Reflex.Attributes;
@@ -8,12 +9,15 @@ namespace ArenaHero.Battle.PlayableCharacter
 	[RequireComponent(typeof(Rigidbody))]
 	public class HeroLookToTarget : MonoBehaviour
 	{
+		private IStateChangeable _stateChangeable;
+		private CoroutineHolder _coroutineHolder;
+		
 		[Inject]
 		private void Inject(LookTargetPoint lookTargetPoint, IStateChangeable stateChangeable)
 		{
 			var selfRigidbody = GetComponent<Rigidbody>();
 			
-			var coroutineHolder = new CoroutineHolder(
+			_coroutineHolder = new CoroutineHolder(
 				this,
 				() => enabled,
 				() =>
@@ -24,20 +28,29 @@ namespace ArenaHero.Battle.PlayableCharacter
 				},
 				new WaitForFixedUpdate());
 
-			stateChangeable.StateChanged += (stateType) =>
-			{
-				if (stateType == typeof(EndLevelState))
-				{
-					coroutineHolder.Stop();
-				}
-				
-				if (stateType == typeof(FightState))
-				{
-					coroutineHolder.Reset();
-				}
-			};
+			_stateChangeable = stateChangeable;
+			
+			_stateChangeable.StateChanged += OnStateChanged;
 
-			coroutineHolder.Start();
+			_coroutineHolder.Start();
+		}
+
+		private void OnDisable()
+		{
+			_stateChangeable.StateChanged -= OnStateChanged;
+		}
+
+		private void OnStateChanged(Type stateType)
+		{
+			if (stateType == typeof(EndLevelState))
+			{
+				_coroutineHolder.Stop();
+			}
+				
+			if (stateType == typeof(FightState))
+			{
+				_coroutineHolder.Reset();
+			}
 		}
 	}
 }

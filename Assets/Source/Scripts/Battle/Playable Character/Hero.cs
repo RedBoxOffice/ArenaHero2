@@ -15,6 +15,8 @@ namespace ArenaHero.Battle.PlayableCharacter
         
         public event Action ActionEnded;
 
+        public bool IsDied { get; private set; }
+
         public Target Target => _lookTargetPoint.Target;
 
         public float Health => GetValue<Health>();
@@ -46,7 +48,10 @@ namespace ArenaHero.Battle.PlayableCharacter
             where TData : UpgradeSave<TData>, new() =>
             GameDataSaver.Instance.Get<TData>().Value;
 
-        private void OnDied() =>
+        private void OnDied()
+        {
+            IsDied = true;
             ActionEnded?.Invoke();
+        }
     }
 }

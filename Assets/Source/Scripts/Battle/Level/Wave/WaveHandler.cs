@@ -17,6 +17,7 @@ namespace ArenaHero.Battle.Level
 
 		private int _currentWaveIndex;
 		private bool _isWaveWorking = true;
+		private IStateChangeable _stateChangeable;
 
 		public event Action WavesEnded;
 		
@@ -30,20 +31,29 @@ namespace ArenaHero.Battle.Level
 
 			StartFight();
 
-			stateChangeable.StateChanged += (stateType) =>
-			{
-				if (stateType == typeof(EndLevelState))
-				{
-					_isWaveWorking = false;
-				}
-
-				if (stateType == typeof(FightState))
-				{
-					StartFight();
-				}
-			};
+			_stateChangeable = stateChangeable;
+			
+			_stateChangeable.StateChanged += OnStateChanged;
 		}
 
+		private void OnDisable()
+		{
+			_stateChangeable.StateChanged -= OnStateChanged;
+		}
+
+		private void OnStateChanged(Type stateType)
+		{
+			if (stateType == typeof(EndLevelState))
+			{
+				_isWaveWorking = false;
+			}
+
+			if (stateType == typeof(FightState))
+			{
+				StartFight();
+			}
+		}
+		
 		private void StartFight()
 		{
 			if (_fightCoroutine != null)

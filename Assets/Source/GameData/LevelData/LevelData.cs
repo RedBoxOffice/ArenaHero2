@@ -9,5 +9,7 @@ namespace ArenaHero.Data
 
         public StageData GetStageDataByIndex(int index) =>
             _stageData[index];
+
+        public int StageCount => _stageData.Length;
     }
 }
