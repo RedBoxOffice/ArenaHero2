@@ -2217,7 +2217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3302420519513272027}
   m_Layer: 0
-  m_Name: Envir_W3S1_Wave
+  m_Name: Envir_W3S2_Wave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
