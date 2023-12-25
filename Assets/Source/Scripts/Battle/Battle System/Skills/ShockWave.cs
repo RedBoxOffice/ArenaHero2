@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 namespace ArenaHero.Battle.Skills
 {
@@ -16,7 +15,7 @@ namespace ArenaHero.Battle.Skills
             {
                 StartCoroutine(AddForce(character));
                 character.TakeDamage(_damageHero);
-            }           
+            }
         }
 
         private IEnumerator AddForce(Character character)
