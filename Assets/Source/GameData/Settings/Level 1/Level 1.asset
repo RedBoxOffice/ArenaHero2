@@ -16,8 +16,8 @@ MonoBehaviour:
   - _waveData:
     - _enemies:
       - {fileID: 2855612362623389543, guid: a8175a048132268408681d6734f66140, type: 3}
-      _delayBetweenSpawns: 1
-      _countSpawns: 1
+      _delayBetweenSpawns: 2
+      _countSpawns: 10
     _environmentParent: {fileID: 1291535892338626167, guid: 827bcab8e79b01c4cab4ae1aee2a18d6, type: 3}
     _spawnPointsHandler: {fileID: 5778740915496397363, guid: 2ac8fd8e3c5142149baa807ad91fce5d, type: 3}
     _navMeshData: {fileID: 23800000, guid: fac17e7b68580304e96526cb98559b9e, type: 2}

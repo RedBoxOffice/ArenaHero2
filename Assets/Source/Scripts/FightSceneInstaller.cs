@@ -20,7 +20,7 @@ namespace ArenaHero
 
 			var inputInstaller = GetComponent<InputHandlerInstaller>();
 			var inputHandler = inputInstaller.InstallBindings(hero);
-			descriptor.AddInstance(inputHandler, typeof(IMovementInputHandler), typeof(IActionsInputHandler));
+			descriptor.AddInstance(inputHandler, typeof(IMovementInputHandler), typeof(IActionsInputHandler), typeof(IActionsInputHandlerOnlyPlayer));
 
 			_virtualCamera.Follow = hero.gameObject.transform;
 

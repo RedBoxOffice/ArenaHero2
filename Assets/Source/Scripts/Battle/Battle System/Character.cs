@@ -33,5 +33,11 @@ namespace ArenaHero.Battle
 			_currentHealth -= damage;
 			HealthChanged?.Invoke(_currentHealth);
 		}
+
+		public void AddHealth(float newHealth)
+		{			
+			_currentHealth += newHealth;
+			HealthChanged?.Invoke(_currentHealth);
+		}
 	}
 }

@@ -30,7 +30,7 @@ namespace ArenaHero
 		private void InputInit(ContainerDescriptor descriptor)
 		{
 			var playerInput = new PlayerInput();
-			playerInput.Enable();
+			playerInput.Enable();			
 
 			descriptor.AddInstance(playerInput);
 		}

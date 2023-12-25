@@ -21,7 +21,9 @@ namespace ArenaHero.InputSystem
         public event Action Attack;
         
         public event Action ChangeTarget;
-    
+
+        public event Action Skill;
+
         private void Update()
         {
             if (_isDetectSwipe == false)

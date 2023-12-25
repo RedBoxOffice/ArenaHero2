@@ -136,6 +136,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skill"",
+                    ""type"": ""Button"",
+                    ""id"": ""8ed52540-3b66-4680-8a0c-a050702865fe"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -160,6 +169,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ef7928b4-e3b9-432b-8a7e-32ab37a03de1"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skill"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -180,6 +200,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Actions = asset.FindActionMap("Actions", throwIfNotFound: true);
         m_Actions_ChangeTarget = m_Actions.FindAction("ChangeTarget", throwIfNotFound: true);
         m_Actions_Attack = m_Actions.FindAction("Attack", throwIfNotFound: true);
+        m_Actions_Skill = m_Actions.FindAction("Skill", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -297,12 +318,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private List<IActionsActions> m_ActionsActionsCallbackInterfaces = new List<IActionsActions>();
     private readonly InputAction m_Actions_ChangeTarget;
     private readonly InputAction m_Actions_Attack;
+    private readonly InputAction m_Actions_Skill;
     public struct ActionsActions
     {
         private @PlayerInput m_Wrapper;
         public ActionsActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @ChangeTarget => m_Wrapper.m_Actions_ChangeTarget;
         public InputAction @Attack => m_Wrapper.m_Actions_Attack;
+        public InputAction @Skill => m_Wrapper.m_Actions_Skill;
         public InputActionMap Get() { return m_Wrapper.m_Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -318,6 +341,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
+            @Skill.started += instance.OnSkill;
+            @Skill.performed += instance.OnSkill;
+            @Skill.canceled += instance.OnSkill;
         }
 
         private void UnregisterCallbacks(IActionsActions instance)
@@ -328,6 +354,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
+            @Skill.started -= instance.OnSkill;
+            @Skill.performed -= instance.OnSkill;
+            @Skill.canceled -= instance.OnSkill;
         }
 
         public void RemoveCallbacks(IActionsActions instance)
@@ -363,5 +392,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     {
         void OnChangeTarget(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnSkill(InputAction.CallbackContext context);
     }
 }
