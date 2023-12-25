@@ -27,9 +27,6 @@ EditorBuildSettings:
     path: Assets/Scenes/FightSceneSlava.unity
     guid: b5c49ed264734324fac3cf75a58d926f
   - enabled: 1
-    path: Assets/Scenes/FightSceneDima.unity
-    guid: 4460fff28860ba849ba4f89e4014cd7e
-  - enabled: 1
     path: Assets/Scenes/FightSceneSoslan.unity
     guid: 95d4ecd1de1817a468498ad853c111f9
   - enabled: 1

@@ -7,7 +7,7 @@ namespace ArenaHero.Game.Level
 	public class PlayerInitializer : MonoBehaviour
 	{
 		[SerializeField] private LookTargetPoint _lookTargetPoint;
-		[SerializeField] private Player _playerPrefab;
+		[SerializeField] private Hero _heroPrefab;
 
 		private Hero _hero;
 
@@ -27,11 +27,11 @@ namespace ArenaHero.Game.Level
 		{
 			if (_hero == null)
 			{
-				_hero = CreatePlayer().GetComponentInChildren<Hero>().Init(_lookTargetPoint);
+				_hero = CreateHero().Init(_lookTargetPoint);
 			}
 		}
 		
-		private Player CreatePlayer() =>
-			Instantiate(_playerPrefab);
+		private Hero CreateHero() =>
+			Instantiate(_heroPrefab);
 	}
 }

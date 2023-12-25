@@ -17,7 +17,7 @@ namespace ArenaHero.Battle.Enemies.BehaviorTree.Angry_Capsule
 		
 		public override TaskStatus OnUpdate()
 		{
-			if (Vector3.Distance(_targetHolder.Target.Transform.position, transform.position) <= _attack.Value.AttackDistance)
+			if (Vector3.Distance(_targetHolder.Target.Transform.localPosition, transform.localPosition) <= _attack.Value.AttackDistance)
 			{
 				return TaskStatus.Success;
 			}

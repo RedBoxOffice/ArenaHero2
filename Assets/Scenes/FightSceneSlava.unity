@@ -1549,7 +1549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lookTargetPoint: {fileID: 1142116025}
-  _playerPrefab: {fileID: 24557769438604130, guid: d34a671df0c4b1040af46898a8b77401, type: 3}
+  _heroPrefab: {fileID: 8594000532989468867, guid: 53b2c50e0c6a800479449e461c09ff7b, type: 3}
 --- !u!114 &824417734
 MonoBehaviour:
   m_ObjectHideFlags: 0
