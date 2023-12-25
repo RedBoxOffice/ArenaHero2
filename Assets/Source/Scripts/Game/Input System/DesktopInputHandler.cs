@@ -16,6 +16,8 @@ namespace ArenaHero.InputSystem
         
         public event Action Attack;
 
+        public event Action Skill;
+
         [Inject]
         private void Inject(PlayerInput input)
         {
@@ -25,6 +27,7 @@ namespace ArenaHero.InputSystem
             _input.Movement.Vertical.performed += _ => Vertical?.Invoke(GetVertical());
             _input.Actions.ChangeTarget.performed += _ => ChangeTarget?.Invoke();
             _input.Actions.Attack.performed += _ => Attack?.Invoke();
+            _input.Actions.Skill.performed += _ => Skill?.Invoke();
         }
         
         private float GetHorizontal() => _input.Movement.Horizontal.ReadValue<float>();
