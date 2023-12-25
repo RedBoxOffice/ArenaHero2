@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ArenaHero.Battle.Skills
+namespace ArenaHero.Battle
 {
     public class SkillsHolder : MonoBehaviour
     {

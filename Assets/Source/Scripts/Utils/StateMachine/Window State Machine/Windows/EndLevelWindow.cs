@@ -39,7 +39,7 @@ namespace ArenaHero.Utils.StateMachine
 			{
 				_heroDiedAnimation.Play(() =>
 				{
-					_windowContent.SetActive(false);
+					_windowContent.SetActive(true);
 					_onlyMainMenu.SetActive(true);
 					_endLevelIlluminationImage.color = _loseIlluminationColor;
 				});

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using ArenaHero.Battle.CharacteristicHolders;
 using ArenaHero.Utils.StateMachine;
 using ArenaHero.Yandex.SaveSystem;
@@ -8,10 +9,11 @@ using UnityEngine;
 namespace ArenaHero.Battle.PlayableCharacter
 {
     [RequireComponent(typeof(Character))]
-    public class Hero : MonoBehaviour, ITargetHolder, IHealthHolder, IArmorHolder, ILuckHolder, IDamageHolder, IDurabilityHolder, IAuraHolder, ISubject
+    public class Hero : MonoBehaviour, ITargetHolder, IFeatureHolder, ISubject
     {
         private LookTargetPoint _lookTargetPoint;
         private Character _character;
+        private Dictionary<Type, Feature> _features;
         
         public event Action ActionEnded;
 
@@ -19,21 +21,42 @@ namespace ArenaHero.Battle.PlayableCharacter
 
         public Target Target => _lookTargetPoint.Target;
 
-        public float Health => GetValue<Health>();
-
-        public float Armor => GetValue<Armor>();
-
-        public float Damage => GetValue<Damage>();
-
-        public float Durability => GetValue<Durability>();
-
-        public float Aura => GetValue<Aura>();
-
-        public float Luck => GetValue<Luck>();
+        private void Awake()
+        {
+            _features = new Dictionary<Type, Feature>
+            {
+                [typeof(HealthFeature)] = new HealthFeature(GetValue<Health>()),
+                [typeof(ArmorFeature)] = new ArmorFeature(GetValue<Armor>()),
+                [typeof(DamageFeature)] = new DamageFeature(GetValue<Damage>()),
+                [typeof(DurabilityFeature)] = new DurabilityFeature(GetValue<Durability>()),
+                [typeof(AuraFeature)] = new AuraFeature(GetValue<Aura>()),
+                [typeof(LuckFeature)] = new LuckFeature(GetValue<Luck>()),
+            };
+        }
 
         private void OnDisable() =>
             _character.Died -= OnDied;
 
+        public float Get<TFeature>()
+        {
+            if (_features.ContainsKey(typeof(TFeature)))
+            {
+                return _features[typeof(TFeature)].Value;
+            }
+
+            throw new KeyNotFoundException(nameof(TFeature));
+        }
+
+        public void Set<TFeature>(float value)
+        {
+            if (_features.ContainsKey(typeof(TFeature)))
+            {
+                _features[typeof(TFeature)].Value = value;
+            }
+            
+            throw new KeyNotFoundException(nameof(TFeature));
+        }
+        
         public Hero Init(LookTargetPoint lookTargetPoint)
         {
             _lookTargetPoint = lookTargetPoint;

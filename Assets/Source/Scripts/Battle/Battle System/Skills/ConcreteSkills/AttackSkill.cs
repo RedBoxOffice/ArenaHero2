@@ -20,12 +20,12 @@ namespace ArenaHero.Battle.Skills
 
 		protected ITargetHolder TargetHolder { get; private set; }
 
-		protected IDamageHolder DamageHolder { get; private set; }
+		protected IFeatureHolder FeatureHolder { get; private set; }
 
 		protected virtual void Start()
 		{
 			TargetHolder = _character.GetComponent<ITargetHolder>();
-			DamageHolder = _character.GetComponent<IDamageHolder>();
+			FeatureHolder = _character.GetComponent<IFeatureHolder>();
 			_inputHandler = _character.GetComponent<IActionsInputHandler>();
 			
 			_inputHandler.Attack += OnAttack;

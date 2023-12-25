@@ -14,7 +14,6 @@ namespace ArenaHero.Battle
 
 		private MaterialPropertyBlock _materialPropertyBlock;
 		private Character _character;
-		private IHealthHolder _healthHolder;
 		private Camera _mainCamera;
 		private Coroutine _alignCameraCoroutine;
 
@@ -23,18 +22,17 @@ namespace ArenaHero.Battle
 			_materialPropertyBlock = new MaterialPropertyBlock();
 			
 			_character = GetComponent<Character>();
-			_healthHolder = GetComponent<IHealthHolder>();
 
-			if (_healthHolder is null)
+			if (_character is null)
 			{
-				throw new NullReferenceException(nameof(_healthHolder));
+				throw new NullReferenceException(nameof(Character));
 			}
 		}
 
 		private void OnEnable()
 		{
 			_character.HealthChanged += OnHealthChanged;
-			OnHealthChanged(_healthHolder.Health);
+			OnHealthChanged(_character.MaxHealth);
 
 			_alignCameraCoroutine = StartCoroutine(AlignCamera());
 		}
@@ -49,7 +47,7 @@ namespace ArenaHero.Battle
 		private void OnHealthChanged(float currentHealth)
 		{
 			_healthBarMeshRenderer.GetPropertyBlock(_materialPropertyBlock);
-			_materialPropertyBlock.SetFloat(_fill, currentHealth / _healthHolder.Health);
+			_materialPropertyBlock.SetFloat(_fill, currentHealth / _character.MaxHealth);
 			_healthBarMeshRenderer.SetPropertyBlock(_materialPropertyBlock);
 		}
 

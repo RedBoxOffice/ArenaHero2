@@ -8,10 +8,14 @@ namespace ArenaHero.Battle
 	{
 		[SerializeField] private float _currentHealth;
 
+		private IFeatureHolder _featureHolder;
+		
 		public event Action Died;
 
 		public event Action<float> HealthChanged;
 
+		public float MaxHealth => _featureHolder.Get<HealthFeature>();
+		
 		public float CurrentHealth => _currentHealth;
 
 		private void Awake()
@@ -25,8 +29,18 @@ namespace ArenaHero.Battle
 			};
 		}
 
-		private void OnEnable() =>
-			_currentHealth = GetComponent<IHealthHolder>().Health;
+		private void OnEnable()
+		{
+			if (TryGetComponent(out IFeatureHolder featureHolder) || transform.parent.TryGetComponent(out featureHolder))
+			{
+				_featureHolder = featureHolder;
+				_currentHealth = MaxHealth;
+			}
+			else
+			{
+				throw new NullReferenceException(nameof(IFeatureHolder));
+			}
+		}
 
 		public void TakeDamage(float damage)
 		{
