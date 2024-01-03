@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelStageHolderScene.unity
     guid: 40bfe01a7a016874b9661be36674cb21
+  - enabled: 1
+    path: Assets/Scenes/FightSceneDima.unity
+    guid: 41a4859129f26a44292944dd2c620369
   m_configObjects: {}

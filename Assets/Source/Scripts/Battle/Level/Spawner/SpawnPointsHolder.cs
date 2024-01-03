@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ArenaHero.Battle.Level
 {
-    public class SpawnPointsHandler : MonoBehaviour
+    public class SpawnPointsHolder : MonoBehaviour
     {
         [SerializeField] private List<SpawnPoint> _spawnPoints;
 

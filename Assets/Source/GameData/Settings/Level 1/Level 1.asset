@@ -19,7 +19,7 @@ MonoBehaviour:
       _delayBetweenSpawns: 2
       _countSpawns: 10
     _environmentParent: {fileID: 1291535892338626167, guid: 827bcab8e79b01c4cab4ae1aee2a18d6, type: 3}
-    _spawnPointsHandler: {fileID: 5778740915496397363, guid: 2ac8fd8e3c5142149baa807ad91fce5d, type: 3}
+    _spawnPointsHolder: {fileID: 5778740915496397363, guid: 2ac8fd8e3c5142149baa807ad91fce5d, type: 3}
     _navMeshData: {fileID: 23800000, guid: fac17e7b68580304e96526cb98559b9e, type: 2}
     _playerSpawnPoint: {fileID: 4145288573077448510, guid: 22b9e34bce4bd764fb0be7b142e9d1a0, type: 3}
     _startDelay: 1
@@ -30,7 +30,7 @@ MonoBehaviour:
       _delayBetweenSpawns: 1
       _countSpawns: 1
     _environmentParent: {fileID: 93424727532628042, guid: 4f0a7d0930e7dd0449e0b0b3820ea072, type: 3}
-    _spawnPointsHandler: {fileID: 2433738980480902237, guid: 4167a507662d0d841b5b5ba2a682176c, type: 3}
+    _spawnPointsHolder: {fileID: 0}
     _navMeshData: {fileID: 23800000, guid: 6997c80474015ed45a23fb1c1f8f058d, type: 2}
     _playerSpawnPoint: {fileID: 2106031181011643350, guid: f2c76750f57017944b9a64d2a60c4265, type: 3}
     _startDelay: 1
@@ -45,7 +45,7 @@ MonoBehaviour:
       _delayBetweenSpawns: 1
       _countSpawns: 5
     _environmentParent: {fileID: 1467459692704033970, guid: bfc5e6dbfecbd5a4b8df6a7b1df442bb, type: 3}
-    _spawnPointsHandler: {fileID: 9081095464450156352, guid: ed8f4f1d51a60e84a87869bc85202fca, type: 3}
+    _spawnPointsHolder: {fileID: 0}
     _navMeshData: {fileID: 23800000, guid: 77d8f1e2ba72de546b440aa49f4315bb, type: 2}
     _playerSpawnPoint: {fileID: 471365483472035485, guid: 606d039b156b9b1448c6bfc31713cd46, type: 3}
     _startDelay: 5
@@ -60,7 +60,7 @@ MonoBehaviour:
       _delayBetweenSpawns: 1
       _countSpawns: 5
     _environmentParent: {fileID: 3084909273482506240, guid: bc40b1d6fb459ef48ab917f98ec3aa89, type: 3}
-    _spawnPointsHandler: {fileID: 3350548109439126249, guid: 8c45b78bdfec5d5489b5f10becb82d5d, type: 3}
+    _spawnPointsHolder: {fileID: 0}
     _navMeshData: {fileID: 23800000, guid: f424d241154981147917a804957ffca0, type: 2}
     _playerSpawnPoint: {fileID: 9102751598989225687, guid: 809322352a016f6428063eb1eb42c1a9, type: 3}
     _startDelay: 5
@@ -75,7 +75,7 @@ MonoBehaviour:
       _delayBetweenSpawns: 1
       _countSpawns: 5
     _environmentParent: {fileID: 429994132305440288, guid: 6f83e4e8b0ce71843b7a1fa06e9c29fd, type: 3}
-    _spawnPointsHandler: {fileID: 273799298997825520, guid: 83fb9a39a9c708844b2da4569028e765, type: 3}
+    _spawnPointsHolder: {fileID: 0}
     _navMeshData: {fileID: 23800000, guid: a6aa8d29612a27142b552a0f095cd90e, type: 2}
     _playerSpawnPoint: {fileID: 6882229875055369562, guid: f4bd7165863f4ab44b1e133ddc549653, type: 3}
     _startDelay: 5
@@ -90,7 +90,7 @@ MonoBehaviour:
       _delayBetweenSpawns: 1
       _countSpawns: 5
     _environmentParent: {fileID: 2583909506606184926, guid: fc557fe6eb145834cba9155a414696f0, type: 3}
-    _spawnPointsHandler: {fileID: 8040454537081415187, guid: 1195e91fff3ab864bad09f0b0d855786, type: 3}
+    _spawnPointsHolder: {fileID: 0}
     _navMeshData: {fileID: 23800000, guid: 7bd52f39ecd83f844b0c6eadb875dcbe, type: 2}
     _playerSpawnPoint: {fileID: 6440008434710132871, guid: 9dda7df4b1dbae04e98f7c08adf79b8b, type: 3}
     _startDelay: 5

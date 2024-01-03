@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace ArenaHero.Battle.Level
 {
-    [RequireComponent(typeof(SpawnPointsHandler))]
+    [RequireComponent(typeof(SpawnPointsHolder))]
     public class SpawnerHandler : MonoBehaviour
     {
         private WaveHandler _waveHandler;
-        private SpawnPointsHandler _spawnPointsHandler;
+        private SpawnPointsHolder _spawnPointsHolder;
         private ObjectSpawner<Enemy, EnemyInit> _spawner;
         private Target _target;
 
@@ -17,7 +17,7 @@ namespace ArenaHero.Battle.Level
         
         private void Awake()
         {
-            _spawnPointsHandler = GetComponent<SpawnPointsHandler>();
+            _spawnPointsHolder = GetComponent<SpawnPointsHolder>();
 
             _spawner = new ObjectSpawner<Enemy, EnemyInit>(new GameObject(nameof(ObjectPool<Enemy, EnemyInit>)).transform);
         }
@@ -44,7 +44,7 @@ namespace ArenaHero.Battle.Level
                 Target = _target
             };
 
-            var poolingObject = _spawner.Spawn(enemy, init, () => _spawnPointsHandler.GetSpawnPosition());
+            var poolingObject = _spawner.Spawn(enemy, init, () => _spawnPointsHolder.GetSpawnPosition());
             
             Spawned?.Invoke(poolingObject.Instance);
         }

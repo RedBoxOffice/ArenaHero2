@@ -59,4 +59,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneLoader:
     _isDebugMode: 1
-    _debugger: 2
+    _debugger: 1

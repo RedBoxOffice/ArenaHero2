@@ -10,7 +10,7 @@ namespace ArenaHero.Data
 	{
 		[SerializeField] private WaveData[] _waveData;
 		[SerializeField] private GameObject _environmentParent;
-		[SerializeField] private SpawnPointsHandler _spawnPointsHandler;
+		[SerializeField] private SpawnPointsHolder _spawnPointsHolder;
 		[SerializeField] private NavMeshData _navMeshData;
 		[SerializeField] private PlayerSpawnPoint _playerSpawnPoint;
 		[SerializeField] private float _startDelay;
@@ -24,7 +24,7 @@ namespace ArenaHero.Data
 
 		public GameObject EnvironmentParent => _environmentParent;
 
-		public SpawnPointsHandler SpawnPointsHandler => _spawnPointsHandler;
+		public SpawnPointsHolder SpawnPointsHolder => _spawnPointsHolder;
 
 		public NavMeshData NavMeshData => _navMeshData;
 

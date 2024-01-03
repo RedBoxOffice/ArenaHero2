@@ -125,7 +125,7 @@ namespace ArenaHero.Game.Level
 
 		private void SetSpawnConfiguration(StageData currentStage)
 		{
-			var spawnerHandler = Object.Instantiate(currentStage.SpawnPointsHandler).gameObject.GetComponent<SpawnerHandler>();
+			var spawnerHandler = Object.Instantiate(currentStage.SpawnPointsHolder).gameObject.GetComponent<SpawnerHandler>();
 
 			spawnerHandler.Spawned += RewardHandler.OnSpawned;
 			spawnerHandler.Spawned += EndLevelHandler.OnSpawned;
